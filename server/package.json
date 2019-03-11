@@ -1,0 +1,21 @@
+{
+  "name": "sticky-it-prw",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "test": "nodemon app.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "bcrypt": "^3.0.4",
+    "dotenv": "^6.2.0",
+    "express": "^4.16.4",
+    "jsonwebtoken": "^8.5.0",
+    "mongoose": "^5.4.16",
+    "mongoose-unique-validator": "^2.0.2",
+    "morgan": "^1.9.1",
+    "underscore": "^1.9.1"
+  }
+}
