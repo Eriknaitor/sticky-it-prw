@@ -1,6 +1,6 @@
 const bcrypt = require('bcrypt');
 const _ = require('underscore');
-const User = require('../models/users');
+const User = require('../models/User');
 
 /**
  * Rutas para administrar usuarios

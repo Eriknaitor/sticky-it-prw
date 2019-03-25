@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-const NotesSchema = new Schema({
+const NoteSchema = new Schema({
     title: {
         type: String,
         required: [true, 'El título de la nota es obligatorio'],
@@ -41,7 +41,7 @@ const NotesSchema = new Schema({
 });
 
 
-const Notes = mongoose.model('Notes', NotesSchema);
-NotesSchema.set('autoIndex', false);
+const Note = mongoose.model('Notes', NoteSchema);
+NoteSchema.set('autoIndex', false);
 
-module.exports = Notes;
+module.exports = Note;

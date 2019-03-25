@@ -1,5 +1,5 @@
 const jwt = require('jsonwebtoken');
-const Note = require('../models/notes');
+const Note = require('../models/Note');
 
 
 module.exports.verifyToken = (req, res, next) => {

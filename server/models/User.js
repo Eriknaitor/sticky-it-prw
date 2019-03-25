@@ -7,7 +7,7 @@ let validRoles = {
     message: '{VALUE} no es un rol válido'
 };
 
-const UsersSchema = new Schema({
+const UserSchema = new Schema({
     email: {
         type: String,
         required: [true, 'El correo es necesario'],
@@ -35,7 +35,7 @@ const UsersSchema = new Schema({
     // Algún día meteré los putos avatares como binarios Soon TM
 });
 
-UsersSchema.methods.toJSON = function () {
+UserSchema.methods.toJSON = function() {
     let user = this;
     let userObject = user.toObject();
     delete userObject.password;
@@ -43,9 +43,9 @@ UsersSchema.methods.toJSON = function () {
     return userObject;
 }
 
-const Users = mongoose.model('Users', UsersSchema);
-UsersSchema.set('autoIndex', false);
-UsersSchema.plugin(uniqueValidator, { message: '{PATH} debe de ser único' });
+const User = mongoose.model('Users', UserSchema);
+UserSchema.set('autoIndex', false);
+UserSchema.plugin(uniqueValidator, { message: '{PATH} debe de ser único' });
 
 
-module.exports = Users;
+module.exports = User;

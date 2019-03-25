@@ -1,4 +1,4 @@
-const Note = require('../models/notes');
+const Note = require('../models/Note');
 const _ = require('underscore');
 
 
@@ -140,7 +140,7 @@ module.exports = {
             res.json({
                 ok: true,
                 note
-            })
-        })
+            });
+        });
     }
 }
