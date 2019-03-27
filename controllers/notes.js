@@ -1,13 +1,10 @@
 const Note = require('../models/Note');
 const _ = require('underscore');
 
-
-/**
- * Rutas para administrar las notas
- */
-
 module.exports = {
-    getNotes: (req, res) => {
+
+    // Obtiene todas las notas de un usuario
+    index: (req, res) => {
         let index = req.query.index || 0;
         index = Number(index);
 
@@ -42,7 +39,22 @@ module.exports = {
             });
     },
 
-    postNote: (req, res) => {
+    // Muestra una ruta específica
+    show: (req, res) => {
+        Note.findById(req.params.id, (err, note) => {
+            if (err) {
+                return res.status(400).json({
+                    ok: false,
+                    err
+                });
+            }
+
+            res.json(note);
+        });
+    },
+
+    // Crea una nota
+    create: (req, res) => {
         let body = req.body;
 
         let note = new Note({
@@ -67,7 +79,8 @@ module.exports = {
         });
     },
 
-    updateNote: (req, res) => {
+    // Actualizar una nota
+    update: (req, res) => {
         let body = _.pick(req.body, ['hidden', 'title', 'content', 'rememberDate']);
 
         Note.findByIdAndUpdate(req.params.id, body, { new: true, runValidators: true }, (err, note) => {
@@ -94,7 +107,8 @@ module.exports = {
         });
     },
 
-    deleteNote: (req, res) => {
+    // Borrar una nota
+    delete: (req, res) => {
         Note.findByIdAndDelete(req.params.id, (err, note) => {
             if (err) {
                 return res.status(400).json({
@@ -119,7 +133,8 @@ module.exports = {
         });
     },
 
-    saveNote: (req, res) => {
+    // Guarda la nota para un usuario
+    save: (req, res) => {
         Note.findByIdAndUpdate(req.params.id, { new: true, runValidators: true, $push: { savedBy: req.userInfo._id } }, (err, note) => {
             if (err) {
                 return res.status(400).json({

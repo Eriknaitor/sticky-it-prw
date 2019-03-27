@@ -1,10 +1,10 @@
 # sticky-it-prw
 
-* MERN
-* Gestión de usuarios
-* Sistema de reportes
-* Gestión de notas
-* Posibilidad de compartir las notas mediante links
-* Cronjob con las notas
-* Notificaciones
-* 2FA
+- [X] Implementación del MERN Stack
+- [X] Gestión de usuarios
+- [X] Sistema de reportes
+- [X] Gestión de notas
+- [X] Posibilidad de compartir las notas mediante links
+- [ ] Cronjob con las notas
+- [ ] Notificaciones por correo (nodemailer)
+- [ ] 2FA (otplib)

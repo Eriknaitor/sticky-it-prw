@@ -1,13 +1,15 @@
 const jwt = require('jsonwebtoken');
 const Note = require('../models/Note');
-const USer = require('../models/User');
+const User = require('../models/User');
 
+// Firma un token
 module.exports.signToken = (user) => {
     const userData = user.toObject();
     delete userData.password
     return jwt.sign(userData, process.env.SECRET_JWT);
 }
 
+// Verifica un token
 module.exports.verifyToken = (req, res, next) => {
     let token = req.get('token') || req.body.token || req.query.token;
 
@@ -35,6 +37,7 @@ module.exports.verifyToken = (req, res, next) => {
     });
 }
 
+// Verifica si es un admin
 module.exports.verifyAdmin = (req, res, next) => {
     let tokenInfo = req.userInfo;
 
@@ -50,6 +53,7 @@ module.exports.verifyAdmin = (req, res, next) => {
     }
 }
 
+// Comprueba si es un admin o el dueño
 module.exports.isOwnerOrAdmin = (req, res, next) => {
     let tokenInfo = req.userInfo;
 
@@ -85,6 +89,7 @@ module.exports.isOwnerOrAdmin = (req, res, next) => {
     });
 }
 
+// Comprueba si no es el dueño de la nota
 module.exports.notOwner = (req, res, next) => {
     let tokenInfo = req.userInfo;
 

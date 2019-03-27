@@ -1,6 +1,8 @@
 const User = require('../models/User');
 const bcrypt = require('bcrypt');
 const _ = require('underscore');
+const { signToken } = require('../middlewares/authentication');
+
 
 module.exports = {
     // Lista a todos los usuarios que no esten baneados
@@ -42,8 +44,8 @@ module.exports = {
                 });
             }
 
-			res.json(user);
-		});
+            res.json(user);
+        });
     },
 
     // Crea un usuario
@@ -128,7 +130,7 @@ module.exports = {
 
     // Autentica al usuario
     auth: (req, res) => {
-        User.findOne({email: req.body.email}, (err,user) => {
+        User.findOne({ email: req.body.email }, (err, user) => {
             if (err) return res.status(400).json({
                 ok: false,
                 err
@@ -145,7 +147,7 @@ module.exports = {
 
             res.json({
                 ok: true,
-                token: signToken(token)
+                token: signToken(user)
             });
         });
     }

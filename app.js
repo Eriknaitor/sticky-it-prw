@@ -2,13 +2,13 @@ const express = require('express');
 const morgan = require('morgan');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
-const routes = require('./routes');
 require('dotenv').config();
 
 const app = express();
 
 const port = process.env.PORT || 8000;
 
+// Logger
 app.use(morgan('short'));
 
 // Conexión con la base de datos
@@ -22,7 +22,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 // Cargamos las rutas de la API.
-app.use('/api', routes);
+app.use('/api', require('./routes'));
 
 app.listen(port, () => {
     console.log(`Server funcionando en el puerto ${port}`)
