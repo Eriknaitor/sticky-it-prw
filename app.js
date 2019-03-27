@@ -2,7 +2,8 @@ const express = require('express');
 const morgan = require('morgan');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
-require('dotenv').config();
+const cors = require('cors');
+require('dotenv').config({ path: './.env' });
 
 const app = express();
 
@@ -10,7 +11,8 @@ const port = process.env.PORT || 8000;
 
 // Logger
 app.use(morgan('short'));
-
+// Cross-Origin Resource Sharing
+app.use(cors());
 // Conexión con la base de datos
 mongoose.connect(process.env.MONGO_URI, { useNewUrlParser: true, useCreateIndex: true })
     .then(() => console.log(`Conectado a la base de datos`))

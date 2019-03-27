@@ -46,7 +46,7 @@ UserSchema.methods.toJSON = function () {
 
 // Crea una contraseña encriptada
 UserSchema.methods.generateHash = function (password) {
-    return bcrypt.hashSync(password, bcrypt.genSaltSync(8))
+    return bcrypt.hashSync(password, bcrypt.genSaltSync(10))
 }
 
 // Comprueba si una contraseña es válida
@@ -57,7 +57,6 @@ UserSchema.methods.validPassword = function (password) {
 /**
  * Middleware que comprueba si la pass ha sido
  * cambiada y si ha sido así, la reencripta
- *  
  */
 UserSchema.pre('save', function (next) {
     if (this.isModified('password')) {
