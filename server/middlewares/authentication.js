@@ -1,9 +1,15 @@
 const jwt = require('jsonwebtoken');
 const Note = require('../models/Note');
+const USer = require('../models/User');
 
+module.exports.signToken = (user) => {
+    const userData = user.toObject();
+    delete userData.password
+    return jwt.sign(userData, process.env.SECRET_JWT);
+}
 
 module.exports.verifyToken = (req, res, next) => {
-    let token = req.get('token');
+    let token = req.get('token') || req.body.token || req.query.token;
 
     jwt.verify(token, process.env.SECRET_JWT, (err, decoded) => {
         if (err) {
@@ -15,9 +21,17 @@ module.exports.verifyToken = (req, res, next) => {
             });
         }
 
-        req.userInfo = decoded.user;
+        User.findById(decoded._id, (err, user) => {
+            if (!user) return res.json({
+                ok: false,
+                err: {
+                    message: 'Token no válido'
+                }
+            });
 
-        next();
+            req.userInfo = user;
+            next();
+        })
     });
 }
 
