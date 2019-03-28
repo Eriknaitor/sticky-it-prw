@@ -11,7 +11,7 @@ import VIP from './views/VIP';
 import Home from './views/Home';
 
 class App extends React.Component {
-    state = { currentUser : httpClient.getCurrentUser() }
+    state = { currentUser: httpClient.getCurrentUser() }
 
     onLoginSuccess(user) {
         this.setState({ currentUser: httpClient.getCurrentUser() })
@@ -21,10 +21,10 @@ class App extends React.Component {
         httpClient.logOut();
         this.setState({ currentUser: null });
     }
-    
+
     render() {
-        const {currentUser} = this.state
-        return(
+        const { currentUser } = this.state
+        return (
             <div className='App container'>
                 <NavBar currentUser={currentUser} />
 
