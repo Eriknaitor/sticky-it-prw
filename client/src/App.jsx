@@ -3,6 +3,7 @@ import { Switch, Route, Redirect } from 'react-router-dom';
 import httpClient from './httpClient';
 
 import NavBar from './components/NavBar';
+import NotFound from './components/NotFound';
 import LogIn from './views/LogIn';
 import LogOut from './views/LogOut';
 import SignUp from './views/SignUp';
@@ -46,7 +47,9 @@ class App extends React.Component {
                             : <Redirect to="/login" />
                     }} />
 
-                    <Route path="/" component={Home} />
+                    <Route path="/" exact component={Home} />
+
+                    <Route component={NotFound} />
                 </Switch>
             </div>
         )

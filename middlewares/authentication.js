@@ -11,7 +11,9 @@ module.exports.signToken = (user) => {
 
 // Verifica un token
 module.exports.verifyToken = (req, res, next) => {
-    let token = req.get('token') || req.body.token || req.query.token;
+    const token = req.get('token') || req.body.token || req.query.token;
+
+	if(!token) return res.json({ok: false, message: "No existe ningún token"});
 
     jwt.verify(token, process.env.SECRET_JWT, (err, decoded) => {
         if (err) {
