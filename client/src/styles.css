@@ -1,19 +1,98 @@
-
-.NavBar a, .NavBar button {
+/*
+ * Estilos para el Navbar
+*/
+.NavBar a, .NavBar button, .NavBar a:active, .NavBar button:active, .NavBar a:link, .NavBar button:link {
 	margin: 0 5px;
 	cursor: pointer;
+	color: #015367;
+}
+
+.NavBar a:hover, .NavBar button:hover {
+	color:#04819E;
 }
 
 .NavBar {
+	background: #000;
 	margin-bottom: 20px
 }
 
+/*
+ * Estilos para el Feed
+*/
+
+.endFeed {
+	margin-top: 40px;
+	text-align: center;
+}
+
+
+
+/*
+ * Estilos para las notas
+*/
+
+
+.Note {
+	margin: 0 auto;
+	max-width: 80%;
+	cursor: pointer;
+}
+
+.Note pre {
+	border-left-color: #04819E;
+	padding-left: 5px;
+	cursor: default;
+	min-height: 200px;
+	max-width: 500px;
+	min-width: 500px;
+	border-top-right-radius: 10px;
+	border-bottom-right-radius: 10px;
+}
+
+.infoNote :nth-child(2) {
+	margin-left: 100px; 
+}
+
+.Note em {
+	float: right;
+	font-style: italic;
+}
+
+.Note img {
+	border: 0px;
+	border-radius: 30px;
+	margin-right: 20px; 
+}
+
+.Note h4 span {
+	margin-bottom: -20px;
+}
+
+/*
+ * Botones y otros elementos
+*/
+.button-blue-dark {
+	border: #015367;
+	background: #015367;
+}
+
+.button-blue-dark:hover {
+	border: #04819E;
+	background: #04819E; 
+}
+
 .lds-dual-ring {
-	display: inline-block;
+	width: 50%;
+	display: table;
+	margin: 0 auto;
 	width: 64px;
 	height: 64px;
-  }
-  .lds-dual-ring:after {
+}
+	
+/*
+ * Spinner
+*/
+.lds-dual-ring:after {
 	content: " ";
 	display: block;
 	width: 46px;
@@ -31,4 +110,28 @@
 	100% {
 	  transform: rotate(360deg);
 	}
-  }
+}
+
+/*
+ * Media queries
+*/
+@media (max-width: 419px) {
+	.Note em {
+		clear: both;
+		text-align: center;
+	}
+
+	.Note h4 {
+		font-size: 2rem;
+	}
+
+	.Note h6 {
+		font-size: 1.8rem;
+	}
+
+	.Note pre {
+		font-size: 1.4rem;
+		max-width: 250px;
+		min-width: 250px;
+	}
+}

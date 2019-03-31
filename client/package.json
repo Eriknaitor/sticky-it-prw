@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@tippy.js/react": "^2.1.2",
     "axios": "^0.18.0",
     "jwt-decode": "^2.2.0",
     "milligram": "^1.3.0",

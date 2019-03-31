@@ -5,7 +5,13 @@ const { signToken } = require('../middlewares/authentication');
 
 
 module.exports = {
-    // Lista a todos los usuarios que no esten baneados
+    /**
+     *  Lista a todos los usuarios que no esten baneados
+     *  Lo que tiene escribir las cosas y volver a revisar
+     *  el cógido después de meses, index hace que saltes X número
+     *  de posiciones respecto a la actual, es decir, si limitas (con el limit) a 5 el número
+     *  de documentos que quieres ver y quieres ver los 5 siguientes tendrías que sumarle los restantes a index
+     */
     index: (req, res) => {
         let index = req.query.index || 0;
         index = Number(index);

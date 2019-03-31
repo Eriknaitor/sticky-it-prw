@@ -1,18 +1,21 @@
-// https://alligator.io/react/react-infinite-scroll/
 import React, { Component, Fragment } from 'react';
 import axios from 'axios';
-import '../styles.css';
+import Note from './Note';
+
 
 class Feed extends Component {
-    constructor(props) {
-        super(props);
+    constructor() {
+        super();
+
         this.state = {
             error: false,
             hasMore: true,
             isLoading: false,
-            Notes: []
-        }
+            counter: 0,
+            Notes: [],
+        };
 
+        // Establece el evento onscroll
         window.onscroll = () => {
             const {
                 loadNotes,
@@ -23,38 +26,58 @@ class Feed extends Component {
                 },
             } = this;
 
-            // Si hay un error, está cargando o no hay mas, sale
+            // Si hay un error, está cargando o no hay mas termina
             if (error || isLoading || !hasMore) return;
 
-            // Si ha llegado al final de la página
-            if (window.innerHeight + document.documentElement.scrollTop === document.documentElement.offsetHeight) loadNotes();
-        }
+            // Comprueba que ha hecho scroll hasta abajo
+            if (
+                window.innerHeight + document.documentElement.scrollTop
+                === document.documentElement.offsetHeight
+            ) {
+                loadNotes();
+            }
+        };
     }
 
     componentWillMount() {
         this.loadNotes();
     }
 
+    /**
+     * Hace la comprobación de los elementos dentro del array de las notas
+     * y suma en caso de que sea menor al número obtenido de la API
+     */
+    checkPages = (numElements) => {
+        if (this.state.Notes.length < numElements) {
+            this.setState({
+                counter: this.state.counter + 10
+            });
+            return true
+        }
+        return false;
+    }
+
     loadNotes = () => {
         this.setState({ isLoading: true }, () => {
-            axios.get('http://localhost:8000/api/notes')
+            axios.get(`http://localhost:8000/api/notes?index=${this.state.counter}`)
                 .then((res) => {
+                    /**
+                     * Mapeo los objetos obtenidos por la API a un array 
+                     * y compruebo si hay mas
+                     */
                     const nextNotes = res.data.notes.map(note => ({
                         id: note._id,
                         visitors: note.visitors,
+                        savedBy: note.savedBy.length,
                         title: note.title,
                         content: note.content,
-                        created: note.createdAt
-                        // Hay que añadir el resto de vainas
+                        createdAt: note.createdAt,
+                        createdBy: note.createdBy
                     }));
-
                     this.setState({
-                        hasMore: (this.state.Notes.length < res.data.count),
+                        hasMore: this.checkPages(res.data.count),
                         isLoading: false,
-                        Notes: [
-                            ...this.state.Notes,
-                            ...nextNotes,
-                        ]
+                        Notes: [...this.state.Notes, ...nextNotes]
                     });
                 })
                 .catch((err) => {
@@ -63,8 +86,7 @@ class Feed extends Component {
                         isLoading: false
                     });
                 });
-
-        })
+        });
     }
 
     render() {
@@ -76,32 +98,33 @@ class Feed extends Component {
         } = this.state;
 
         return (
-            <div>
+            <div className='container'>
                 {Notes.map(note => (
                     <Fragment key={note.id}>
-                        <hr />
-                        <div>
-                            <p>{note.title}</p>
-                            <p>{note.content}</p>
-                            <p>{note.visitors}</p>
-                            <p>{note.createdAt}</p>
-                        </div>
+                        <Note
+                            id={note.id}
+                            visitors={note.visitors}
+                            savedBy={note.savedBy}
+                            title={note.title}
+                            content={note.content}
+                            createdAt={note.createdAt}
+                            createdBy={note.createdBy}
+                        />
                     </Fragment>
                 ))}
-                <hr />
                 {error &&
                     <div style={{ color: '#900' }}>
                         {error}
                     </div>
                 }
                 {isLoading &&
-                    <div class="lds-dual-ring"></div>
+                    <div className='lds-dual-ring'></div>
                 }
                 {!hasMore &&
-                    <div>You did it! You reached the end!</div>
+                    <div className='endFeed'>Parece que has llegado al final ¯\_(ツ)_/¯</div>
                 }
             </div>
-        )
+        );
     }
 }
 

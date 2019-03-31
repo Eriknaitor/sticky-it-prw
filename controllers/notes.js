@@ -3,7 +3,13 @@ const _ = require('underscore');
 
 module.exports = {
 
-    // Obtiene todas las notas de un usuario
+    /**
+     * Obtiene todas las notas de un usuario
+     *  Lo que tiene escribir las cosas y volver a revisar
+     *  el cógido después de meses, index hace que saltes X número
+     *  de posiciones respecto a la actual, es decir, si limitas (con el limit) a 5 el número
+     *  de documentos que quieres ver y quieres ver los 5 siguientes tendrías que sumarle los restantes a index
+     */
     index: (req, res) => {
         let index = req.query.index || 0;
         index = Number(index);

@@ -2,12 +2,15 @@ import React from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
 import httpClient from './httpClient';
 
+// Componentes
 import NavBar from './components/NavBar';
 import NotFound from './components/NotFound';
+
+// Vistas
 import LogIn from './views/LogIn';
 import LogOut from './views/LogOut';
 import SignUp from './views/SignUp';
-import VIP from './views/VIP';
+import Notes from './views/MyNotes';
 import Home from './views/Home';
 
 class App extends React.Component {
@@ -25,32 +28,33 @@ class App extends React.Component {
     render() {
         const { currentUser } = this.state
         return (
-            <div className='App container'>
+            <div className='App'>
                 <NavBar currentUser={currentUser} />
+                <div className='container'>
+                    <Switch>
+                        <Route path="/login" render={(props) => {
+                            return <LogIn {...props} onLoginSuccess={this.onLoginSuccess.bind(this)} />
+                        }} />
 
-                <Switch>
-                    <Route path="/login" render={(props) => {
-                        return <LogIn {...props} onLoginSuccess={this.onLoginSuccess.bind(this)} />
-                    }} />
+                        <Route path="/logout" render={(props) => {
+                            return <LogOut onLogOut={this.logOut.bind(this)} />
+                        }} />
 
-                    <Route path="/logout" render={(props) => {
-                        return <LogOut onLogOut={this.logOut.bind(this)} />
-                    }} />
+                        <Route path="/signup" render={(props) => {
+                            return <SignUp {...props} onSignUpSuccess={this.onLoginSuccess.bind(this)} />
+                        }} />
 
-                    <Route path="/signup" render={(props) => {
-                        return <SignUp {...props} onSignUpSuccess={this.onLoginSuccess.bind(this)} />
-                    }} />
+                        <Route path="/notes" render={() => {
+                            return currentUser
+                                ? <Notes />
+                                : <Redirect to="/login" />
+                        }} />
 
-                    <Route path="/vip" render={() => {
-                        return currentUser
-                            ? <VIP />
-                            : <Redirect to="/login" />
-                    }} />
+                        <Route path="/" exact component={Home} />
 
-                    <Route path="/" exact component={Home} />
-
-                    <Route component={NotFound} />
-                </Switch>
+                        <Route component={NotFound} />
+                    </Switch>
+                </div>
             </div>
         )
     }
