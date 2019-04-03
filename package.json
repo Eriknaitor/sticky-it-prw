@@ -3,6 +3,13 @@
   "version": "1.0.0",
   "description": "",
   "main": "app.js",
+  "bugs": {
+    "url": "https://github.com/Eriknaitor/sticky-it-prw/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Eriknaitor/sticky-it-prw.git"
+  },
   "scripts": {
     "test": "nodemon app.js"
   },
