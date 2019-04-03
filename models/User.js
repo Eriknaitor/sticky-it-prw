@@ -32,6 +32,13 @@ const UserSchema = new Schema({
         type: String,
         default: 'user',
         enum: validRoles
+    },
+    isEnabled2FA: {
+        type: Boolean,
+        default: false
+    },
+    secret2FA: {
+        type: String
     }
     // Algún día meteré los putos avatares como binarios Soon TM
 });
@@ -40,6 +47,7 @@ UserSchema.methods.toJSON = function () {
     let user = this;
     let userObject = user.toObject();
     delete userObject.password;
+    delete userObject.secret2FA;
 
     return userObject;
 }

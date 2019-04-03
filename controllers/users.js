@@ -1,5 +1,6 @@
 const User = require('../models/User');
 const bcrypt = require('bcrypt');
+const otplib = require('otplib');
 const _ = require('underscore');
 const { signToken } = require('../middlewares/authentication');
 
@@ -61,7 +62,8 @@ module.exports = {
         let user = new User({
             email: body.email,
             username: body.username,
-            password: bcrypt.hashSync(body.password, 10)
+            password: bcrypt.hashSync(body.password, 10),
+            secret2FA: otplib.authenticator.generateSecret()
         });
 
         user.save((err, user) => {
@@ -149,6 +151,11 @@ module.exports = {
                         message: 'Credenciales inválidas'
                     }
                 });
+            } else if (user.isEnabled2FA) {
+                /**
+                 * Para la vaina esta hay que coger de la DB el token y hacerse una ruta /
+                 * middleware para comparar si es válido el totp
+                 */
             }
 
             res.json({
