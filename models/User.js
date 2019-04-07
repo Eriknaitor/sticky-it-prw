@@ -54,24 +54,13 @@ UserSchema.methods.toJSON = function () {
 
 // Crea una contraseña encriptada
 UserSchema.methods.generateHash = function (password) {
-    return bcrypt.hashSync(password, bcrypt.genSaltSync(10))
+    return bcrypt.hash(password, 20)
 }
 
 // Comprueba si una contraseña es válida
 UserSchema.methods.validPassword = function (password) {
     return bcrypt.compareSync(password, this.password)
 }
-
-/**
- * Middleware que comprueba si la pass ha sido
- * cambiada y si ha sido así, la reencripta
- */
-UserSchema.pre('save', function (next) {
-    if (this.isModified('password')) {
-        this.password = this.generateHash(this.password)
-    }
-    next()
-})
 
 const User = mongoose.model('Users', UserSchema);
 UserSchema.set('autoIndex', false);

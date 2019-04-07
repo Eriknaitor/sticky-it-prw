@@ -25,13 +25,9 @@
 	text-align: center;
 }
 
-
-
 /*
  * Estilos para las notas
 */
-
-
 .Note {
 	margin: 0 auto;
 	max-width: 80%;
@@ -87,6 +83,13 @@
 	margin: 0 auto;
 	width: 64px;
 	height: 64px;
+}
+
+input[type="email"]:focus, input[type="number"]:focus,
+input[type="password"]:focus, input[type="search"]:focus,
+input[type="tel"]:focus, input[type="text"]:focus, input[type="url"]:focus,
+textarea:focus, select:focus {
+	border-color: #04819E;
 }
 	
 /*

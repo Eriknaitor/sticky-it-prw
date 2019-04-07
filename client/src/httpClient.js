@@ -3,43 +3,54 @@ import jwtDecode from 'jwt-decode';
 
 const httpClient = axios.create();
 
+//#region Métodos para manejar tokens
 
 // Sacamos el token del LocalStorage
-httpClient.getToken = function() {
+httpClient.getToken = function () {
     return localStorage.getItem('token');
 }
 
 // Metemos el token en el LocalStorage y lo devolvemos
-httpClient.setToken = function(token) {
+httpClient.setToken = function (token) {
     localStorage.setItem('token', token);
     return token;
 }
 
 // Obtenemos el usuario actual según el token guardado
-httpClient.getCurrentUser = function() {
+httpClient.getCurrentUser = function () {
     const token = this.getToken();
     if (token) return jwtDecode(token);
     return null;
 }
 
+//#endregion
+
+//#region Métodos para manejar usuarios
+
 // Nos logueamos
-httpClient.logIn = function(credentials) {
+httpClient.logIn = function (credentials) {
     return this({ method: 'POST', url: 'http://localhost:8000/api/authenticate', data: credentials })
         .then((serverResponse) => {
+            const status = serverResponse.status;
             const token = serverResponse.data.token;
-            // Añade el token a los encabezados
-            if (token) {
-                this.defaults.headers.common.token = this.setToken(token);
-                return jwtDecode(token);
-            } else {
-                return false
+
+            switch (status) {
+                case 200:
+                    return this.validLogin(token);
+                case 206:
+                    // Aquí devuelvo 206 porque lo voy a manejar desde la vista
+                    return 206;
+
+                default: break;
             }
+
+
         });
 }
 
 // Creamos un usuario
-httpClient.signUp = function(userInfo) {
-    return this({method: 'POST', url: 'http://localhost:8000/api/user/create', data: userInfo})
+httpClient.signUp = function (userInfo) {
+    return this({ method: 'POST', url: 'http://localhost:8000/api/user/create', data: userInfo })
         .then((serverResponse) => {
             const token = serverResponse.data.token;
             // Añade el token a los encabezados
@@ -52,16 +63,28 @@ httpClient.signUp = function(userInfo) {
 }
 
 // Cerramos sesión
-httpClient.logOut = function() {
+httpClient.logOut = function () {
     localStorage.removeItem('token');
     delete this.defaults.headers.common.token;
     return true;
 }
+
+//#endregion
 
 /**
  * Se intenta añadir el token a los encabezados al iniciar 
  * la aplicación en caso de existir
  */
 httpClient.defaults.headers.common.token = httpClient.getToken();
+
+// Añade el token a los encabezados si nos hemos logeado
+httpClient.validLogin = function (token) {
+    if (token) {
+        this.defaults.headers.common.token = this.setToken(token);
+        return jwtDecode(token);
+    } else {
+        return false;
+    }
+}
 
 export default httpClient;

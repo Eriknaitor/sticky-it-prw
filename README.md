@@ -8,3 +8,4 @@
 - [ ] Cronjob con las notas
 - [ ] Notificaciones por correo (nodemailer)
 - [ ] 2FA (otplib)
+- [ ] Sustituir todos los catchs por errores mas decentes con alerts

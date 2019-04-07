@@ -5,7 +5,8 @@ const User = require('../models/User');
 // Firma un token
 module.exports.signToken = (user) => {
     const userData = user.toObject();
-    delete userData.password
+    delete userData.password;
+    delete userData.secret2FA;
     return jwt.sign(userData, process.env.SECRET_JWT);
 }
 
@@ -13,7 +14,7 @@ module.exports.signToken = (user) => {
 module.exports.verifyToken = (req, res, next) => {
     const token = req.get('token') || req.body.token || req.query.token;
 
-	if(!token) return res.json({ok: false, message: "No existe ningún token"});
+    if (!token) return res.json({ ok: false, message: "No existe ningún token" });
 
     jwt.verify(token, process.env.SECRET_JWT, (err, decoded) => {
         if (err) {

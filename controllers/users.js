@@ -1,15 +1,20 @@
 const User = require('../models/User');
 const bcrypt = require('bcrypt');
 const otplib = require('otplib');
+const QRCode = require('qrcode');
 const _ = require('underscore');
 const { signToken } = require('../middlewares/authentication');
 
+otplib.authenticator.options = {
+    window: 1,
+    step: 30
+}
 
 module.exports = {
     /**
      *  Lista a todos los usuarios que no esten baneados
      *  Lo que tiene escribir las cosas y volver a revisar
-     *  el cógido después de meses, index hace que saltes X número
+     *  el cógido después de semanas, index hace que saltes X número
      *  de posiciones respecto a la actual, es decir, si limitas (con el limit) a 5 el número
      *  de documentos que quieres ver y quieres ver los 5 siguientes tendrías que sumarle los restantes a index
      */
@@ -51,7 +56,10 @@ module.exports = {
                 });
             }
 
-            res.json(user);
+            res.json({
+                ok: true,
+                user
+            });
         });
     },
 
@@ -144,23 +152,69 @@ module.exports = {
                 err
             });
 
+
             if (!user || !user.validPassword(req.body.password)) {
-                return res.json({
+                return res.status(400).json({
                     ok: false,
-                    err: {
-                        message: 'Credenciales inválidas'
-                    }
+                    err: { message: 'Credenciales inválidas' }
                 });
-            } else if (user.isEnabled2FA) {
-                /**
-                 * Para la vaina esta hay que coger de la DB el token y hacerse una ruta /
-                 * middleware para comparar si es válido el totp
-                 */
+            } else {
+                if (!user.isEnabled2FA) {
+                    res.json({
+                        ok: true,
+                        token: signToken(user)
+                    });
+                } else {
+                    if (!req.headers['x-otp']) {
+                        return res.status(206).json({
+                            ok: false,
+                            err: { message: 'Introduce el código para continuar' }
+                        });
+                    }
+
+                    const verified = otplib.authenticator.checkDelta(req.headers['x-otp'], user.secret2FA);
+                    if (Number.isInteger(verified)) {
+                        res.json({
+                            ok: true,
+                            token: signToken(user)
+                        });
+                    } else {
+                        return res.status(400).json({
+                            ok: false,
+                            err: { message: 'Código inválido' }
+                        });
+                    }
+                }
+            }
+        });
+    },
+
+    userQR: (req, res) => {
+        User.findById(req.params.id, (err, user) => {
+            if (err) {
+                return res.status(400).json({
+                    ok: false,
+                    err
+                });
             }
 
-            res.json({
-                ok: true,
-                token: signToken(user)
+            const secret = otplib.authenticator.keyuri(user.id, 'RemindMe', user.secret2FA);
+            QRCode.toDataURL(secret, (err, data_url) => {
+
+                if (err) {
+                    return res.status(400).json({
+                        ok: false,
+                        err
+                    });
+                }
+
+                return res.json({
+                    ok: true,
+                    message: 'Verify OTP',
+                    tmpSecret: user.secret2FA,
+                    dataURL: data_url,
+                    otpURL: secret
+                });
             });
         });
     }
