@@ -29,7 +29,11 @@ httpClient.getCurrentUser = function () {
 
 // Creamos un usuario
 httpClient.signUp = function (userInfo) {
-    return this({ method: 'POST', url: 'http://localhost:8000/api/user/create', data: userInfo })
+    return this({
+            method: 'POST',
+            url: 'http://localhost:8000/api/user/create',
+            data: userInfo
+        })
         .then((serverResponse) => {
             const token = serverResponse.data.token;
             // Añade el token a los encabezados
