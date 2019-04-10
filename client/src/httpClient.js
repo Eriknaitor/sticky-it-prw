@@ -27,27 +27,6 @@ httpClient.getCurrentUser = function () {
 
 //#region Métodos para manejar usuarios
 
-// Nos logueamos
-httpClient.logIn = function (credentials) {
-    return this({ method: 'POST', url: 'http://localhost:8000/api/authenticate', data: credentials })
-        .then((serverResponse) => {
-            const status = serverResponse.status;
-            const token = serverResponse.data.token;
-
-            switch (status) {
-                case 200:
-                    return this.validLogin(token);
-                case 206:
-                    // Aquí devuelvo 206 porque lo voy a manejar desde la vista
-                    return 206;
-
-                default: break;
-            }
-
-
-        });
-}
-
 // Creamos un usuario
 httpClient.signUp = function (userInfo) {
     return this({ method: 'POST', url: 'http://localhost:8000/api/user/create', data: userInfo })
