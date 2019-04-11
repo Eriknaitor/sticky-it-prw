@@ -10,6 +10,7 @@ router.get('/note/:id', verifyToken, note.show);
 router.post('/note/create', verifyToken, note.create);
 router.put('/note/update/:id', [verifyToken, isOwnerOrAdmin], note.update);
 router.delete('/note/delete/:id', [verifyToken, isOwnerOrAdmin], note.delete);
-router.put('/note/save/:id', [verifyToken, notOwner], note.save);
+router.put('/note/like/:id', [verifyToken, notOwner], note.like);
+router.put('/note/dislike/:id', [verifyToken, notOwner], note.dislike);
 
 module.exports = router

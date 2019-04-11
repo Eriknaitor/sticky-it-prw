@@ -140,8 +140,34 @@ module.exports = {
     },
 
     // Guarda la nota para un usuario
-    save: (req, res) => {
+    like: (req, res) => {
         Note.findByIdAndUpdate(req.params.id, { new: true, runValidators: true, $push: { savedBy: req.userInfo._id } }, (err, note) => {
+            if (err) {
+                return res.status(400).json({
+                    ok: false,
+                    err
+                });
+            }
+
+            if (!note) {
+                return res.status(400).json({
+                    ok: false,
+                    err: {
+                        message: 'Esa nota no existe'
+                    }
+                });
+            }
+
+            res.json({
+                ok: true,
+                note
+            });
+        });
+    },
+
+    // Quita de guardados un usuario
+    dislike: (req, res) => {
+        Note.findByIdAndUpdate(req.params.id, { new: true, runValidators: true, $pull: { savedBy: req.userInfo._id } }, (err, note) => {
             if (err) {
                 return res.status(400).json({
                     ok: false,

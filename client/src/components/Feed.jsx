@@ -67,7 +67,7 @@ class Feed extends Component {
                      */
                     const nextNotes = res.data.notes.map(note => ({
                         id: note._id,
-                        visitors: note.visitors,
+                        likes: note.likes,
                         savedBy: note.savedBy.length,
                         title: note.title,
                         content: note.content,
@@ -103,7 +103,7 @@ class Feed extends Component {
                     <Fragment key={note.id}>
                         <Note
                             id={note.id}
-                            visitors={note.visitors}
+                            likes={note.likes}
                             savedBy={note.savedBy}
                             title={note.title}
                             content={note.content}

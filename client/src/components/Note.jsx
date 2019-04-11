@@ -12,7 +12,7 @@ class Note extends Component {
 
         this.state = {
             id: props.id,
-            visitors: props.visitors,
+            likes: props.likes,
             savedBy: props.savedBy,
             title: props.title,
             content: props.content,
@@ -49,10 +49,10 @@ class Note extends Component {
                     <h4><img alt='' src="https://via.placeholder.com/50" /><span>{this.state.userName}</span></h4>
                     <h6>{this.state.title}</h6>
                     <pre>{this.state.content}</pre>
-                    <p className='infoNote'>
 
-                        <Tippy content='Visitas'>
-                            <span><i className="fas fa-eye"></i> {this.state.visitors}</span>
+                    <p className='infoNote'>
+                        <Tippy content='Likes'>
+                            <span><i className="fas fa-eye"></i> {this.state.likes}</span>
                         </Tippy>
                         <Tippy content='Veces guardada'>
                             <span><i className="fas fa-save"></i> {this.state.savedBy}</span>

@@ -6,10 +6,14 @@ const NoteSchema = new Schema({
         type: String,
         required: [true, 'El título de la nota es obligatorio'],
         trim: true,
+        minlength: [10, 'El título es muy corto, mínimo necesitas 12'],
+        maxlength: [35, 'El título es demasiado largo, máximo son 35 caracteres']
     },
     content: {
         type: String,
         trim: true,
+        minlength: 1,
+        maxlength: [500, 'El contenido es demasiado grande, máximo 500 caracteres']
     },
     hidden: {
         type: Boolean,
@@ -18,7 +22,7 @@ const NoteSchema = new Schema({
     },
     rememberDate: {
         type: Date,
-        default: Date.now() - 1 * 60 * 60 * 1000
+        default: null
     },
     createdAt: {
         type: Date,
@@ -30,7 +34,7 @@ const NoteSchema = new Schema({
         ref: 'Users',
         required: true
     },
-    visitors: {
+    likes: {
         type: Number,
         default: 0
     },
