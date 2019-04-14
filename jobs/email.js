@@ -11,7 +11,7 @@ const sendMail = async (to, mailinfo) => {
     });
 
     let info = await account.sendMail({
-        from: `"RemindMe 📝" <mailerremindme@gmail.com>`,
+        from: `"RemindMe 📝" <${credentials[0]}>`,
         to: to.email,
         subject: mailinfo.subject,
         text: mailinfo.text,
