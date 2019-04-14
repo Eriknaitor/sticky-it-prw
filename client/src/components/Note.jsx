@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import TimeAgo from 'react-timeago';
 import spanishStrings from 'react-timeago/lib/language-strings/es';
 import buildFormatter from 'react-timeago/lib/formatters/buildFormatter';
-import Tippy from '@tippy.js/react'
 import Axios from 'axios';
+import Tippy from '@tippy.js/react';
 const formatter = buildFormatter(spanishStrings);
 
 class Note extends Component {
@@ -19,16 +20,20 @@ class Note extends Component {
             createdAt: props.createdAt,
             createdBy: props.createdBy,
             userId: 0,
-            userName: ''
+            userName: '',
+            avatar: ''
         }
     }
+
+
 
     getUser = (userId) => {
         Axios.get(`http://localhost:8000/api/user/${userId}`)
             .then((res) => {
                 this.setState({
-                    userId: res.data._id,
-                    userName: res.data.username
+                    userId: res.data.user._id,
+                    userName: res.data.user.username,
+                    avatar: res.data.user.avatar
                 });
             })
             .catch((err) => {
@@ -41,29 +46,49 @@ class Note extends Component {
     }
 
     render() {
-        return (
-            <div className='Note row'>
-                <div className='column column-20'></div>
-                <div className='column'>
-                    <hr />
-                    <h4><img alt='' src="https://via.placeholder.com/50" /><span>{this.state.userName}</span></h4>
-                    <h6>{this.state.title}</h6>
-                    <pre>{this.state.content}</pre>
+        const randomColor = {
+            background: `hsl(${Math.floor(Math.random() * 360)}, 100%, 80%)`
+        };
 
-                    <p className='infoNote'>
-                        <Tippy content='Likes'>
-                            <span><i className="fas fa-eye"></i> {this.state.likes}</span>
-                        </Tippy>
-                        <Tippy content='Veces guardada'>
-                            <span><i className="fas fa-save"></i> {this.state.savedBy}</span>
-                        </Tippy>
-                        <em>Creado <TimeAgo date={this.state.createdAt} formatter={formatter} /></em>
-                    </p>
+        const likes = document.querySelectorAll('.like');
+
+        likes.forEach(like => {
+            like.addEventListener('mouseover', () => {
+                like.classList.remove('far');
+                like.classList.add('fas');
+            });
+
+            like.addEventListener('mouseout', () => {
+                like.classList.remove('fas');
+                like.classList.add('far');
+            });
+        });
+
+        return (
+            <div className="Note row slide-in-right">
+                <div className="decorator" style={randomColor}></div>
+                <div className="right-panel column column-20">
+                    <div className="controllers">
+                        <i className="fas fa-edit"></i>
+                        <Tippy content={`${this.state.savedBy} veces guardada`}>
+                            <i className="fas fa-user"></i>
+                        </Tippy><br />
+                        <i className="like far fa-heart"></i>
+                        <i className="fas fa-flag"></i>
+                    </div>
                 </div>
-                <div className='column column-20'></div>
-            </div>
+                <div className="body-panel column column-70">
+                    <div className="body-info">
+                        <Link to={`/profile/${this.state.createdBy}`}><strong>{this.state.userName}</strong></Link>
+                        <small><TimeAgo date={this.state.createdAt} formatter={formatter} /></small>
+                    </div>
+                    <h5>{this.state.title}</h5>
+                    <p>{this.state.content}</p>
+                </div>
+            </div >
         )
     }
 }
 
-export default Note
+export default Note;
+

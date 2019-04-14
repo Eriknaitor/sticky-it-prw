@@ -98,7 +98,7 @@ class Feed extends Component {
         } = this.state;
 
         return (
-            <div className='container'>
+            <div>
                 {Notes.map(note => (
                     <Fragment key={note.id}>
                         <Note

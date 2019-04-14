@@ -4,7 +4,7 @@ import httpClient from '../httpClient'
 // sign up form behaves almost identically to log in form. We could create a flexible Form component to use for both actions, but for now we'll separate the two:
 class SignUp extends React.Component {
 	state = {
-		fields: { username: '', email: '', password: ''}
+		fields: { username: '', email: '', password: '' }
 	}
 
 	onInputChange(evt) {
@@ -20,13 +20,13 @@ class SignUp extends React.Component {
 		evt.preventDefault()
 		httpClient.signUp(this.state.fields).then(user => {
 			this.setState({ fields: { username: '', email: '', password: '' } })
-			if(user) {
+			if (user) {
 				this.props.onSignUpSuccess(user)
 				this.props.history.push('/')
 			}
 		})
 	}
-	
+
 	render() {
 		const { username, email, password } = this.state.fields
 		return (
@@ -35,10 +35,10 @@ class SignUp extends React.Component {
 					<div className='column column-33 column-offset-33'>
 						<h1>Sign Up</h1>
 						<form onChange={this.onInputChange.bind(this)} onSubmit={this.onFormSubmit.bind(this)}>
-							<input type="text" placeholder="Name" name="username" value={username} />
-							<input type="text" placeholder="Email" name="email" value={email} />
-							<input type="password" placeholder="Password" name="password" value={password} />
-							<button>Sign Up</button>
+							<input type="text" placeholder="Name" name="username" defaultValue={username} />
+							<input type="text" placeholder="Email" name="email" defaultValue={email} />
+							<input type="password" placeholder="Password" name="password" defaultValue={password} />
+							<button>Crear cuenta</button>
 						</form>
 					</div>
 				</div>

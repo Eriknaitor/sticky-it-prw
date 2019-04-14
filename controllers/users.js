@@ -91,7 +91,7 @@ module.exports = {
 
     // Actualiza un usuario
     update: (req, res) => {
-        let body = _.pick(req.body, ['email', 'username']);
+        let body = _.pick(req.body, ['email', 'username', 'password', 'isEnabled2FA']);
 
         User.findByIdAndUpdate(req.params.id, body, { new: true, runValidators: true }, (err, user) => {
             if (err) {

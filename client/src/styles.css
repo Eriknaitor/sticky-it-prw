@@ -29,39 +29,81 @@
  * Estilos para las notas
 */
 .Note {
-	margin: 0 auto;
-	max-width: 80%;
+    background: #F1F1EE;
+    width: 65%;
+    border-radius: 5px;
+    margin: 5px auto;
+}
+
+.Note .decorator {
+    max-width: 5px;
+    min-width: 5px;
+    width: 5px;
+    display: block;
+    background: red;
+}
+
+.Note .body-info {
+    line-height: 300%;
+}
+
+.Note .body-info :active, .Note .body-info :link, .Note .body-info :visited {
+    color: black;
+    transition: 0.2s;
+}
+
+.Note .body-info strong {
+	color: black;
+	transition: 0.2s;
+}
+
+.Note .body-info strong:hover {
+    color: white;
+}
+
+.Note .body-info small {
+	float: right;
+	margin-right: 20px;
+}
+
+.Note .controllers {
+	text-align: center;
+	margin: 30% 2px auto 2px; 
+}
+
+.Note .controllers i {
+	margin: auto 5px;
+    color: black;
+    transition: 0.2s;
+}
+
+.Note h5 {
+	font-weight: bold;
+}
+
+.Note .controllers .fa-heart:hover {
+	color: #DD7777;
+	cursor: pointer
+}
+
+.Note .controllers .fa-edit:hover {
+	color: #B4ECB4;
+	cursor: pointer
+}
+
+.Note .controllers .fa-flag:hover {
+	color: #7777DD;
 	cursor: pointer;
 }
 
-.Note pre {
-	border-left-color: #04819E;
-	padding-left: 5px;
-	cursor: default;
-	min-height: 200px;
-	max-width: 500px;
-	min-width: 500px;
-	border-top-right-radius: 10px;
-	border-bottom-right-radius: 10px;
-}
-
-.infoNote :nth-child(2) {
-	margin-left: 100px; 
-}
-
-.Note em {
-	float: right;
-	font-style: italic;
-}
-
-.Note img {
-	border: 0px;
-	border-radius: 30px;
-	margin-right: 20px; 
-}
-
-.Note h4 span {
-	margin-bottom: -20px;
+.Note .avatar {
+    border-radius: 50px;
+    min-width: 75px;
+    min-height: 75px;
+    max-width: 75px;
+    max-height: 75px;
+    margin-left: 20%;
+    margin-top: 15%;
 }
 
 /*
@@ -93,7 +135,7 @@ textarea:focus, select:focus {
 }
 	
 /*
- * Spinner
+ * Spinner & animations
 */
 .lds-dual-ring:after {
 	content: " ";
@@ -115,26 +157,36 @@ textarea:focus, select:focus {
 	}
 }
 
+.slide-in-right{-webkit-animation:slide-in-right .8s linear both;animation:slide-in-right .8s linear both}
+ @-webkit-keyframes slide-in-right {
+	0% {
+	  -webkit-transform: translateX(1000px);
+			  transform: translateX(1000px);
+	  opacity: 0;
+	}
+	100% {
+	  -webkit-transform: translateX(0);
+			  transform: translateX(0);
+	  opacity: 1;
+	}
+  }
+  @keyframes slide-in-right {
+	0% {
+	  -webkit-transform: translateX(1000px);
+			  transform: translateX(1000px);
+	  opacity: 0;
+	}
+	100% {
+	  -webkit-transform: translateX(0);
+			  transform: translateX(0);
+	  opacity: 1;
+	}
+  }
+  
+/*
+ * Settings
+*/
+
 /*
  * Media queries
 */
-@media (max-width: 419px) {
-	.Note em {
-		clear: both;
-		text-align: center;
-	}
-
-	.Note h4 {
-		font-size: 2rem;
-	}
-
-	.Note h6 {
-		font-size: 1.8rem;
-	}
-
-	.Note pre {
-		font-size: 1.4rem;
-		max-width: 250px;
-		min-width: 250px;
-	}
-}

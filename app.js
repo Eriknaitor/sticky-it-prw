@@ -11,8 +11,20 @@ const port = process.env.PORT || 8000;
 
 // Logger
 app.use(morgan('short'));
+
 // Cross-Origin Resource Sharing
+/*const corsWhitelist = ['http://localhost:3000', '127.0.0.1']
+const corsOptions = {
+    origin: function (origin, callback) {
+        if (corsWhitelist.indexOf(origin) !== -1) {
+            callback(null, true);
+        } else {
+            callback(new Error('Not allowed: CORS'));
+        }
+    }
+}corsOptions*/
 app.use(cors());
+
 // Conexión con la base de datos
 mongoose.connect(process.env.MONGO_URI, { useNewUrlParser: true, useCreateIndex: true })
     .then(() => console.log(`Conectado a la base de datos`))
@@ -20,6 +32,7 @@ mongoose.connect(process.env.MONGO_URI, { useNewUrlParser: true, useCreateIndex:
 
 mongoose.Promise = global.Promise;
 
+// BodyParser para las requests
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 

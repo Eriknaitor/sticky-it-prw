@@ -12,6 +12,7 @@ import LogOut from './views/LogOut';
 import SignUp from './views/SignUp';
 import Notes from './views/MyNotes';
 import Home from './views/Home';
+import Settings from './views/Settings';
 
 class App extends React.Component {
     state = { currentUser: httpClient.getCurrentUser() }
@@ -50,7 +51,15 @@ class App extends React.Component {
                                 : <Redirect to="/login" />
                         }} />
 
-                        <Route path="/" exact component={Home} />
+                        <Route path="/settings" render={() => {
+                            return currentUser
+                                ? <Settings />
+                                : <Redirect to="/login" />
+                        }} />
+
+                        <Route exact path="/" render={() => {
+                            return <Home currentUser={currentUser} />
+                        }} />
 
                         <Route component={NotFound} />
                     </Switch>

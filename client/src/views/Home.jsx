@@ -1,11 +1,19 @@
 import React from 'react'
+import CreateNote from '../components/NewNote';
 
 const Home = (props) => {
 	return (
 		<div className='Home'>
-			<h1>React Client App w/ JWT Auth</h1>
+			{props.currentUser
+				? (
+					<CreateNote />
+				)
+				: (
+					<h1>Not Logged</h1>
+				)
+			}
 		</div>
 	)
 }
 
-export default Home
+export default Home;

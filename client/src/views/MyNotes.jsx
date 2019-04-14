@@ -3,9 +3,7 @@ import Feed from '../components/Feed';
 
 const MyNotes = (props) => {
 	return (
-		<div>
-			<Feed />
-		</div>
+		<Feed />
 	)
 }
 

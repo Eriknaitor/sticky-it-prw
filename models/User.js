@@ -40,7 +40,6 @@ const UserSchema = new Schema({
     secret2FA: {
         type: String
     }
-    // Algún día meteré los putos avatares como binarios Soon TM
 });
 
 UserSchema.methods.toJSON = function () {
