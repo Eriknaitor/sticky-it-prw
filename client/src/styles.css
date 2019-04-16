@@ -181,8 +181,19 @@ textarea:focus, select:focus {
 			  transform: translateX(0);
 	  opacity: 1;
 	}
-  }
-  
+}
+	
+/*
+ *	Editor
+*/
+div.DraftEditor-root {
+	border: 1px solid black;
+	border: 0.1rem solid #d1d1d1;
+	border-radius: .4rem;
+	padding: 8px;
+}	
+
+
 /*
  * Settings
 */
@@ -190,3 +201,9 @@ textarea:focus, select:focus {
 /*
  * Media queries
 */
+
+circle {
+  transition: stroke-dashoffset 0.35s;
+  transform: rotate(-90deg);
+	transform-origin: 50% 50%;
+}

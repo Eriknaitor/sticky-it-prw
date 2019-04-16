@@ -13,16 +13,6 @@ const port = process.env.PORT || 8000;
 app.use(morgan('short'));
 
 // Cross-Origin Resource Sharing
-/*const corsWhitelist = ['http://localhost:3000', '127.0.0.1']
-const corsOptions = {
-    origin: function (origin, callback) {
-        if (corsWhitelist.indexOf(origin) !== -1) {
-            callback(null, true);
-        } else {
-            callback(new Error('Not allowed: CORS'));
-        }
-    }
-}corsOptions*/
 app.use(cors());
 
 // Conexión con la base de datos
