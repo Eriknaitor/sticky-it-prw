@@ -193,6 +193,16 @@ div.DraftEditor-root {
 	padding: 8px;
 }	
 
+.progress-container {
+	float: right;
+}
+
+.progress-container  circle {
+  transition: stroke-dashoffset 0.35s;
+  transform: rotate(-90deg);
+	transform-origin: 50% 50%;
+	display: block;
+}
 
 /*
  * Settings
@@ -202,8 +212,3 @@ div.DraftEditor-root {
  * Media queries
 */
 
-circle {
-  transition: stroke-dashoffset 0.35s;
-  transform: rotate(-90deg);
-	transform-origin: 50% 50%;
-}

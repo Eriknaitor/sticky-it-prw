@@ -87,7 +87,7 @@ class CreateNote extends React.Component {
         });
 
         return (
-            <div className="container-root">
+            <div className="editor-container">
                 <input type="text" name="title" />
                 <div>{buttons}</div>
                 <Editor
@@ -97,7 +97,11 @@ class CreateNote extends React.Component {
                     handlePastedText={this._handlePastedText}
                     handleKeyCommand={this.handleKeyCommand}
                     onChange={this.onChange} />
-                <ProgressRing radius={10} stroke={2} progress={this.state.progress} strokeColor={'red'} />
+                
+                <div className='progress-container'>
+                    <ProgressRing radius={10} stroke={2} progress={this.state.progress} strokeColor={'red'} />
+                    <span>{this.state.editorState.getCurrentContent().getPlainText().length } / 500</span>
+                </div>
             </div>
         )
     }
