@@ -1,110 +1,107 @@
 import React from 'react';
-import { Editor, EditorState, RichUtils } from 'draft-js';
 import ProgressRing from './Progress-ring';
+import CustomDatePicker from './DatePicker';
+import Axios from 'axios';
+import toast from 'toasted-notes';
+import 'toasted-notes/src/styles.css';
 
-const MAX_LENGTH = 500;
+//#region Constantes
+const MAX_LENGTH_CONTENT = 500;
+const MAX_LENGTH_TITLE = 35;
+//#endregion
 
-
-class CreateNote extends React.Component {
+export default class CreateNote extends React.Component {
     constructor(props) {
         super(props);
-        this.state = { editorState: EditorState.createEmpty(), progress: 0 };
-        this.onChange = (editorState) => this.setState({ editorState, progress: (this.state.editorState.getCurrentContent().getPlainText().length * 100) / 500 });
+        this.state = {
+            contentValue: '',
+            titleValue: '',
+            progress: 0,
+            rememberDate: false,
+            private: false,
+            setDate: null
+        };
     }
 
-    _onClick = (e) => {
-        this.onChange(RichUtils.toggleInlineStyle(this.state.editorState, e.target.name));
-    }
-
-    _getLengthOfSelectedText = () => {
-        const currentSelection = this.state.editorState.getSelection();
-        const isCollapsed = currentSelection.isCollapsed();
-
-        let length = 0;
-
-        if (!isCollapsed) {
-            const currentContent = this.state.editorState.getCurrentContent();
-            const startKey = currentSelection.getStartKey();
-            const endKey = currentSelection.getEndKey();
-            const startBlock = currentContent.getBlockForKey(startKey);
-            const isStartAndEndBlockAreTheSame = startKey === endKey;
-            const startBlockTextLength = startBlock.getLength();
-            const startSelectedTextLength = startBlockTextLength - currentSelection.getStartOffset();
-            const endSelectedTextLength = currentSelection.getEndOffset();
-            const keyAfterEnd = currentContent.getKeyAfter(endKey);
-
-            if (isStartAndEndBlockAreTheSame) {
-                length += currentSelection.getEndOffset() - currentSelection.getStartOffset();
-            } else {
-                let currentKey = startKey;
-
-                while (currentKey && currentKey !== keyAfterEnd) {
-                    if (currentKey === startKey) {
-                        length += startSelectedTextLength + 1;
-                    } else if (currentKey === endKey) {
-                        length += endSelectedTextLength;
-                    } else {
-                        length += currentContent.getBlockForKey(currentKey).getLength() + 1;
-                    }
-
-                    currentKey = currentContent.getKeyAfter(currentKey);
-                };
-            }
-        }
-
-        return length;
-    }
-
-    _handleBeforeInput = () => {
-        const currentContent = this.state.editorState.getCurrentContent();
-        const currentContentLength = currentContent.getPlainText('').length;
-        const selectedTextLength = this._getLengthOfSelectedText();
-
-        if (currentContentLength - selectedTextLength > MAX_LENGTH - 1) {
-            console.log('Límite de caracteres alcanzados: 500');
-
-            return 'handled';
+    //#region Métodos "privados"
+    _updateTextArea = (e) => {
+        if (e.target.value.length <= MAX_LENGTH_CONTENT) {
+            this.setState({ contentValue: e.target.value, progress: (e.target.value.length * 100 / MAX_LENGTH_CONTENT) })
         }
     }
 
-    _handlePastedText = (pastedText) => {
-        const currentContent = this.state.editorState.getCurrentContent();
-        const currentContentLength = currentContent.getPlainText('').length;
-        const selectedTextLength = this._getLengthOfSelectedText();
-
-        if (currentContentLength + pastedText.length - selectedTextLength > MAX_LENGTH) {
-            console.log('Límite de caracteres alcanzados: 500');
-
-            return 'handled';
+    _updateTitle = (e) => {
+        if (e.target.value.length <= MAX_LENGTH_TITLE) {
+            this.setState({ titleValue: e.target.value })
+        } else {
+            toast.notify('Has llegado al tamaño máximo del título')
         }
     }
 
+    _handleCheck = (e) => {
+        this.setState({ rememberDate: e.target.checked })
+    }
+
+    _handleChangeDate = (date) => {
+        this.setState({ setDate: date });
+    }
+
+    _handlePrivate = (e) => {
+        this.setState({ private: e.target.checked })
+    }
+
+    _createNewNote = () => {
+        if (this.state.titleValue.length < 12) {
+            toast.notify('El título como mínimo tiene que tener 12 caracteres');
+        } else {
+            Axios.post('http://localhost:8000/api/note/create', {
+                title: document.getElementsByName('title')[0].value,
+                content: this.state.contentValue,
+                remember: this.state.rememberDate,
+                rememberDate: this.state.setDate,
+                hidden: this.state.private
+            }).then((res) => {
+                if (res.data.ok) {
+                    toast.notify('Se ha creado la nota correctamente :)');
+                    this.setState({ contentValue: '', titleValue: '', progress: 0 });
+                }
+            }).catch((err) => {
+                toast.notify('Ha habido un erorr al crear la nota');
+            });
+        }
+
+    }
+    //#endregion
 
     render() {
-        const styles = ['BOLD', 'ITALIC', 'UNDERLINE', 'CODE', 'STRIKETHROUGH'];
-        const buttons = styles.map(style => {
-            return <button key={style} onClick={this._onClick} name={style}>{style}</button>
-        });
-
         return (
-            <div className="editor-container">
-                <input type="text" name="title" />
-                <div>{buttons}</div>
-                <Editor
-                    placeholder="Contenido de la nota..."
-                    editorState={this.state.editorState}
-                    handleBeforeInput={this._handleBeforeInput}
-                    handlePastedText={this._handlePastedText}
-                    handleKeyCommand={this.handleKeyCommand}
-                    onChange={this.onChange} />
-                
-                <div className='progress-container'>
-                    <ProgressRing radius={10} stroke={2} progress={this.state.progress} strokeColor={'red'} />
-                    <span>{this.state.editorState.getCurrentContent().getPlainText().length } / 500</span>
+            <div className="editor-container row">
+                <div className="column column-10"></div>
+
+                <div className="column column-80">
+                    <input placeholder="Título de la nota" value={this.state.titleValue} onChange={this._updateTitle.bind(this)} type="text" name="title" />
+                    <textarea placeholder="Contenido de la nota..." name="contentNote" value={this.state.contentValue} onChange={this._updateTextArea.bind(this)}></textarea>
+                    <div className='progress-container'>
+                        <ProgressRing radius={8} stroke={2} progress={this.state.progress} strokeColor={'red'} />
+                        <span>{this.state.contentValue.length} / {MAX_LENGTH_CONTENT}</span>
+                    </div>
+
+                    <label className="label-inline" htmlFor="private">¿Nota privada?No se podrá compartir a no ser que la hagas pública</label>
+                    <input type="checkbox" name="private" onChange={this._handlePrivate.bind(this)} checked={this.state.private} />
+
+                    <div className="clear-fix"></div>
+
+                    <label className="label-inline" htmlFor="remember">¿Recordar fecha?</label>
+                    <input type="checkbox" name="remember" onChange={this._handleCheck.bind(this)} checked={this.state.rememberDate} />
+                    {this.state.rememberDate ? (<CustomDatePicker onChange={this._handleChangeDate.bind(this)} />) : null}
+
+                    <div className="clear-fix"></div>
+
+                    <button className="submitNote" onClick={this._createNewNote}>Crear nota</button>
                 </div>
+                <div className="column column-10"></div>
+
             </div>
         )
     }
 }
-
-export default CreateNote;

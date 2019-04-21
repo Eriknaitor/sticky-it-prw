@@ -1,10 +1,13 @@
-import React from 'react'
+import React, { Component } from 'react'
 import Feed from '../components/Feed';
 
-const MyNotes = (props) => {
-	return (
-		<Feed />
-	)
-}
+export default class MyNotes extends Component {
 
-export default MyNotes
+
+	render() {
+		return (
+			<Feed currentUser={this.props.currentUser} />
+		)
+	}
+
+}

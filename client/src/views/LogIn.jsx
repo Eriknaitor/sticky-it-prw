@@ -9,7 +9,6 @@ class LogIn extends React.Component {
 			password: '',
 			otp: ''
 		},
-		otp: '',
 		stage: 1
 	}
 
@@ -51,7 +50,6 @@ class LogIn extends React.Component {
 						this.props.history.push('/');
 					}
 				}
-				console.log(res);
 			}).catch((err) => {
 				console.log(err);
 			})

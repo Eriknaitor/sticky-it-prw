@@ -12,28 +12,33 @@ class Note extends Component {
         super(props);
 
         this.state = {
-            id: props.id,
-            likes: props.likes,
-            savedBy: props.savedBy,
-            title: props.title,
-            content: props.content,
-            createdAt: props.createdAt,
-            createdBy: props.createdBy,
+            note: this.props.note,
             userId: 0,
             userName: '',
-            avatar: ''
+        }
+    }
+
+    _likeNote = (id) => {
+        if (document.querySelector(`#liked-${id}`).classList.contains('liked')) {
+            Axios.put(`http://localhost:8000/api/note/dislike/${id}`);
+            document.querySelector(`#liked-${id}`).classList.remove('liked');
+            document.querySelector(`#liked-${id}`).classList.remove('fas');
+            document.querySelector(`#liked-${id}`).classList.add('far')
+        } else {
+            Axios.put(`http://localhost:8000/api/note/like/${id}`)
+            document.querySelector(`#liked-${id}`).classList.remove('far')
+            document.querySelector(`#liked-${id}`).classList.add('liked');
+            document.querySelector(`#liked-${id}`).classList.add('fas');
         }
     }
 
 
-
-    getUser = (userId) => {
+    _getUser = (userId) => {
         Axios.get(`http://localhost:8000/api/user/${userId}`)
             .then((res) => {
                 this.setState({
                     userId: res.data.user._id,
                     userName: res.data.user.username,
-                    avatar: res.data.user.avatar
                 });
             })
             .catch((err) => {
@@ -42,7 +47,8 @@ class Note extends Component {
     }
 
     componentWillMount() {
-        this.getUser(this.state.createdBy);
+        if (this.props.currentUser._id !== this.props.note.createdBy)
+            this._getUser(this.state.note.createdBy);
     }
 
     render() {
@@ -50,43 +56,58 @@ class Note extends Component {
             background: `hsl(${Math.floor(Math.random() * 360)}, 100%, 80%)`
         };
 
-        const likes = document.querySelectorAll('.like');
+        const { _id, hidden, savedBy, title, content, createdAt, createdBy, } = this.state.note;
 
-        likes.forEach(like => {
-            like.addEventListener('mouseover', () => {
-                like.classList.remove('far');
-                like.classList.add('fas');
-            });
+        /**
+         *  Hacer que los reports tiren y ocultarlos si es el propio user
+         *  Meter el toggle del hidden
+         *  Meter para borrar la nota
+         */
+        if (hidden && this.props.currentUser._id !== createdBy) {
+            return (<div>Esta nota es privada :(</div>);
+        } else {
+            return (
+                <div className="Note row">
+                    <div className="decorator" style={randomColor}></div>
+                    <div className="right-panel column column-20">
+                        <div className="controllers">
+                            {this.props.currentUser._id === createdBy ?
+                                (<Link to={`/note/${_id}`}><i className="fas fa-edit"></i></Link>) :
+                                null
+                            }
+                            <Tippy content={`${savedBy.length} veces guardada`}>
+                                <i className="fas fa-user"></i>
+                            </Tippy><br />
 
-            like.addEventListener('mouseout', () => {
-                like.classList.remove('fas');
-                like.classList.add('far');
-            });
-        });
-
-        return (
-            <div className="Note row slide-in-right">
-                <div className="decorator" style={randomColor}></div>
-                <div className="right-panel column column-20">
-                    <div className="controllers">
-                        <i className="fas fa-edit"></i>
-                        <Tippy content={`${this.state.savedBy} veces guardada`}>
-                            <i className="fas fa-user"></i>
-                        </Tippy><br />
-                        <i className="like far fa-heart"></i>
-                        <i className="fas fa-flag"></i>
+                            <i id={`liked-${_id}`} onClick={() => this._likeNote(_id)}
+                                className={savedBy.includes(this.props.currentUser._id) ?
+                                    ("liked fas fa-heart") :
+                                    ("far fa-heart")
+                                }> </i>
+                            <i className="fas fa-flag"></i>
+                        </div>
                     </div>
-                </div>
-                <div className="body-panel column column-70">
-                    <div className="body-info">
-                        <Link to={`/profile/${this.state.createdBy}`}><strong>{this.state.userName}</strong></Link>
-                        <small><TimeAgo date={this.state.createdAt} formatter={formatter} /></small>
+                    <div className="body-panel column column-70">
+                        <div className="body-info">
+                            <strong>{this.state.userName}</strong>
+                            <small><TimeAgo date={createdAt} formatter={formatter} /></small>
+                        </div>
+                        {this.props.currentUser._id === createdBy ?
+                            (<div>
+                                <input type='text' value={title} />
+                                <textarea value={content}></textarea>
+                                <button>Guardar edición</button>
+                            </div>) :
+                            (<div>
+                                <h5>{title}</h5>
+                                <p>{content}</p>
+                            </div>)
+                        }
                     </div>
-                    <h5>{this.state.title}</h5>
-                    <p>{this.state.content}</p>
-                </div>
-            </div >
-        )
+                </div >
+            );
+        }
+
     }
 }
 

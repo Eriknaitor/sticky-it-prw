@@ -6,13 +6,12 @@ const NoteSchema = new Schema({
         type: String,
         required: [true, 'El título de la nota es obligatorio'],
         trim: true,
-        minlength: [10, 'El título es muy corto, mínimo necesitas 12'],
+        minlength: [12, 'El título es muy corto, mínimo necesitas 12 caracteres'],
         maxlength: [35, 'El título es demasiado largo, máximo son 35 caracteres']
     },
     content: {
-        type: String,
+        type: Object,
         trim: true,
-        minlength: 1,
         maxlength: [500, 'El contenido es demasiado grande, máximo 500 caracteres']
     },
     hidden: {

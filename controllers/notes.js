@@ -62,13 +62,26 @@ module.exports = {
     // Crea una nota
     create: (req, res) => {
         let body = req.body;
+        let note = {}
 
-        let note = new Note({
-            title: body.title,
-            content: body.content,
-            createdAt: Date.now(),
-            createdBy: req.userInfo._id
-        });
+        if (body.remember) {
+            note = new Note({
+                title: body.title,
+                content: body.content,
+                createdAt: Date.now(),
+                hidden: body.hidden,
+                rememberDate: body.rememberDate,
+                createdBy: req.userInfo._id
+            });
+        } else {
+            note = new Note({
+                title: body.title,
+                content: body.content,
+                hidden: body.hidden,
+                createdAt: Date.now(),
+                createdBy: req.userInfo._id
+            });
+        }
 
         note.save((err, note) => {
             if (err) {

@@ -11,6 +11,7 @@ import LogIn from './views/LogIn';
 import LogOut from './views/LogOut';
 import SignUp from './views/SignUp';
 import Notes from './views/MyNotes';
+import SingleNote from './views/Note';
 import Home from './views/Home';
 import Settings from './views/Settings';
 
@@ -47,7 +48,7 @@ class App extends React.Component {
 
                         <Route path="/notes" render={() => {
                             return currentUser
-                                ? <Notes />
+                                ? <Notes currentUser={currentUser} />
                                 : <Redirect to="/login" />
                         }} />
 
@@ -55,6 +56,10 @@ class App extends React.Component {
                             return currentUser
                                 ? <Settings />
                                 : <Redirect to="/login" />
+                        }} />
+
+                        <Route path="/note/:noteId" render={(props) => {
+                            return <SingleNote {...props} currentUser={currentUser} />
                         }} />
 
                         <Route exact path="/" render={() => {

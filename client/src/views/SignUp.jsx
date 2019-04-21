@@ -1,7 +1,5 @@
 import React from 'react'
 import httpClient from '../httpClient';
-import { SliderPicker } from 'react-color';
-const colors = [];
 
 // sign up form behaves almost identically to log in form. We could create a flexible Form component to use for both actions, but for now we'll separate the two:
 class SignUp extends React.Component {
@@ -18,11 +16,7 @@ class SignUp extends React.Component {
 		})
 	}
 
-
 	componentDidMount() {
-		for (let i = 0; i <= 7; i++) {
-			colors.push('#'+(0x1000000+(Math.random())*0xffffff).toString(16).substr(1,6));			
-		}
 		console.log('yoquese')
 	}
 
@@ -48,7 +42,6 @@ class SignUp extends React.Component {
 							<input type="text" placeholder="Nombre de usuario" name="username" defaultValue={username} />
 							<input type="text" placeholder="Correo electrónico" name="email" defaultValue={email} />
 							<input type="password" placeholder="Contraseña" name="password" defaultValue={password} />
-							<SliderPicker />
 							<button>Registrar cuenta</button>
 						</form>
 					</div>

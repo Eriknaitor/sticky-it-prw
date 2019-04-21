@@ -66,9 +66,9 @@ class Feed extends Component {
                      * y compruebo si hay mas
                      */
                     const nextNotes = res.data.notes.map(note => ({
-                        id: note._id,
+                        _id: note._id,
                         likes: note.likes,
-                        savedBy: note.savedBy.length,
+                        savedBy: note.savedBy,
                         title: note.title,
                         content: note.content,
                         createdAt: note.createdAt,
@@ -90,26 +90,13 @@ class Feed extends Component {
     }
 
     render() {
-        const {
-            error,
-            hasMore,
-            isLoading,
-            Notes
-        } = this.state;
+        const { error, hasMore, isLoading, Notes } = this.state;
 
         return (
             <div>
-                {Notes.map(note => (
-                    <Fragment key={note.id}>
-                        <Note
-                            id={note.id}
-                            likes={note.likes}
-                            savedBy={note.savedBy}
-                            title={note.title}
-                            content={note.content}
-                            createdAt={note.createdAt}
-                            createdBy={note.createdBy}
-                        />
+                {Notes.map(noteMap => (
+                    <Fragment key={noteMap._id}>
+                        <Note currentUser={this.props.currentUser} note={noteMap} />
                     </Fragment>
                 ))}
                 {error &&

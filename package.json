@@ -11,7 +11,8 @@
     "url": "https://github.com/Eriknaitor/sticky-it-prw.git"
   },
   "scripts": {
-    "test": "nodemon app.js"
+    "test": "nodemon app.js",
+    "lines": "sloc -d -f cli-table -e node_modules -k source ./"
   },
   "author": "",
   "license": "ISC",

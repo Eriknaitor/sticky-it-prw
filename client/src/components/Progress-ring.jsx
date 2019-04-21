@@ -15,10 +15,7 @@ class ProgressRing extends React.Component {
         const strokeDashoffset = this.circumference - progress / 100 * this.circumference;
 
         return (
-            <svg
-                height={radius * 2}
-                width={radius * 2}
-            >
+            <svg height={radius * 2} width={radius * 2}>
                 <circle
                     stroke={strokeColor}
                     fill="transparent"
