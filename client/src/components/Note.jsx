@@ -15,7 +15,10 @@ class Note extends Component {
             note: this.props.note,
             userId: 0,
             userName: '',
+            isEditing: false,
         }
+
+        console.log(this.state.note);
     }
 
     _likeNote = (id) => {
@@ -63,6 +66,7 @@ class Note extends Component {
          *  Meter el toggle del hidden
          *  Meter para borrar la nota
          */
+
         if (hidden && this.props.currentUser._id !== createdBy) {
             return (<div>Esta nota es privada :(</div>);
         } else {
@@ -72,19 +76,18 @@ class Note extends Component {
                     <div className="right-panel column column-20">
                         <div className="controllers">
                             {this.props.currentUser._id === createdBy ?
-                                (<Link to={`/note/${_id}`}><i className="fas fa-edit"></i></Link>) :
-                                null
+                                (<div><i className="fas fa-edit"></i><i className={hidden ? ("far fa-eye") : ("far fa-eye-slash")}></i></div>)
+                                : (<i className="fas fa-flag"></i>)
                             }
                             <Tippy content={`${savedBy.length} veces guardada`}>
                                 <i className="fas fa-user"></i>
-                            </Tippy><br />
+                            </Tippy>
 
                             <i id={`liked-${_id}`} onClick={() => this._likeNote(_id)}
                                 className={savedBy.includes(this.props.currentUser._id) ?
                                     ("liked fas fa-heart") :
                                     ("far fa-heart")
                                 }> </i>
-                            <i className="fas fa-flag"></i>
                         </div>
                     </div>
                     <div className="body-panel column column-70">
@@ -92,7 +95,7 @@ class Note extends Component {
                             <strong>{this.state.userName}</strong>
                             <small><TimeAgo date={createdAt} formatter={formatter} /></small>
                         </div>
-                        {this.props.currentUser._id === createdBy ?
+                        {this.state.isEditing ?
                             (<div>
                                 <input type='text' value={title} />
                                 <textarea value={content}></textarea>

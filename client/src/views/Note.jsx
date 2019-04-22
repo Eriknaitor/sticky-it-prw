@@ -13,19 +13,18 @@ export default class SingleNote extends React.Component {
             note: {}
         }
     }
-
+    
+    // Para sacar los parámetros de la URL this.props.match.params.noteId
     componentDidMount() {
         Axios.get(`http://localhost:8000/api/note/${this.state.noteId}`)
             .then((res) => {
                 this.setState({ isLoaded: true, note: res.data });
             }).catch((err) => {
+                console.log(err);
                 toaster.notify('Ha habido un error al mostrar la nota');
             })
     }
-    // Pa sacar los parámetros de la URL this.props.match.params.noteId
 
-
-    // Si es el owner editar, si no se come una polla, tan simple como eso
     render() {
         const { error, isLoaded, note } = this.state;
 

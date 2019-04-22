@@ -59,7 +59,9 @@ class App extends React.Component {
                         }} />
 
                         <Route path="/note/:noteId" render={(props) => {
-                            return <SingleNote {...props} currentUser={currentUser} />
+                            return currentUser
+                                ? <SingleNote {...props} currentUser={currentUser} />
+                                : <Redirect to="/login" />
                         }} />
 
                         <Route exact path="/" render={() => {
