@@ -9,13 +9,13 @@
 - [X] Notificaciones por correo (nodemailer)
 - [X] 2FA
 - [-] Front-end
-    - [ ] Note viewer
+    - [X] Note viewer
     - [ ] Sustituir todos los catchs por errores mas decentes con alerts
     - [X] Navbar
     - [-] Notas y feed
         - [X] Feed
         - [ ] Notas (los popups)
-    - [ ] Saved
+    - [X] Saved
     - [ ] Admin panel
         - [ ] User manager
         - [ ] Report system

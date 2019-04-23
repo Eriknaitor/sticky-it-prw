@@ -11,9 +11,11 @@ import LogIn from './views/LogIn';
 import LogOut from './views/LogOut';
 import SignUp from './views/SignUp';
 import Notes from './views/MyNotes';
+import Saved from './views/SavedNotes';
 import SingleNote from './views/Note';
 import Home from './views/Home';
 import Settings from './views/Settings';
+
 
 class App extends React.Component {
     state = { currentUser: httpClient.getCurrentUser() }
@@ -49,6 +51,12 @@ class App extends React.Component {
                         <Route path="/notes" render={() => {
                             return currentUser
                                 ? <Notes currentUser={currentUser} />
+                                : <Redirect to="/login" />
+                        }} />
+
+                        <Route path="/saved" render={() => {
+                            return currentUser
+                                ? <Saved currentUser={currentUser} />
                                 : <Redirect to="/login" />
                         }} />
 

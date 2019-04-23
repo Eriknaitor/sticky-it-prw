@@ -37,13 +37,13 @@ class Note extends Component {
 
     _hideNote = (id) => {
         if (document.querySelector(`#hidden-${id}`).classList.contains('hidden')) {
-            Axios.put(`http://localhost:8000/api/note/update/${id}`, {hidden: false})
-            .then(res => console.log(res))
-            .catch(err => console.log(err));
+            Axios.put(`http://localhost:8000/api/note/update/${id}`, { hidden: false })
+                .then(res => console.log(res))
+                .catch(err => console.log(err));
         } else {
-            Axios.put(`http://localhost:8000/api/note/update/${id}`, {hidden: true})
-            .then(res => console.log(res))
-            .catch(err => console.log(err));
+            Axios.put(`http://localhost:8000/api/note/update/${id}`, { hidden: true })
+                .then(res => console.log(res))
+                .catch(err => console.log(err));
         }
     }
 
@@ -102,15 +102,15 @@ class Note extends Component {
                         }
                     </div>
                     <div className="left-panel column column-30">
-                    <small><TimeAgo date={createdAt} formatter={formatter} /></small>
+                        <small><TimeAgo date={createdAt} formatter={formatter} /></small>
 
                         <div className="controllers">
-                            {this.props.currentUser._id === createdBy ? (<i className="fas fa-edit"></i>) : null }
-                            {this.props.currentUser._id === createdBy ? 
-                                (<i id={`hidden-${_id}`} onClick={() => this._hideNote(_id)} 
-                                    className={hidden ? 
-                                        ("far fa-eye") : 
-                                        ("far fa-eye-slash")}></i>) : 
+                            {this.props.currentUser._id === createdBy ? (<i className="fas fa-edit"></i>) : null}
+                            {this.props.currentUser._id === createdBy ?
+                                (<i id={`hidden-${_id}`} onClick={() => this._hideNote(_id)}
+                                    className={hidden ?
+                                        ("far fa-eye") :
+                                        ("far fa-eye-slash")}></i>) :
                                 (<i className="fas fa-flag"></i>)
                             }
                             <Tippy content={`${savedBy.length} veces guardada`}>
@@ -121,9 +121,11 @@ class Note extends Component {
                                 className={savedBy.includes(this.props.currentUser._id) ?
                                     ("liked fas fa-heart") :
                                     ("far fa-heart")
-                                }> </i></div>
+                                }>
+                            </i>
                         </div>
                     </div>
+                </div>
             );
         }
 

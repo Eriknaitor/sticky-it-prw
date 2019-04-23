@@ -68,10 +68,10 @@ module.exports = {
         let limit = req.query.limit || 10;
         limit = Number(limit);
 
-        Note.find({savedBy: {$in: req.params.id}})
+        Note.find({ savedBy: { $in: req.userInfo._id } })
             .skip(index)
             .limit(limit)
-            .exec((err, notes) =>{
+            .exec((err, notes) => {
                 if (err) {
                     return res.status(400).json({
                         ok: false,
@@ -79,7 +79,7 @@ module.exports = {
                     });
                 }
 
-                Note.count({savedBy: {$in: req.params.id}}, (err, counte) => {
+                Note.count({ savedBy: { $in: req.params.id } }, (err, count) => {
                     if (err) {
                         return res.status(400).json({
                             ok: false,

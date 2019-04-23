@@ -59,7 +59,7 @@ class Feed extends Component {
 
     loadNotes = () => {
         this.setState({ isLoading: true }, () => {
-            axios.get(`http://localhost:8000/api/notes?index=${this.state.counter}`)
+            axios.get(`${this.props.url}${this.state.counter}`)
                 .then((res) => {
                     /**
                      * Mapeo los objetos obtenidos por la API a un array 

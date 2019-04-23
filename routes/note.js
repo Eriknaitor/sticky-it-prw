@@ -7,7 +7,7 @@ const { verifyToken, isOwnerOrAdmin, notOwner } = require('../middlewares/authen
  */
 router.get('/notes', verifyToken, note.index);
 router.get('/note/:id', verifyToken, note.show);
-router.get('/notes/saved/:id', verifyToken, note.saved);
+router.get('/notes/saved/', verifyToken, note.saved);
 router.post('/note/create', verifyToken, note.create);
 router.put('/note/update/:id', [verifyToken, isOwnerOrAdmin], note.update);
 router.delete('/note/delete/:id', [verifyToken, isOwnerOrAdmin], note.delete);
