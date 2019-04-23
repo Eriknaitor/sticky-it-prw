@@ -11,7 +11,7 @@
 - [-] Front-end
     - [ ] Note viewer
     - [ ] Sustituir todos los catchs por errores mas decentes con alerts
-    - [ ] Navbar
+    - [X] Navbar
     - [-] Notas y feed
         - [X] Feed
         - [ ] Notas (los popups)

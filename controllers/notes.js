@@ -45,7 +45,7 @@ module.exports = {
             });
     },
 
-    // Muestra una ruta específica
+    // Muestra una nota específica
     show: (req, res) => {
         Note.findById(req.params.id, (err, note) => {
             if (err) {
@@ -57,6 +57,43 @@ module.exports = {
 
             res.json(note);
         });
+    },
+
+    // Muestra las notas guardadas por un usuario
+    saved: (req, res) => {
+
+        let index = req.query.index || 0;
+        index = Number(index);
+
+        let limit = req.query.limit || 10;
+        limit = Number(limit);
+
+        Note.find({savedBy: {$in: req.params.id}})
+            .skip(index)
+            .limit(limit)
+            .exec((err, notes) =>{
+                if (err) {
+                    return res.status(400).json({
+                        ok: false,
+                        err
+                    });
+                }
+
+                Note.count({savedBy: {$in: req.params.id}}, (err, counte) => {
+                    if (err) {
+                        return res.status(400).json({
+                            ok: false,
+                            err
+                        });
+                    }
+
+                    res.json({
+                        ok: true,
+                        notes,
+                        count
+                    })
+                })
+            })
     },
 
     // Crea una nota

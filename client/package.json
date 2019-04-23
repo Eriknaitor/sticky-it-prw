@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@fortawesome/fontawesome-free": "^5.8.1",
     "@tippy.js/react": "^2.1.2",
     "axios": "^0.18.0",
     "date-fns": "^1.30.1",

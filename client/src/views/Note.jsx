@@ -29,7 +29,7 @@ export default class SingleNote extends React.Component {
         const { error, isLoaded, note } = this.state;
 
         if (error) {
-            return <div>Ha habido un error> {error.message}</div>
+            return <div>Ha habido un error {error.message}</div>
         } else if (!isLoaded) {
             return <div className='lds-dual-ring'></div>;
         } else {

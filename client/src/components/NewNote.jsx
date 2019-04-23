@@ -97,7 +97,7 @@ export default class CreateNote extends React.Component {
 
                     <div className="clear-fix"></div>
 
-                    <button className="submitNote" onClick={this._createNewNote}>Crear nota</button>
+                    <button className="submitNote button-blue-dark" onClick={this._createNewNote}>Crear nota</button>
                 </div>
                 <div className="column column-10"></div>
 

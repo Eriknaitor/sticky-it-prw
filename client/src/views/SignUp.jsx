@@ -41,7 +41,7 @@ class SignUp extends React.Component {
 							<input type="text" placeholder="Nombre de usuario" name="username" defaultValue={username} />
 							<input type="text" placeholder="Correo electrónico" name="email" defaultValue={email} />
 							<input type="password" placeholder="Contraseña" name="password" defaultValue={password} />
-							<button>Registrar cuenta</button>
+							<button className="button-blue-dark">Registrar cuenta</button>
 						</form>
 					</div>
 				</div>

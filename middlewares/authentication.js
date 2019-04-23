@@ -77,7 +77,7 @@ module.exports.isOwnerOrAdmin = (req, res, next) => {
             });
         }
 
-        if (note.createdBy == tokenInfo._id) {
+        if (note.createdBy === tokenInfo._id) {
             next();
         } else if (tokenInfo.role === 'admin') {
             next();

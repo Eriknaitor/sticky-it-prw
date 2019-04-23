@@ -69,6 +69,7 @@ class Feed extends Component {
                         _id: note._id,
                         likes: note.likes,
                         savedBy: note.savedBy,
+                        hidden: note.hidden,
                         title: note.title,
                         content: note.content,
                         createdAt: note.createdAt,
@@ -79,6 +80,7 @@ class Feed extends Component {
                         isLoading: false,
                         Notes: [...this.state.Notes, ...nextNotes]
                     });
+                    console.log(this.state.Notes);
                 })
                 .catch((err) => {
                     this.setState({

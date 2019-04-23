@@ -35,6 +35,18 @@ class Note extends Component {
         }
     }
 
+    _hideNote = (id) => {
+        if (document.querySelector(`#hidden-${id}`).classList.contains('hidden')) {
+            Axios.put(`http://localhost:8000/api/note/update/${id}`, {hidden: false})
+            .then(res => console.log(res))
+            .catch(err => console.log(err));
+        } else {
+            Axios.put(`http://localhost:8000/api/note/update/${id}`, {hidden: true})
+            .then(res => console.log(res))
+            .catch(err => console.log(err));
+        }
+    }
+
 
     _getUser = (userId) => {
         Axios.get(`http://localhost:8000/api/user/${userId}`)
@@ -73,27 +85,9 @@ class Note extends Component {
             return (
                 <div className="Note row">
                     <div className="decorator" style={randomColor}></div>
-                    <div className="right-panel column column-20">
-                        <div className="controllers">
-                            {this.props.currentUser._id === createdBy ?
-                                (<div><i className="fas fa-edit"></i><i className={hidden ? ("far fa-eye") : ("far fa-eye-slash")}></i></div>)
-                                : (<i className="fas fa-flag"></i>)
-                            }
-                            <Tippy content={`${savedBy.length} veces guardada`}>
-                                <i className="fas fa-user"></i>
-                            </Tippy>
-
-                            <i id={`liked-${_id}`} onClick={() => this._likeNote(_id)}
-                                className={savedBy.includes(this.props.currentUser._id) ?
-                                    ("liked fas fa-heart") :
-                                    ("far fa-heart")
-                                }> </i>
-                        </div>
-                    </div>
-                    <div className="body-panel column column-70">
+                    <div className="body-panel column column-60">
                         <div className="body-info">
                             <strong>{this.state.userName}</strong>
-                            <small><TimeAgo date={createdAt} formatter={formatter} /></small>
                         </div>
                         {this.state.isEditing ?
                             (<div>
@@ -107,7 +101,29 @@ class Note extends Component {
                             </div>)
                         }
                     </div>
-                </div >
+                    <div className="left-panel column column-30">
+                    <small><TimeAgo date={createdAt} formatter={formatter} /></small>
+
+                        <div className="controllers">
+                            {this.props.currentUser._id === createdBy ? (<i className="fas fa-edit"></i>) : null }
+                            {this.props.currentUser._id === createdBy ? 
+                                (<i id={`hidden-${_id}`} onClick={() => this._hideNote(_id)} 
+                                    className={hidden ? 
+                                        ("far fa-eye") : 
+                                        ("far fa-eye-slash")}></i>) : 
+                                (<i className="fas fa-flag"></i>)
+                            }
+                            <Tippy content={`${savedBy.length} veces guardada`}>
+                                <i className="fas fa-user"></i>
+                            </Tippy>
+
+                            <i id={`liked-${_id}`} onClick={() => this._likeNote(_id)}
+                                className={savedBy.includes(this.props.currentUser._id) ?
+                                    ("liked fas fa-heart") :
+                                    ("far fa-heart")
+                                }> </i></div>
+                        </div>
+                    </div>
             );
         }
 

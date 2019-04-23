@@ -3,6 +3,7 @@
 */
 .NavBar a, .NavBar button, .NavBar a:active, .NavBar button:active, .NavBar a:link, .NavBar button:link {
 	margin: 0 5px;
+	font-weight: 500;
 	cursor: pointer;
 	color: #015367;
 }
@@ -12,8 +13,9 @@
 }
 
 .NavBar {
-	background: #000;
-	margin-bottom: 20px
+	background: #F1F1EE;
+	margin-bottom: 20px;
+	padding: 0.5em;
 }
 
 /*
@@ -34,6 +36,8 @@
     border-radius: 5px;
     margin: 5px auto;
 }
+
+
 
 .Note .decorator {
     max-width: 5px;
@@ -61,14 +65,14 @@
     color: white;
 }
 
-.Note .body-info small {
+.Note time {
 	float: right;
 	margin-right: 20px;
 }
 
 .Note .controllers {
 	text-align: center;
-	margin: 30% 2px auto 2px; 
+	margin: 30% 2px auto 2px;
 }
 
 .Note .controllers i {
@@ -198,6 +202,26 @@ div.DraftEditor-root {
 }
 
 /*
+ * 404
+*/
+._404 .fa-frown {
+	font-size: 10rem;
+}
+
+._404 {
+	text-align: center;
+}
+
+._404 a, ._404 a:active, ._404 a:link {
+	color: #015367;
+}
+
+._404 a:hover {
+	color:#04819E;
+}
+
+
+/*
  * Settings
 */
 
@@ -205,3 +229,9 @@ div.DraftEditor-root {
  * Media queries
 */
 
+@media only screen and (min-width:20rem) and (max-width:40rem) { 
+	.NavBar span {
+		text-align: center;
+		width: 100%;
+	}
+}
