@@ -15,10 +15,6 @@ class SignUp extends React.Component {
 		})
 	}
 
-	componentDidMount() {
-		console.log('yoquese')
-	}
-
 	onFormSubmit(evt) {
 		evt.preventDefault()
 		httpClient.signUp(this.state.fields).then(user => {

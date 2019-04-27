@@ -76,8 +76,9 @@ module.exports.isOwnerOrAdmin = (req, res, next) => {
                 }
             });
         }
+        console.log(tokenInfo._id.equals(note.createdBy));
 
-        if (note.createdBy === tokenInfo._id) {
+        if (note.createdBy.equals(tokenInfo._id)) {
             next();
         } else if (tokenInfo.role === 'admin') {
             next();
@@ -113,7 +114,7 @@ module.exports.notOwner = (req, res, next) => {
             });
         }
 
-        if (note.createdBy != tokenInfo._id) {
+        if (!note.createdBy.equals(tokenInfo._id)) {
             next();
         } else {
             return res.status(403).json({

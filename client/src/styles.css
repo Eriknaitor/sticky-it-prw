@@ -14,9 +14,17 @@
 
 .NavBar {
 	background: #F1F1EE;
-	margin-bottom: 20px;
+	margin-bottom: 0px;
 	padding: 0.5em;
 }
+
+.decoratorNavbar {
+	width: 100%;
+	height: 3px;
+	content: " ";
+}
+
+.Menu {margin-bottom: 30px;}
 
 /*
  * Estilos para el Feed
@@ -37,7 +45,9 @@
     margin: 5px auto;
 }
 
-
+.Note .far {
+	cursor: pointer;
+}
 
 .Note .decorator {
     max-width: 5px;

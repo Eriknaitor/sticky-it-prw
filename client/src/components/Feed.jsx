@@ -80,7 +80,6 @@ class Feed extends Component {
                         isLoading: false,
                         Notes: [...this.state.Notes, ...nextNotes]
                     });
-                    console.log(this.state.Notes);
                 })
                 .catch((err) => {
                     this.setState({

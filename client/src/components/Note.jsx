@@ -38,15 +38,22 @@ class Note extends Component {
     _hideNote = (id) => {
         if (document.querySelector(`#hidden-${id}`).classList.contains('hidden')) {
             Axios.put(`http://localhost:8000/api/note/update/${id}`, { hidden: false })
-                .then(res => console.log(res))
-                .catch(err => console.log(err));
+            document.querySelector(`#hidden-${id}`).classList.remove('hidden');
+            document.querySelector(`#hidden-${id}`).classList.add('fa-eye');
+            document.querySelector(`#hidden-${id}`).classList.remove('fa-eye-slash');
+
         } else {
             Axios.put(`http://localhost:8000/api/note/update/${id}`, { hidden: true })
-                .then(res => console.log(res))
-                .catch(err => console.log(err));
+            document.querySelector(`#hidden-${id}`).classList.add('hidden');
+            document.querySelector(`#hidden-${id}`).classList.add('fa-eye-slash');
+            document.querySelector(`#hidden-${id}`).classList.remove('fa-eye');
+
         }
     }
 
+    _handleEdit = () => {
+        this.setState({isEditing: !this.state.isEditing});
+    }
 
     _getUser = (userId) => {
         Axios.get(`http://localhost:8000/api/user/${userId}`)
@@ -75,7 +82,6 @@ class Note extends Component {
 
         /**
          *  Hacer que los reports tiren y ocultarlos si es el propio user
-         *  Meter el toggle del hidden
          *  Meter para borrar la nota
          */
 
@@ -93,7 +99,7 @@ class Note extends Component {
                             (<div>
                                 <input type='text' value={title} />
                                 <textarea value={content}></textarea>
-                                <button>Guardar edición</button>
+                                <button >Guardar edición</button>
                             </div>) :
                             (<div>
                                 <h5>{title}</h5>
@@ -105,14 +111,15 @@ class Note extends Component {
                         <small><TimeAgo date={createdAt} formatter={formatter} /></small>
 
                         <div className="controllers">
-                            {this.props.currentUser._id === createdBy ? (<i className="fas fa-edit"></i>) : null}
+                            {this.props.currentUser._id === createdBy ? (<i onClick={this._handleEdit.bind(this)} className="fas fa-edit"></i>) : null}
                             {this.props.currentUser._id === createdBy ?
                                 (<i id={`hidden-${_id}`} onClick={() => this._hideNote(_id)}
-                                    className={hidden ?
+                                    className={!hidden ?
                                         ("far fa-eye") :
                                         ("far fa-eye-slash")}></i>) :
                                 (<i className="fas fa-flag"></i>)
                             }
+                            {this.props.currentUser._id === createdBy ? (<i className="far fa-trash-alt"></i>) : null}
                             <Tippy content={`${savedBy.length} veces guardada`}>
                                 <i className="fas fa-user"></i>
                             </Tippy>

@@ -5,6 +5,9 @@ class Settings extends React.Component {
         return (
             <div className='settings'>
                 <h1>Estas en settings</h1>
+                <hr/>
+                <h1>Esto es otra prueba</h1>
+                <hr/> 
             </div>
         )
     }
