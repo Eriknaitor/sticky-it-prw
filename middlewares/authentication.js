@@ -76,7 +76,6 @@ module.exports.isOwnerOrAdmin = (req, res, next) => {
                 }
             });
         }
-        console.log(tokenInfo._id.equals(note.createdBy));
 
         if (note.createdBy.equals(tokenInfo._id)) {
             next();

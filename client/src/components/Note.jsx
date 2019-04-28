@@ -17,8 +17,6 @@ class Note extends Component {
             userName: '',
             isEditing: false,
         }
-
-        console.log(this.state.note);
     }
 
     _likeNote = (id) => {
@@ -52,7 +50,7 @@ class Note extends Component {
     }
 
     _handleEdit = () => {
-        this.setState({isEditing: !this.state.isEditing});
+        this.setState({ isEditing: !this.state.isEditing });
     }
 
     _getUser = (userId) => {
@@ -85,8 +83,8 @@ class Note extends Component {
          *  Meter para borrar la nota
          */
 
-        if (hidden && this.props.currentUser._id !== createdBy) {
-            return (<div>Esta nota es privada :(</div>);
+        if (hidden && this.props.currentUser._id !== createdBy && !savedBy.includes(this.props.currentUser._id)) {
+            return (<div><h1>Esta nota es privada <i class="far fa-frown"></i></h1></div>);
         } else {
             return (
                 <div className="Note row">

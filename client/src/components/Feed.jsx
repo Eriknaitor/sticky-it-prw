@@ -19,11 +19,7 @@ class Feed extends Component {
         window.onscroll = () => {
             const {
                 loadNotes,
-                state: {
-                    error,
-                    isLoading,
-                    hasMore,
-                },
+                state: { error, isLoading, hasMore },
             } = this;
 
             // Si hay un error, está cargando o no hay mas termina
@@ -52,7 +48,7 @@ class Feed extends Component {
             this.setState({
                 counter: this.state.counter + 10
             });
-            return true
+            return true;
         }
         return false;
     }
@@ -94,7 +90,7 @@ class Feed extends Component {
         const { error, hasMore, isLoading, Notes } = this.state;
 
         return (
-            <div>
+            <div className="Feed">
                 {Notes.map(noteMap => (
                     <Fragment key={noteMap._id}>
                         <Note currentUser={this.props.currentUser} note={noteMap} />

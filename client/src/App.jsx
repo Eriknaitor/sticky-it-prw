@@ -13,6 +13,8 @@ import SignUp from './views/SignUp';
 import Notes from './views/MyNotes';
 import Saved from './views/SavedNotes';
 import SingleNote from './views/Note';
+import Admin from './views/Admin';
+import Reports from './views/Reports';
 import Home from './views/Home';
 import Settings from './views/Settings';
 
@@ -64,6 +66,18 @@ class App extends React.Component {
                             return currentUser
                                 ? <Settings />
                                 : <Redirect to="/login" />
+                        }} />
+
+                        <Route path="/admin" render={(props) => {
+                            return currentUser.role === 'admin'
+                                ? <Admin {...props} currentUser={currentUser} />
+                                : <Redirect to="/" />
+                        }} />
+
+                        <Route path="/reports" render={(props) => {
+                            return currentUser.role === 'admin'
+                                ? <Reports {...props} currentUser={currentUser} />
+                                : <Redirect to="/" />
                         }} />
 
                         <Route path="/note/:noteId" render={(props) => {

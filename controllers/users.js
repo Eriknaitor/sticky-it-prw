@@ -22,7 +22,7 @@ module.exports = {
         let index = req.query.index || 0;
         index = Number(index);
 
-        let limit = req.query.limit || 5;
+        let limit = req.query.limit || 10;
         limit = Number(limit);
 
         User.find({ banned: false })

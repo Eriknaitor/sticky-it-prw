@@ -2,10 +2,10 @@ import React from 'react';
 import httpClient from '../httpClient';
 import axios from 'axios';
 
-class LogIn extends React.Component {
+export default class LogIn extends React.Component {
 	state = {
 		fields: {
-			email: '',
+			email: localStorage.getItem('remember'),
 			password: '',
 			otp: ''
 		},
@@ -25,6 +25,7 @@ class LogIn extends React.Component {
 		evt.preventDefault();
 		axios.post('http://localhost:8000/api/authenticate', this.state.fields)
 			.then((res) => {
+				localStorage.setItem('remember', this.state.fields.email);
 				if (res.status === 200) {
 					const isValid = httpClient.validLogin(res.data.token);
 					if (isValid) {
@@ -93,5 +94,3 @@ class LogIn extends React.Component {
 			this.rendetStageTwo();
 	}
 }
-
-export default LogIn;
