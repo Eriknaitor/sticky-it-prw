@@ -1,29 +1,92 @@
-
+:root {
+	--main-color: #015367;
+	--secondary-color: #04819E;
+}
 /*
  * Estilos para el Navbar
 */
-.NavBar a, .NavBar button, .NavBar a:active, .NavBar button:active, .NavBar a:link, .NavBar button:link {
-	margin: 0 5px;
-	font-weight: 500;
-	cursor: pointer;
-	color: #015367;
+nav {
+	background: black;
+	max-width: 15em;
+	max-width: 15em;
+	color: white;
+	padding: 1em;
+	position: fixed;
+	height: 100%;
+	-webkit-box-shadow: 20px 17px 22px -4px rgba(0,0,0,0.33);
+	-moz-box-shadow: 20px 17px 22px -4px rgba(0,0,0,0.33);
+	box-shadow: 20px 17px 22px -4px rgba(0,0,0,0.33);
 }
 
-.NavBar a:hover, .NavBar button:hover {
-	color:#04819E;
+.Logo {
+	text-align: center;
+	margin-top: 1em;
+	margin-bottom: 2em;
 }
 
-.NavBar {
-	background: #F1F1EE;
-	margin-bottom: 0px;
-	padding: 0.5em;
+.Logo img {
+	border-radius: 5em;
+	border: 5px solid ;
+	display: block;
 }
 
-.decoratorNavbar {
-	width: 100%;
-	height: 3px;
-	content: " ";
-	background: red;
+.Logo .far {
+	display: block;
+	font-size: 6em;
+	background: rgb(65, 110, 136);
+	background: -moz-linear-gradient(-45deg, rgba(255,145,0,1) 0%, rgba(255,238,0,1) 18%, rgba(140,255,0,1) 36%, rgba(0,251,255,1) 62%, rgba(13,0,255,1) 80%, rgba(238,0,255,1) 100%);
+	background: -webkit-gradient(left top, right bottom, color-stop(0%, rgba(255,145,0,1)), color-stop(18%, rgba(255,238,0,1)), color-stop(36%, rgba(140,255,0,1)), color-stop(62%, rgba(0,251,255,1)), color-stop(80%, rgba(13,0,255,1)), color-stop(100%, rgba(238,0,255,1)));
+	background: -webkit-linear-gradient(-45deg, rgba(255,145,0,1) 0%, rgba(255,238,0,1) 18%, rgba(140,255,0,1) 36%, rgba(0,251,255,1) 62%, rgba(13,0,255,1) 80%, rgba(238,0,255,1) 100%);
+	background: -o-linear-gradient(-45deg, rgba(255,145,0,1) 0%, rgba(255,238,0,1) 18%, rgba(140,255,0,1) 36%, rgba(0,251,255,1) 62%, rgba(13,0,255,1) 80%, rgba(238,0,255,1) 100%);
+	background: -ms-linear-gradient(-45deg, rgba(255,145,0,1) 0%, rgba(255,238,0,1) 18%, rgba(140,255,0,1) 36%, rgba(0,251,255,1) 62%, rgba(13,0,255,1) 80%, rgba(238,0,255,1) 100%);
+	background: linear-gradient(135deg, rgba(255,145,0,1) 0%, rgba(255,238,0,1) 18%, rgba(140,255,0,1) 36%, rgba(0,251,255,1) 62%, rgba(13,0,255,1) 80%, rgba(238,0,255,1) 100%);
+	background-clip: text;
+	-webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.Logo span {
+	font-size: 1em;
+	margin: 0 auto;
+}
+
+nav .buttons {
+	margin: 0 auto;
+	width: 100px;
+}
+
+nav .buttons a {
+	display: block;
+	text-align: center;
+	margin-top: 1em;
+	margin-bottom: 1em;
+	text-decoration: none;
+	color: var(--main-color);
+	transition: 0.3s;
+}
+
+nav .buttons a:hover {
+	color: var(--secondary-color)
+}
+
+nav .buttons .fas {
+	display: block;
+	font-size: 3em;
+	margin-bottom: 0.1em;
+}
+
+/*
+ * Login
+*/
+.Login {
+	display: inline-block;
+	margin-top: 25%;
+	text-align: center;
+}
+
+.Login .fa-lock {
+	font-size: 8em;
+	margin-bottom: 0.5em;
 }
 
 /*
@@ -42,7 +105,8 @@
     background: #F1F1EE;
     width: 65%;
     border-radius: 5px;
-    margin: 5px auto;
+		margin: 5px auto;
+		margin-top: 0px;
 }
 
 .Note .far {
@@ -151,29 +215,6 @@ input[type="tel"]:focus, input[type="text"]:focus, input[type="url"]:focus,
 textarea:focus, select:focus {
 	border-color: #04819E;
 }
-	
-/*
- * Spinner & animations
-*/
-.lds-dual-ring:after {
-	content: " ";
-	display: block;
-	width: 46px;
-	height: 46px;
-	margin: 1px;
-	border-radius: 50%;
-	border: 5px solid #000;
-	border-color: #000 transparent #000 transparent;
-	animation: lds-dual-ring 1.2s linear infinite;
-  }
-  @keyframes lds-dual-ring {
-	0% {
-	  transform: rotate(0deg);
-	}
-	100% {
-	  transform: rotate(360deg);
-	}
-}
 
 /*
  *	Editor
@@ -224,6 +265,25 @@ textarea:focus, select:focus {
 	color:#04819E;
 }
 
+/*
+ * Reports
+*/
+.Report {
+	background: #F1F1EE;
+	width: 65%;
+	border-radius: 5px;
+	margin: 5px auto;
+	margin-top: 0px;
+	padding: 1em;
+}
+
+.Report .decorator {
+	max-width: 5px;
+	min-width: 5px;
+	width: 5px;
+	display: block;
+	background: red;
+}
 
 /*
  * Settings
@@ -266,6 +326,55 @@ textarea:focus, select:focus {
 	margin-left: 0.5em;
 }
 
+/*
+ * Animations
+*/
+
+.slide-bottom {
+	-webkit-animation: slide-bottom 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+	        animation: slide-bottom 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+}
+
+ @-webkit-keyframes slide-bottom {
+  0% {
+    -webkit-transform: translateY(0);
+            transform: translateY(0);
+  }
+  100% {
+    -webkit-transform: translateY(50px);
+            transform: translateY(50px);
+  }
+}
+@keyframes slide-bottom {
+  0% {
+    -webkit-transform: translateY(0);
+            transform: translateY(0);
+  }
+  100% {
+    -webkit-transform: translateY(50px);
+            transform: translateY(50px);
+  }
+}
+
+.lds-dual-ring:after {
+	content: " ";
+	display: block;
+	width: 46px;
+	height: 46px;
+	margin: 1px;
+	border-radius: 50%;
+	border: 5px solid #000;
+	border-color: #000 transparent #000 transparent;
+	animation: lds-dual-ring 1.2s linear infinite;
+  }
+  @keyframes lds-dual-ring {
+	0% {
+	  transform: rotate(0deg);
+	}
+	100% {
+	  transform: rotate(360deg);
+	}
+}
 
 /*
  * Media queries
@@ -277,3 +386,4 @@ textarea:focus, select:focus {
 		width: 100%;
 	}
 }
+

@@ -13,7 +13,7 @@ module.exports = {
         Report.find()
             .skip(index)
             .limit(limit)
-            .exec((err, report) => {
+            .exec((err, reports) => {
                 if (err) {
                     return res.status(400).json({
                         ok: false,
@@ -31,7 +31,7 @@ module.exports = {
 
                     res.json({
                         ok: true,
-                        report,
+                        reports,
                         count
                     });
                 });

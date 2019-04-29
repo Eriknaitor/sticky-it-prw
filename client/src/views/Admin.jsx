@@ -62,13 +62,12 @@ export default class Admin extends Component {
     }
 
     _handleTabs(e) {
-        console.log(this.state.tab, e.target.id);
         this.setState({ tab: e.target.id });
     }
 
     render() {
 
-        const { isLoading, error, users, totalUsers, userPerPage } = this.state;
+        const { error, users, totalUsers, userPerPage } = this.state;
 
         const pageNumbers = [];
         for (let i = 1; i <= Math.ceil(totalUsers / userPerPage); i++) {
@@ -112,9 +111,6 @@ export default class Admin extends Component {
                             <div style={{ color: '#900' }}>
                                 {error}
                             </div>
-                        }
-                        {isLoading &&
-                            <div className='lds-dual-ring'></div>
                         }
                     </tbody>
                 </table>

@@ -58,14 +58,14 @@ export default class LogIn extends React.Component {
 
 	renderStageOne() {
 		const { email, password } = this.state.fields;
-		return (<div className='row'>
+		return (<div className='Login row slide-bottom'>
 			<div className='column column-33 column-offset-33'>
 				<h1>Iniciar sesión</h1>
 				<form method='POST' onChange={this.onInputChange.bind(this)} onSubmit={this.onSubmitStageOne.bind(this)}>
 					<input type="text" placeholder="Correo electrónico" name="email" defaultValue={email} />
 					<input type="password" placeholder="Contraseña" name="password" defaultValue={password} />
 
-					<div className="float-right">
+					<div>
 						<input type="checkbox" id="remember" name="remember" />
 						<label className="label-inline" htmlFor="remember">Recuérdame</label>
 					</div>
@@ -76,10 +76,10 @@ export default class LogIn extends React.Component {
 	}
 
 	rendetStageTwo() {
-		return (<div className='row'>
+		return (<div className='Login row'>
 			<div className='column column-33 column-offset-33'>
 				<form onChange={this.onInputChange.bind(this)} onSubmit={this.onSubmitStageTwo.bind(this)}>
-					<span>Tengo que meter aquí una imagen o algo yo que se, a ver si me mato o me corto el nabo con un machete, yo que se</span>
+					<i class="fas fa-lock"></i>
 					<label htmlFor="otp">Introduce el código de verificación</label>
 					<input type="text" name="otp" />
 					<button className="button-blue-dark">Comprobar</button>
