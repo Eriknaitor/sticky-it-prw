@@ -1,6 +1,7 @@
 import React, { Fragment, Component } from 'react';
 import Axios from 'axios';
 import TimeAgo from 'react-timeago';
+import { toast } from 'react-toastify';
 import spanishStrings from 'react-timeago/lib/language-strings/es';
 import buildFormatter from 'react-timeago/lib/formatters/buildFormatter';
 const formatter = buildFormatter(spanishStrings);
@@ -37,9 +38,7 @@ export default class Reports extends Component {
                     totalReports: res.data.count
                 });
             }).catch((err) => {
-                this.setState({
-                    error: err.message
-                });
+                toast.error(err.response.data.err);
             });
     }
 

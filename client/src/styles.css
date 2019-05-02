@@ -209,7 +209,7 @@ nav .buttons .fas {
 	transition: 0.3s;
 }
 
-.button-blue-dark:hover {
+.button-blue-dark:hover, .button-blue-dark[disabled]:hover  {
 	border: var(--secondary-color);
 	background: var(--secondary-color); 
 }

@@ -91,9 +91,35 @@ module.exports = {
 
     // Actualiza un usuario
     update: (req, res) => {
-        let body = _.pick(req.body, ['email', 'username', 'password', 'isEnabled2FA']);
+        let body = _.pick(req.body, ['email', 'username', 'isEnabled2FA']);
 
         User.findByIdAndUpdate(req.params.id, body, { new: true, runValidators: true }, (err, user) => {
+            if (err) {
+                return res.status(400).json({
+                    ok: false,
+                    err
+                });
+            }
+
+            if (!user) {
+                return res.status(400).json({
+                    ok: false,
+                    err: {
+                        message: 'Usuario no encontrado'
+                    }
+                });
+            }
+
+            res.json({
+                ok: true,
+                user
+            });
+        });
+    },
+
+    changePass: (req, res) => {
+        const newPass = bcrypt.hashSync(req.body.password, 10);
+        User.findByIdAndUpdate(req.params.id, { $set: { password: newPass } }, { new: true, runValidators: true }, (err, user) => {
             if (err) {
                 return res.status(400).json({
                     ok: false,
@@ -156,9 +182,16 @@ module.exports = {
             if (!user || !user.validPassword(req.body.password)) {
                 return res.status(400).json({
                     ok: false,
-                    err: { message: 'Credenciales inválidas' }
+                    err: 'Credenciales inválidas'
                 });
             } else {
+                if (user.banned) {
+                    return res.status(403).json({
+                        ok: false,
+                        err: 'Usuario baneado'
+                    });
+                }
+
                 if (!user.isEnabled2FA) {
                     res.json({
                         ok: true,
@@ -181,7 +214,7 @@ module.exports = {
                     } else {
                         return res.status(400).json({
                             ok: false,
-                            err: { message: 'Código inválido' }
+                            err: 'Código inválido'
                         });
                     }
                 }

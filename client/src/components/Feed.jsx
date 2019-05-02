@@ -1,6 +1,8 @@
 import React, { Component, Fragment } from 'react';
 import Note from './Note';
 import Axios from 'axios';
+import { toast } from 'react-toastify';
+import _ from 'underscore';
 
 
 class Feed extends Component {
@@ -42,12 +44,16 @@ class Feed extends Component {
     _deleteNote = (id) => {
         Axios.delete(`http://localhost:8000/api/note/delete/${id}`)
             .then(() => {
-                this.setState({ Notes: [], counter: 0 }, () => {
-                    this.loadNotes();
+                this.setState({
+                    Notes: _.reject(this.state.Notes, function (element) {
+                        return element._id === id;
+                    }), counter: 0
+                }, () => {
+                    toast.info('Se ha borrado la nota correctamente');
                 });
             })
             .catch(err => {
-                console.log(err)
+                toast.error(err.response.data.err);
             })
     }
 
@@ -90,6 +96,7 @@ class Feed extends Component {
                     });
                 })
                 .catch((err) => {
+                    toast.error(err.response.data.err);
                     this.setState({
                         error: err.message,
                         isLoading: false

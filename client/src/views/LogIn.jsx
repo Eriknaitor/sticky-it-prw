@@ -1,6 +1,8 @@
 import React from 'react';
 import httpClient from '../httpClient';
 import axios from 'axios';
+import { toast } from 'react-toastify';
+
 
 export default class LogIn extends React.Component {
 	state = {
@@ -18,7 +20,7 @@ export default class LogIn extends React.Component {
 				...this.state.fields,
 				[evt.target.name]: evt.target.value
 			}
-		})
+		});
 	}
 
 	onSubmitStageOne = function (evt) {
@@ -36,7 +38,7 @@ export default class LogIn extends React.Component {
 					this.setState({ stage: 2 });
 				}
 			}).catch((err) => {
-				console.log(err);
+				toast.error(err.response.data.err);
 			})
 	}
 
@@ -52,7 +54,7 @@ export default class LogIn extends React.Component {
 					}
 				}
 			}).catch((err) => {
-				console.log(err);
+				toast.error(err.response.data.err);
 			})
 	}
 

@@ -2,7 +2,7 @@ import React from 'react';
 import ProgressRing from './Progress-ring';
 import CustomDatePicker from './DatePicker';
 import Axios from 'axios';
-import toast from 'toasted-notes';
+import { toast } from 'react-toastify';
 import 'toasted-notes/src/styles.css';
 
 //#region Constantes
@@ -34,7 +34,7 @@ export default class CreateNote extends React.Component {
         if (e.target.value.length <= MAX_LENGTH_TITLE) {
             this.setState({ titleValue: e.target.value })
         } else {
-            toast.notify('Has llegado al tamaño máximo del título')
+            toast.warn('Has excedido el tamaño máximo del título (35 caracteres)');
         }
     }
 
@@ -52,7 +52,7 @@ export default class CreateNote extends React.Component {
 
     _createNewNote = () => {
         if (this.state.titleValue.length < 12) {
-            toast.notify('El título como mínimo tiene que tener 12 caracteres');
+            toast.warn('El título como mínimo tiene que tener 12 caracteres');
         } else {
             Axios.post('http://localhost:8000/api/note/create', {
                 title: document.getElementsByName('title')[0].value,
@@ -62,11 +62,11 @@ export default class CreateNote extends React.Component {
                 hidden: this.state.private
             }).then((res) => {
                 if (res.data.ok) {
-                    toast.notify('Se ha creado la nota correctamente :)');
+                    toast.info('Se ha creado la nota correctamente :)');
                     this.setState({ contentValue: '', titleValue: '', progress: 0 });
                 }
             }).catch((err) => {
-                toast.notify('Ha habido un erorr al crear la nota');
+                toast.error(err.response.data.err);
             });
         }
 
@@ -82,7 +82,7 @@ export default class CreateNote extends React.Component {
                     <input placeholder="Título de la nota" value={this.state.titleValue} onChange={this._updateTitle.bind(this)} type="text" name="title" />
                     <textarea placeholder="Contenido de la nota..." name="contentNote" value={this.state.contentValue} onChange={this._updateTextArea.bind(this)}></textarea>
                     <div className='progress-container'>
-                        <ProgressRing radius={8} stroke={2} progress={this.state.progress} strokeColor={'red'} />
+                        <ProgressRing radius={8} stroke={2} progress={this.state.progress} strokeColor={'#010E1F'} />
                         <span>{this.state.contentValue.length} / {MAX_LENGTH_CONTENT}</span>
                     </div>
 

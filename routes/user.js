@@ -10,6 +10,7 @@ router.get('/users', users.index);
 router.get('/user/:id', users.show);
 router.post('/user/create', users.create);
 router.put('/user/update/:id', verifyToken, users.update);
+router.put('/user/changePass/:id', verifyToken, users.changePass);
 router.delete('/user/delete/:id', [verifyToken, verifyAdmin], users.destroy);
 router.post('/authenticate', users.auth);
 router.get('/user/qr/:id', verifyToken, users.userQR);

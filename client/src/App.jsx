@@ -1,6 +1,8 @@
 import React from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
 import httpClient from './httpClient';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 // Componentes
 import NavBar from './components/NavBar';
@@ -36,6 +38,7 @@ class App extends React.Component {
         return (
             <div className='App'>
                 {currentUser ? <NavBar currentUser={currentUser} /> : null}
+                <ToastContainer />
                 <div className='container'>
                     <Switch>
                         <Route path="/login" render={(props) => {
@@ -64,7 +67,7 @@ class App extends React.Component {
 
                         <Route path="/settings" render={() => {
                             return currentUser
-                                ? <Settings />
+                                ? <Settings currentUser={currentUser} />
                                 : <Redirect to="/login" />
                         }} />
 
