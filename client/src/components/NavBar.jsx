@@ -6,25 +6,25 @@ const NavBar = (props) => {
 	return (
 		<nav>
 			<div className="Logo">
-				{props.currentUser ? (<img src="https://via.placeholder.com/150" />) : (<i class="far fa-sticky-note"></i>)}
-				<span>{props.currentUser.username}</span>
+				<i className="far fa-sticky-note"></i>
+				<span>{props.currentUser ? props.currentUser.username : 'RemindMe'}</span>
 			</div>
 
-			<div activeClassName="active" className="buttons">
-				<NavLink to="/"><i className="fas fa-home"></i> Inicio</NavLink>
+			<div className="buttons">
+				<NavLink to="/"><i className="fas fa-home"></i> <span>Inicio</span></NavLink>
 				{props.currentUser ? (
 					<span>
-						<NavLink to="/notes"><i className="fas fa-sticky-note"></i> Mis notas</NavLink>
-						<NavLink to="/saved"><i className="fas fa-save"></i> Notas guardadas</NavLink>
-						{props.currentUser.role === 'admin' ? (<NavLink to="/admin"><i className="fas fa-user-shield"></i> Admin panel</NavLink>) : null}
-						{props.currentUser.role === 'admin' ? (<NavLink to="/reports"><i class="fas fa-flag"></i> Reportes</NavLink>) : null}
-						<NavLink to="/settings"><i className="fas fa-cog"></i> Configuración</NavLink>
-						<NavLink to="/logout"><i className="fas fa-sign-out-alt"></i> Salir</NavLink>
+						<NavLink to="/notes"><i className="fas fa-sticky-note"></i> <span>Mis notas</span></NavLink>
+						<NavLink to="/saved"><i className="fas fa-save"></i> <span>Notas guardadas</span></NavLink>
+						{props.currentUser.role === 'admin' ? (<NavLink to="/admin"><i className="fas fa-user-shield"></i> <span>Admin panel</span></NavLink>) : null}
+						{props.currentUser.role === 'admin' ? (<NavLink to="/reports"><i className="fas fa-flag"></i> <span>Reportes</span></NavLink>) : null}
+						<NavLink to="/settings"><i className="fas fa-cog"></i> <span>Configuración</span></NavLink>
+						<NavLink to="/logout"><i className="fas fa-sign-out-alt"></i> <span>Salir</span></NavLink>
 					</span>
 				) : (
 						<span>
-							<NavLink to="/login"><i className="fas fa-sign-in-alt"></i> Iniciar sesión</NavLink>
-							<NavLink to="/signup"><i className="fas fa-user-circle"></i> Crear una cuenta</NavLink>
+							<NavLink to="/login"><i className="fas fa-sign-in-alt"></i> <span>Iniciar sesión</span></NavLink>
+							<NavLink to="/signup"><i className="fas fa-user-circle"></i> <span>Crear una cuenta</span></NavLink>
 						</span>
 					)
 				}

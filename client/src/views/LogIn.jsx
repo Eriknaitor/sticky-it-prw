@@ -58,7 +58,7 @@ export default class LogIn extends React.Component {
 
 	renderStageOne() {
 		const { email, password } = this.state.fields;
-		return (<div className='Login row slide-bottom'>
+		return (<div className='Login row'>
 			<div className='column column-33 column-offset-33'>
 				<h1>Iniciar sesión</h1>
 				<form method='POST' onChange={this.onInputChange.bind(this)} onSubmit={this.onSubmitStageOne.bind(this)}>

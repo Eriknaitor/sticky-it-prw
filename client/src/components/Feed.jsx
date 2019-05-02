@@ -1,6 +1,6 @@
 import React, { Component, Fragment } from 'react';
-import axios from 'axios';
 import Note from './Note';
+import Axios from 'axios';
 
 
 class Feed extends Component {
@@ -39,6 +39,18 @@ class Feed extends Component {
         this.loadNotes();
     }
 
+    _deleteNote = (id) => {
+        Axios.delete(`http://localhost:8000/api/note/delete/${id}`)
+            .then(() => {
+                this.setState({ Notes: [], counter: 0 }, () => {
+                    this.loadNotes();
+                });
+            })
+            .catch(err => {
+                console.log(err)
+            })
+    }
+
     /**
      * Hace la comprobación de los elementos dentro del array de las notas
      * y suma en caso de que sea menor al número obtenido de la API
@@ -55,7 +67,7 @@ class Feed extends Component {
 
     loadNotes = () => {
         this.setState({ isLoading: true }, () => {
-            axios.get(`${this.props.url}${this.state.counter}`)
+            Axios.get(`${this.props.url}${this.state.counter}`)
                 .then((res) => {
                     /**
                      * Mapeo los objetos obtenidos por la API a un array 
@@ -93,7 +105,7 @@ class Feed extends Component {
             <div className="Feed">
                 {Notes.map(noteMap => (
                     <Fragment key={noteMap._id}>
-                        <Note currentUser={this.props.currentUser} note={noteMap} />
+                        <Note deleteAction={this._deleteNote.bind(this)} currentUser={this.props.currentUser} note={noteMap} />
                     </Fragment>
                 ))}
                 {error &&

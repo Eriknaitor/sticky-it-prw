@@ -80,7 +80,7 @@ export default class Reports extends Component {
             <div className="ReportList">
                 {reports.map(report => (
                     <Fragment>
-                        <div className="Report">
+                        <div key={report._id} className="Report">
                             <div className='decorator'></div>
                             <div className='column column-60'>
                                 <h4>{report.reason}</h4>
@@ -89,11 +89,15 @@ export default class Reports extends Component {
                         </div>
                     </Fragment>
                 ))}
+
                 {error &&
                     <div style={{ color: '#900' }}>
                         {error}
                     </div>
                 }
+                <ul id="paginator">
+                    {renderPageNumbers}
+                </ul>
             </div>
         )
     }

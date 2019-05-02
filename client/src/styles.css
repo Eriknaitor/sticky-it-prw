@@ -1,15 +1,26 @@
 :root {
-	--main-color: #015367;
-	--secondary-color: #04819E;
+	--background: #010e1f;
+	--main-color: #3c6287;
+	--secondary-color: #98dab4;
+	--decorators: #232323;
+	--unsolved: #DD7777;;
 }
+
+/*
+#010e1f
+#3c6287
+#98dab4
+#8ec975
+#068b49
+*/
+
 /*
  * Estilos para el Navbar
 */
 nav {
-	background: black;
+	background: var(--background);
+	min-width: 15em;
 	max-width: 15em;
-	max-width: 15em;
-	color: white;
 	padding: 1em;
 	position: fixed;
 	height: 100%;
@@ -24,13 +35,7 @@ nav {
 	margin-bottom: 2em;
 }
 
-.Logo img {
-	border-radius: 5em;
-	border: 5px solid ;
-	display: block;
-}
-
-.Logo .far {
+.Logo > .far {
 	display: block;
 	font-size: 6em;
 	background: rgb(65, 110, 136);
@@ -46,8 +51,9 @@ nav {
 }
 
 .Logo span {
-	font-size: 1em;
+	font-size: 1.5em;
 	margin: 0 auto;
+	color: #8ec975;
 }
 
 nav .buttons {
@@ -76,22 +82,41 @@ nav .buttons .fas {
 }
 
 /*
- * Login
+ * Container
 */
-.Login {
-	display: inline-block;
-	margin-top: 25%;
+
+/*
+ * Home
+*/
+
+.NotLoggedHome {
 	text-align: center;
 }
 
-.Login .fa-lock {
-	font-size: 8em;
-	margin-bottom: 0.5em;
+.NotLoggedHome a {
+	margin-left: 2em;
+	margin-right: 2em; 
 }
+
+.bgHome {
+	background-size: 100% 100%; 
+	z-index: 0;
+	background: red;
+}
+
+.containerHome {
+	display: absolute;
+	z-index: 1;
+}
+
 
 /*
  * Estilos para el Feed
 */
+
+.Feed {
+	padding-top: 4em;
+}
 
 .Feed .endFeed {
 	margin-top: 40px;
@@ -105,8 +130,11 @@ nav .buttons .fas {
     background: #F1F1EE;
     width: 65%;
     border-radius: 5px;
-		margin: 5px auto;
+		margin: 20px auto;
 		margin-top: 0px;
+		-webkit-box-shadow: 10px 10px 6px -3px rgba(0,0,0,0.3);
+		-moz-box-shadow: 10px 10px 6px -3px rgba(0,0,0,0.3);
+		box-shadow: 10px 10px 6px -3px rgba(0,0,0,0.3);
 }
 
 .Note .far {
@@ -118,25 +146,15 @@ nav .buttons .fas {
     min-width: 5px;
     width: 5px;
     display: block;
-    background: red;
+    background: var(--background);
 }
 
 .Note .body-info {
     line-height: 300%;
 }
 
-.Note .body-info :active, .Note .body-info :link, .Note .body-info :visited {
-    color: black;
-    transition: 0.2s;
-}
-
 .Note .body-info strong {
 	color: black;
-	transition: 0.2s;
-}
-
-.Note .body-info strong:hover {
-    color: white;
 }
 
 .Note time {
@@ -165,7 +183,7 @@ nav .buttons .fas {
 }
 
 .Note .controllers .liked {
-	color: #DD7777;
+	color: var(--unsolved)
 }
 
 .Note .controllers .fa-edit:hover {
@@ -178,27 +196,22 @@ nav .buttons .fas {
 	cursor: pointer;
 }
 
-.Note .avatar {
-    border-radius: 50px;
-    min-width: 75px;
-    min-height: 75px;
-    max-width: 75px;
-    max-height: 75px;
-    margin-left: 20%;
-    margin-top: 15%;
+.Note textarea {
+	resize: none;
 }
 
 /*
  * Botones y otros elementos
 */
 .button-blue-dark {
-	border: #015367;
-	background: #015367;
+	border: var(--main-color);
+	background: var(--main-color);
+	transition: 0.3s;
 }
 
 .button-blue-dark:hover {
-	border: #04819E;
-	background: #04819E; 
+	border: var(--secondary-color);
+	background: var(--secondary-color); 
 }
 
 .lds-dual-ring {
@@ -213,12 +226,17 @@ input[type="email"]:focus, input[type="number"]:focus,
 input[type="password"]:focus, input[type="search"]:focus,
 input[type="tel"]:focus, input[type="text"]:focus, input[type="url"]:focus,
 textarea:focus, select:focus {
-	border-color: #04819E;
+	border-color: var(--main-color);
 }
 
 /*
  *	Editor
 */
+
+.editor-container {
+	position: absolute;
+	margin-top: 10em;
+}
 
 .progress-container {
 	float: right;
@@ -229,11 +247,6 @@ textarea:focus, select:focus {
   transform: rotate(-90deg);
 	transform-origin: 50% 50%;
 	display: block;
-}
-
-.editor-container .buttons {
-	display: flex;
-	justify-content: center;
 }
 
 .editor-container .buttons button{
@@ -254,6 +267,8 @@ textarea:focus, select:focus {
 }
 
 ._404 {
+	position: absolute;
+	margin: 4em auto auto 20%;
 	text-align: center;
 }
 
@@ -292,7 +307,7 @@ textarea:focus, select:focus {
 /*
  * Admin
 */
-.AdminPanel #paginator {
+.AdminPanel #paginator, .ReportList #paginator {
 	position: absolute;
 	left: 50%;
 }
@@ -301,10 +316,12 @@ textarea:focus, select:focus {
 	text-align: center;
 }
 
-.AdminPanel #paginator li {
+.AdminPanel #paginator li, .ReportList #paginator li {
 	cursor: pointer;
-	background: red;
-	line-height: -1em;
+	background: var(--background);
+	color: var(--main-color);
+	font-weight: bold;
+	padding-top: 0.2em;
 	border-radius: 2em; 
 	width: 2em;
 	height: 2em;
@@ -315,8 +332,8 @@ textarea:focus, select:focus {
 	transition: 0.3s
 }
 
-.AdminPanel #paginator li:hover {
-	background: green;
+.AdminPanel #paginator li:hover, .ReportList #paginator li:hover {
+	background: var(--secondary-color);
 	display: inline-block;
 }
 
@@ -375,15 +392,3 @@ textarea:focus, select:focus {
 	  transform: rotate(360deg);
 	}
 }
-
-/*
- * Media queries
-*/
-
-@media only screen and (min-width:20rem) and (max-width:40rem) { 
-	.NavBar span {
-		text-align: center;
-		width: 100%;
-	}
-}
-

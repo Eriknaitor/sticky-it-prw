@@ -35,7 +35,7 @@ class App extends React.Component {
         const { currentUser } = this.state
         return (
             <div className='App'>
-                <NavBar currentUser={currentUser} />
+                {currentUser ? <NavBar currentUser={currentUser} /> : null}
                 <div className='container'>
                     <Switch>
                         <Route path="/login" render={(props) => {

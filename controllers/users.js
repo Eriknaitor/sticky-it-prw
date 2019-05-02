@@ -189,6 +189,7 @@ module.exports = {
         });
     },
 
+    // Devuelve el código QR del usuario
     userQR: (req, res) => {
         User.findById(req.params.id, (err, user) => {
             if (err) {

@@ -16,6 +16,8 @@ class Note extends Component {
             userId: 0,
             userName: '',
             isEditing: false,
+            title: this.props.note.title,
+            content: this.props.note.content
         }
     }
 
@@ -49,8 +51,16 @@ class Note extends Component {
         }
     }
 
+    deleteNote = (id) => {
+        this.props.deleteAction(id)
+    }
+
     _handleEdit = () => {
         this.setState({ isEditing: !this.state.isEditing });
+    }
+
+    _handleChange = (evt) => {
+        this.setState({ ...this.state, [evt.target.name]: evt.target.value });
     }
 
     _getUser = (userId) => {
@@ -72,10 +82,6 @@ class Note extends Component {
     }
 
     render() {
-        const randomColor = {
-            background: `hsl(${Math.floor(Math.random() * 360)}, 100%, 80%)`
-        };
-
         const { _id, hidden, savedBy, title, content, createdAt, createdBy, } = this.state.note;
 
         /**
@@ -88,16 +94,16 @@ class Note extends Component {
         } else {
             return (
                 <div className="Note row">
-                    <div className="decorator" style={randomColor}></div>
+                    <div className="decorator"></div>
                     <div className="body-panel column column-60">
                         <div className="body-info">
                             <strong>{this.state.userName}</strong>
                         </div>
                         {this.state.isEditing ?
-                            (<div>
-                                <input type='text' value={title} />
-                                <textarea value={content}></textarea>
-                                <button >Guardar edición</button>
+                            (<div onChange={this._handleChange.bind(this)}>
+                                <input name="title" type='text' defaultValue={title} />
+                                <textarea name="content" defaultValue={content}></textarea>
+                                <button className="button-blue-dark">Guardar edición</button>
                             </div>) :
                             (<div>
                                 <h5>{title}</h5>
@@ -117,11 +123,11 @@ class Note extends Component {
                                         ("far fa-eye-slash")}></i>) :
                                 (<i className="fas fa-flag"></i>)
                             }
-                            {this.props.currentUser._id === createdBy ? (<i className="far fa-trash-alt"></i>) : null}
+                            {this.props.currentUser._id === createdBy ? (<i onClick={() => this.deleteNote(_id)} className="far fa-trash-alt"></i>) : null}
                             <Tippy content={`${savedBy.length} veces guardada`}>
                                 <i className="fas fa-user"></i>
                             </Tippy>
-
+                            <i className="fas fa-share-alt"></i>
                             <i id={`liked-${_id}`} onClick={() => this._likeNote(_id)}
                                 className={savedBy.includes(this.props.currentUser._id) ?
                                     ("liked fas fa-heart") :

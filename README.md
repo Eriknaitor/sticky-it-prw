@@ -14,10 +14,10 @@
     - [X] Navbar
     - [-] Notas y feed
         - [X] Feed
-        - [ ] Notas (los popups)
+        - [ ] Notas
     - [X] Saved
-    - [ ] Admin panel
-        - [ ] User manager
+    - [-] Admin panel
+        - [X] User manager
         - [ ] Report system
     - [-] Home
         - [X] Crear notas
