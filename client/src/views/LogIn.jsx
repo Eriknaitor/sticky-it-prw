@@ -54,6 +54,7 @@ export default class LogIn extends React.Component {
 					}
 				}
 			}).catch((err) => {
+				console.log(err.message);
 				toast.error(err.response.data.err);
 			})
 	}
@@ -81,7 +82,7 @@ export default class LogIn extends React.Component {
 		return (<div className='Login row'>
 			<div className='column column-33 column-offset-33'>
 				<form onChange={this.onInputChange.bind(this)} onSubmit={this.onSubmitStageTwo.bind(this)}>
-					<i class="fas fa-lock"></i>
+					<i className="fas fa-lock"></i>
 					<label htmlFor="otp">Introduce el código de verificación</label>
 					<input type="text" name="otp" />
 					<button className="button-blue-dark">Comprobar</button>

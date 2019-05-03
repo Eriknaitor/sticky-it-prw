@@ -232,7 +232,7 @@ module.exports = {
                 });
             }
 
-            const secret = otplib.authenticator.keyuri(user.id, 'RemindMe', user.secret2FA);
+            const secret = otplib.authenticator.keyuri(`${user.username} @ RemindMe`, 'RemindMe', user.secret2FA);
             QRCode.toDataURL(secret, (err, data_url) => {
 
                 if (err) {
@@ -245,9 +245,9 @@ module.exports = {
                 return res.json({
                     ok: true,
                     message: 'Verify OTP',
-                    tmpSecret: user.secret2FA,
+                    //tmpSecret: user.secret2FA,
                     dataURL: data_url,
-                    otpURL: secret
+                    //otpURL: secret
                 });
             });
         });

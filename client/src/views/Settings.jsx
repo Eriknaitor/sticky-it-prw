@@ -1,11 +1,8 @@
 import React from 'react';
 import ChangePassword from '../components/ChangePassword';
+import Enable2FA from '../components/Enable2FA';
 
 class Settings extends React.Component {
-    constructor(props) {
-        super(props);
-    }
-
 
     render() {
         return (
@@ -15,7 +12,7 @@ class Settings extends React.Component {
                 <hr />
 
                 <h1>2FA</h1>
-
+                <Enable2FA currentUser={this.props.currentUser}/>
             </div>
         )
     }
