@@ -1,5 +1,6 @@
 import React from 'react'
 import httpClient from '../httpClient';
+import { toast } from 'react-toastify';
 
 class SignUp extends React.Component {
 	state = {
@@ -17,13 +18,15 @@ class SignUp extends React.Component {
 
 	onFormSubmit(evt) {
 		evt.preventDefault()
-		httpClient.signUp(this.state.fields).then(user => {
-			this.setState({ fields: { username: '', email: '', password: '' } })
-			if (user) {
-				this.props.onSignUpSuccess(user)
+		httpClient.signUp(this.state.fields)
+			.then(user => {
+				this.setState({ fields: { username: '', email: '', password: '' } });
+				toast.info('Se ha creado la cuenta correctamente');
 				this.props.history.push('/')
-			}
-		})
+			})
+			.catch((err) => {
+				toast.error('Ha habido un error al crear la cuenta');
+			})
 	}
 
 	render() {

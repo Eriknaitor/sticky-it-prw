@@ -14,6 +14,9 @@ export default class ChangePassword extends React.Component {
         }
     }
 
+    _regenerate2FA() {
+
+    }
 
     samePass = (e) => {
         this.setState({
@@ -29,6 +32,7 @@ export default class ChangePassword extends React.Component {
 
     submitNewPass = (e) => {
         e.preventDefault();
+        if (this.state.oldPass.length === 0 || this.state.newPass.length === 0) return toast.error('La contraseña no puede estar vacía');
         Axios.put(`http://localhost:8000/api/user/changePass/${this.props.currentUser._id}`, {
             password: this.state.newPass
         })
@@ -42,7 +46,7 @@ export default class ChangePassword extends React.Component {
         return (
             <form method="POST" onChange={this.samePass.bind(this)} onSubmit={this.submitNewPass.bind(this)} className="ChangePassword">
                 <input type="password" name="newPass" placeholder="Contraseña nueva" />
-                <input type="password" name="confirmPass" placeholder="Reptir contraseña nueva" />
+                <input type="password" name="confirmPass" placeholder="Repetir contraseña nueva" />
                 <button disabled={this.state.disabled} className="button-blue-dark">Cambiar contraseña</button>
             </form>
         )

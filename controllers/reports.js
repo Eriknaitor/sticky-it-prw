@@ -10,7 +10,7 @@ module.exports = {
         let limit = req.query.limit || 10;
         limit = Number(limit);
 
-        Report.find()
+        Report.find({ resolved: false })
             .skip(index)
             .limit(limit)
             .exec((err, reports) => {

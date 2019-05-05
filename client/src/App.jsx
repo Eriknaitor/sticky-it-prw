@@ -21,10 +21,10 @@ import Home from './views/Home';
 import Settings from './views/Settings';
 
 
-class App extends React.Component {
+export default class App extends React.Component {
     state = { currentUser: httpClient.getCurrentUser() }
 
-    onLoginSuccess(user) {
+    onLoginSuccess() {
         this.setState({ currentUser: httpClient.getCurrentUser() })
     }
 
@@ -36,16 +36,16 @@ class App extends React.Component {
     render() {
         const { currentUser } = this.state
         return (
-            <div className='App'>
-                {currentUser ? <NavBar currentUser={currentUser} /> : null}
+            <div className='App row'>
+                {currentUser ? <NavBar className="column column-20" currentUser={currentUser} /> : null}
                 <ToastContainer />
-                <div className='container'>
+                <div className='column column-100 container'>
                     <Switch>
                         <Route path="/login" render={(props) => {
                             return <LogIn {...props} onLoginSuccess={this.onLoginSuccess.bind(this)} />
                         }} />
 
-                        <Route path="/logout" render={(props) => {
+                        <Route path="/logout" render={() => {
                             return <LogOut onLogOut={this.logOut.bind(this)} />
                         }} />
 
@@ -100,5 +100,3 @@ class App extends React.Component {
         )
     }
 }
-
-export default App

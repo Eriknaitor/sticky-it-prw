@@ -6,27 +6,21 @@
 	--unsolved: #DD7777;;
 }
 
-/*
-#010e1f
-#3c6287
-#98dab4
-#8ec975
-#068b49
-*/
+.container, .row, .column {
+    padding: 0;
+}
 
-/*
- * Estilos para el Navbar
-*/
+canvas{position: absolute; widows: 100%; height: 100%;}
+
+/* Navbar */
 nav {
+	position: absolute;
 	background: var(--background);
 	min-width: 15em;
-	max-width: 15em;
-	padding: 1em;
-	position: fixed;
-	height: 100%;
-	-webkit-box-shadow: 20px 17px 22px -4px rgba(0,0,0,0.33);
-	-moz-box-shadow: 20px 17px 22px -4px rgba(0,0,0,0.33);
-	box-shadow: 20px 17px 22px -4px rgba(0,0,0,0.33);
+  max-width: 15em;
+  padding: 0;
+  margin: 0;
+  min-height: 100%;
 }
 
 .Logo {
@@ -58,13 +52,11 @@ nav {
 
 nav .buttons {
 	margin: 0 auto;
-	width: 100px;
 }
 
 nav .buttons a {
 	display: block;
 	text-align: center;
-	margin-top: 1em;
 	margin-bottom: 1em;
 	text-decoration: none;
 	color: var(--main-color);
@@ -78,242 +70,27 @@ nav .buttons a:hover {
 nav .buttons .fas {
 	display: block;
 	font-size: 3em;
-	margin-bottom: 0.1em;
 }
 
-/*
- * Container
-*/
-
-/*
- * Home
-*/
-
-.NotLoggedHome {
-	text-align: center;
+/* AdminPanel */
+.AdminPanel table { 
+		text-align: center;
+		width: 90%;
+    margin: 0 10%;
 }
 
-.NotLoggedHome a {
-	margin-left: 2em;
-	margin-right: 2em; 
+.AdminPanel table th, .AdminPanel table td {
+    text-align: center;
 }
 
-.bgHome {
-	background-size: 100% 100%; 
-	z-index: 0;
-	background: red;
-}
-
-.containerHome {
-	display: absolute;
-	z-index: 1;
-}
-
-
-/*
- * Estilos para el Feed
-*/
-
-.Feed {
-	padding-top: 4em;
-}
-
-.Feed .endFeed {
-	margin-top: 40px;
-	text-align: center;
-}
-
-/*
- * Estilos para las notas
-*/
-.Note {
-    background: #F1F1EE;
-    width: 65%;
-    border-radius: 5px;
-		margin: 20px auto;
-		margin-top: 0px;
-		-webkit-box-shadow: 10px 10px 6px -3px rgba(0,0,0,0.3);
-		-moz-box-shadow: 10px 10px 6px -3px rgba(0,0,0,0.3);
-		box-shadow: 10px 10px 6px -3px rgba(0,0,0,0.3);
-}
-
-.Note .far {
-	cursor: pointer;
-}
-
-.Note .decorator {
-    max-width: 5px;
-    min-width: 5px;
-    width: 5px;
-    display: block;
+.AdminPanel table th {
     background: var(--background);
+    color: var(--main-color);
 }
 
-.Note .body-info {
-    line-height: 300%;
-}
-
-.Note .body-info strong {
-	color: black;
-}
-
-.Note time {
-	float: right;
-	margin-right: 20px;
-}
-
-.Note .controllers {
-	text-align: center;
-	margin: 30% 2px auto 2px;
-}
-
-.Note .controllers i {
-	margin: auto 5px;
-    color: black;
-    transition: 0.2s;
-}
-
-.Note h5 {
-	font-weight: bold;
-}
-
-.Note .controllers .fa-heart:hover {
-	color: #DD7777;
-	cursor: pointer
-}
-
-.Note .controllers .liked {
-	color: var(--unsolved)
-}
-
-.Note .controllers .fa-edit:hover {
-	color: #B4ECB4;
-	cursor: pointer
-}
-
-.Note .controllers .fa-flag:hover {
-	color: #7777DD;
-	cursor: pointer;
-}
-
-.Note textarea {
-	resize: none;
-}
-
-/*
- * Botones y otros elementos
-*/
-.button-blue-dark {
-	border: var(--main-color);
-	background: var(--main-color);
-	transition: 0.3s;
-}
-
-.button-blue-dark:hover, .button-blue-dark[disabled]:hover  {
-	border: var(--secondary-color);
-	background: var(--secondary-color); 
-}
-
-.lds-dual-ring {
-	width: 50%;
-	display: table;
-	margin: 0 auto;
-	width: 64px;
-	height: 64px;
-}
-
-input[type="email"]:focus, input[type="number"]:focus,
-input[type="password"]:focus, input[type="search"]:focus,
-input[type="tel"]:focus, input[type="text"]:focus, input[type="url"]:focus,
-textarea:focus, select:focus {
-	border-color: var(--main-color);
-}
-
-/*
- *	Editor
-*/
-
-.editor-container {
-	position: absolute;
-	margin-top: 10em;
-}
-
-.progress-container {
-	float: right;
-}
-
-.progress-container  circle {
-  transition: stroke-dashoffset 0.35s;
-  transform: rotate(-90deg);
-	transform-origin: 50% 50%;
-	display: block;
-}
-
-.editor-container .buttons button{
-	margin: 5px;
-}
-
-.editor-container textarea {
-	font-family: 'Roboto', 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif;
-	resize: none;
-	height: 150px;
-}
-
-/*
- * 404
-*/
-._404 .fa-frown {
-	font-size: 10rem;
-}
-
-._404 {
-	position: absolute;
-	margin: 4em auto auto 20%;
-	text-align: center;
-}
-
-._404 a, ._404 a:active, ._404 a:link {
-	color: #015367;
-}
-
-._404 a:hover {
-	color:#04819E;
-}
-
-/*
- * Reports
-*/
-.Report {
-	background: #F1F1EE;
-	width: 65%;
-	border-radius: 5px;
-	margin: 5px auto;
-	margin-top: 0px;
-	padding: 1em;
-}
-
-.Report .decorator {
-	max-width: 5px;
-	min-width: 5px;
-	width: 5px;
-	display: block;
-	background: red;
-}
-
-/*
- * Settings
-*/
-
-/*
- * Admin
-*/
 .AdminPanel #paginator, .ReportList #paginator {
-	position: absolute;
-	left: 50%;
-}
-
-.AdminPanel table td, .AdminPanel table th {
-	text-align: center;
+    text-align: center;
+    margin-top: 1em;
 }
 
 .AdminPanel #paginator li, .ReportList #paginator li {
@@ -341,6 +118,213 @@ textarea:focus, select:focus {
 	cursor: pointer;
 	margin-right: 0.5em;
 	margin-left: 0.5em;
+}
+
+/* 404 */
+._404 .fa-frown {
+	font-size: 10rem;
+}
+
+._404 {
+	position: absolute;
+	margin: 4em auto auto 20%;
+	text-align: center;
+}
+
+._404 a, ._404 a:active, ._404 a:link {
+	color: #015367;
+}
+
+._404 a:hover {
+	color:#04819E;
+}
+
+/* Buttons and others */
+.button-blue-dark {
+	border: var(--main-color);
+	background: var(--main-color);
+	transition: 0.3s;
+}
+
+.button-blue-dark:hover, .button-blue-dark[disabled]:hover  {
+	border: var(--secondary-color);
+	background: var(--secondary-color); 
+}
+
+.lds-dual-ring {
+	width: 50%;
+	display: table;
+	margin: 0 auto;
+	width: 64px;
+	height: 64px;
+}
+
+/* New Note */
+textarea {resize:  none; 	font-family: 'Roboto', 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif;}
+.editor-container {margin-top: 5em; width: 60em;}
+.editor-container input[type="checkbox"] {margin-left: 10px;}
+.editor-container .progress-container {float: right;}
+
+
+/* Notas */
+
+.Note {
+	background: #F1F1EE;
+	width: 65%;
+	border-radius: 5px;
+	margin: 20px auto;
+	-webkit-box-shadow: 10px 10px 6px -3px rgba(0,0,0,0.3);
+	-moz-box-shadow: 10px 10px 6px -3px rgba(0,0,0,0.3);
+	box-shadow: 10px 10px 6px -3px rgba(0,0,0,0.3);
+}
+
+.Note .far {
+	cursor: pointer;
+}
+
+.Note .decorator {
+	max-width: 5px;
+	min-width: 5px;
+	width: 5px;
+	display: block;
+	background: var(--background);
+}
+
+.Note .body-info {
+	line-height: 300%;
+}
+
+.Note .body-info strong {
+	color: black;
+}
+
+.Note time {
+	float: right;
+	margin-right: 20px;
+}
+
+.Note .controllers {
+	text-align: center;
+	margin: 30% 2px auto 2px;
+}
+
+.Note .editMode {
+	margin-top: 1em;
+}
+
+.Note .editMode textarea {
+	height: 7em;
+}
+
+.Note .normalMode {
+	padding-top: 2em;
+	padding-left: 2em; 
+}
+
+
+.Note .controllers i {
+margin: auto 5px;
+	color: black;
+	transition: 0.2s;
+}
+
+.Note h5 {
+font-weight: bold;
+}
+
+.Note .controllers .fa-heart:hover {
+color: #DD7777;
+cursor: pointer
+}
+
+.Note .controllers .liked {
+color: var(--unsolved)
+}
+
+.Note .controllers .fa-edit:hover {
+color: #B4ECB4;
+cursor: pointer
+}
+
+.Note .controllers .fa-flag:hover {
+color: #7777DD;
+cursor: pointer;
+}
+
+.Feed {
+	margin-top: 1em;
+	margin-left: 10em;
+}
+
+/* Reports */
+.ReportList{
+	margin-top: 2em;
+}
+
+.Report {
+	background: #F1F1EE;
+	width: 30em;
+	border-radius: 5px;
+	margin: 5px auto;
+	margin-top: 0px;
+	padding: 1em;
+}
+
+.Report .fas {
+	float: right;
+	transition: 0.3s;
+}
+
+.Report .fas:hover {
+	color: var(--secondary-color);
+	cursor: pointer;
+}
+
+/* Settings */
+.settings {
+	display: block;
+	z-index: -1;
+	width: 50em;
+	margin: 5em 30em;
+}
+
+/* NotLogged */
+.NotLoggedHome {
+	text-align: center;
+	margin: 10em 30%;
+}
+
+.NotLoggedHome h1, .NotLoggedHome h5 {
+	color: white;
+	font-weight: 500;
+}
+
+.NotLoggedHome a {
+	margin-left: 1em;
+	margin-right: 1em;
+	color: var(--main-color);
+}
+
+.NotLoggedHome a:hover{
+	color: var(--secondary-color);
+}
+
+.bgHome {
+	z-index: -1;
+	background: var(--background);
+	display: block;
+	left: 0;
+	top: 0;
+	width: 100%;
+	height: 100%;
+	position: absolute;
+}
+
+canvas {
+	margin: auto;
+	width: 100%;
+	height: 100%;
+	z-index: -2;
 }
 
 /*
@@ -390,5 +374,110 @@ textarea:focus, select:focus {
 	}
 	100% {
 	  transform: rotate(360deg);
+	}
+}
+
+
+
+input[type="email"]:focus, input[type="number"]:focus,
+input[type="password"]:focus, input[type="search"]:focus,
+input[type="tel"]:focus, input[type="text"]:focus, input[type="url"]:focus,
+textarea:focus, select:focus {
+	border-color: var(--main-color);
+}
+
+@media (max-width: 639px) {
+    nav {min-width: 100%; max-width: 100%; min-height: 3.5em; max-height: 5em; text-align: center; position: relative;}
+
+    nav .buttons{margin: 0;}
+
+    .Logo {display: none;}
+
+    nav .buttons div > a .fas {display: none;}
+
+    nav .buttons a {display: inline; margin: 0.2em;}
+
+		.AdminPanel table {
+			width: 100%;
+			margin: 0 0;
+		}
+
+		.editor-container {
+			margin-top: 2em;
+			padding-left: 15%;
+			text-align: center; 
+			width: 25em;
+		}
+
+		.Feed {
+			margin-left: 0em;
+		}
+
+		.settings {
+			text-align: center;
+			margin: 1em 1em;
+			width: 20em;
+		}
+
+		.settings h1 {
+			margin-left: 0.5em;
+		}
+
+		.settings input[type="password"] {
+			margin: 1.5em;
+			width: 19em;
+			display: block;
+		}
+
+		.settings button {
+			margin-left: 3.5em;
+		}
+
+		.Note .editMode {
+			margin-top: 1em;
+			padding-left: 1em; 
+		}
+		
+		.Note .editMode textarea {
+			height: 7em;
+		}
+		
+		.Note .normalMode {
+			padding-top: 2em;
+			padding-left: 2em; 
+		}
+
+		.comp2FA input[type="checkbox"] {margin-left: 0px;}
+
+		.comp2FA .label-inline {margin-left: 0em;}
+
+		.Report {width: 20em;}
+}
+
+@media (min-width: 640px) {
+	body {overflow-x: hidden; }
+
+	nav {
+		position: absolute;
+		z-index: 100;
+	}
+
+	.editor-container {
+		z-index: -1;
+		margin-left: 15em;
+		width: 50em;
+	}
+
+	.AdminPanel table {
+		margin-left: 12em;
+	}
+
+	.ReportList {
+		margin-left: 15em;
+	}
+
+	.settings {
+		width: 25em;
+		margin-left: 20em;
 	}
 }

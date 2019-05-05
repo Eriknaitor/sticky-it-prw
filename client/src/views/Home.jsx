@@ -10,15 +10,16 @@ const Home = (props) => {
 					<CreateNote />
 				)
 				: (
-					<div className="NotLoggedHome">
+					<div>
 						<div className="bgHome"></div>
-						<div className="containerHome">
+						<div className="NotLoggedHome">
 							<h1>RemindMe</h1>
 							<h5>Administra tus notas y recordatorios fácilmente</h5>
 							<Link to="/login">Iniciar sesión</Link>
 							<Link to="/signup">Crear una cuenta</Link>
 						</div>
 					</div>
+
 				)
 			}
 		</div>

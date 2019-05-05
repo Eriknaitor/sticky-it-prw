@@ -143,6 +143,30 @@ module.exports = {
         });
     },
 
+    regenerateQR: (req, res) => {
+        const newSecret = otplib.authenticator.generateSecret();
+        User.findByIdAndUpdate(req.params.id, { $set: { secret2FA: newSecret } }, { new: true, runValidators: true }, (err, user) => {
+            if (err) {
+                return res.status(400).json({
+                    ok: false,
+                    err
+                });
+            }
+
+            if (!user) {
+                return res.status(400).json({
+                    ok: false,
+                    err: 'Usuario no encontrado'
+                });
+            }
+
+            res.json({
+                ok: true,
+                user
+            })
+        });
+    },
+
     // Realmente no lo destruye, si no que lo banea
     destroy: (req, res) => {
         User.findByIdAndUpdate(req.params.id, { banned: true }, { new: true }, (err, user) => {

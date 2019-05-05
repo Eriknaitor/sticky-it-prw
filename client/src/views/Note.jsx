@@ -20,7 +20,8 @@ export default class SingleNote extends React.Component {
             .then((res) => {
                 this.setState({ isLoaded: true, note: res.data });
             }).catch((err) => {
-                toast.error(err.response.data.err);
+                this.props.history.push('/');
+                toast.error('Ha habido un error al mostrar la nota');
             })
     }
 

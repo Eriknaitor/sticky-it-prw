@@ -3,7 +3,7 @@ import ProgressRing from './Progress-ring';
 import CustomDatePicker from './DatePicker';
 import Axios from 'axios';
 import { toast } from 'react-toastify';
-import 'toasted-notes/src/styles.css';
+
 
 //#region Constantes
 const MAX_LENGTH_CONTENT = 500;
@@ -86,8 +86,8 @@ export default class CreateNote extends React.Component {
                         <span>{this.state.contentValue.length} / {MAX_LENGTH_CONTENT}</span>
                     </div>
 
-                    <label className="label-inline" htmlFor="private">¿Nota privada?No se podrá compartir a no ser que la hagas pública</label>
-                    <input type="checkbox" name="private" onChange={this._handlePrivate.bind(this)} checked={this.state.private} />
+                    <label className="label-inline" htmlFor="private">¿Nota privada? No se podrá compartir a no ser que la hagas pública</label>
+                    <input type="checkbox" onChange={this._handlePrivate.bind(this)} name="private" checked={this.state.private} />
 
                     <div className="clear-fix"></div>
 

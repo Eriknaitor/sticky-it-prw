@@ -19,9 +19,9 @@
     - [-] Admin panel
         - [X] User manager
         - [ ] Report system
-    - [-] Home
+    - [X] Home
         - [X] Crear notas
-        - [ ] Not logged
-    - [-] Settings
+        - [X] Not logged
+    - [X] Settings
 
 # Librerías utilizadas

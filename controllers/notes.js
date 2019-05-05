@@ -137,7 +137,7 @@ module.exports = {
 
     // Actualizar una nota
     update: (req, res) => {
-        let body = _.pick(req.body, ['hidden', 'title', 'content', 'rememberDate']);
+        let body = _.pick(req.body, ['hidden', 'title', 'content']);
 
         Note.findByIdAndUpdate(req.params.id, body, { new: true, runValidators: true }, (err, note) => {
             if (err) {

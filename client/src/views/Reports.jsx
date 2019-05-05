@@ -2,6 +2,7 @@ import React, { Fragment, Component } from 'react';
 import Axios from 'axios';
 import TimeAgo from 'react-timeago';
 import { toast } from 'react-toastify';
+import _ from 'underscore';
 import spanishStrings from 'react-timeago/lib/language-strings/es';
 import buildFormatter from 'react-timeago/lib/formatters/buildFormatter';
 const formatter = buildFormatter(spanishStrings);
@@ -58,6 +59,21 @@ export default class Reports extends Component {
             })
     }
 
+    _reportSolved(id) {
+        Axios.put(`http://localhost:8000/api/report/update/${id}`, { resolved: true })
+            .then(() => {
+                this.setState({
+                    reports: _.reject(this.state.reports, function (element) {
+                        return element._id === id;
+                    }), tab: "0"
+                }, () => {
+                    toast.info('Se ha resuelto el reporte');
+                });
+            })
+
+        console.log(id);
+    }
+
     _handleTabs(e) {
         this.setState({ tab: e.target.id });
     }
@@ -78,13 +94,11 @@ export default class Reports extends Component {
         return (
             <div className="ReportList">
                 {reports.map(report => (
-                    <Fragment>
-                        <div key={report._id} className="Report">
-                            <div className='decorator'></div>
-                            <div className='column column-60'>
-                                <h4>{report.reason}</h4>
-                                <small><TimeAgo date={report.createdAt} formatter={formatter} /></small>
-                            </div>
+                    <Fragment key={report._id}>
+                        <div className="Report">
+                            <h4>{report.reason}</h4>
+                            <small><TimeAgo date={report.createdAt} formatter={formatter} /></small>
+                            <i onClick={() => this._reportSolved(report._id)} className="fas fa-check-circle"></i>
                         </div>
                     </Fragment>
                 ))}

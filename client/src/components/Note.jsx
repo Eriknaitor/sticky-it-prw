@@ -1,13 +1,16 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 import TimeAgo from 'react-timeago';
 import spanishStrings from 'react-timeago/lib/language-strings/es';
 import buildFormatter from 'react-timeago/lib/formatters/buildFormatter';
 import Axios from 'axios';
 import Tippy from '@tippy.js/react';
+import { toast } from 'react-toastify';
 const formatter = buildFormatter(spanishStrings);
 
-class Note extends Component {
+
+
+export default class Note extends React.Component {
     constructor(props) {
         super(props);
 
@@ -17,7 +20,12 @@ class Note extends Component {
             userName: '',
             isEditing: false,
             title: this.props.note.title,
-            content: this.props.note.content
+            content: this.props.note.content,
+            editTitle: '',
+            editContent: '',
+
+            MAX_LENGTH_CONTENT: 500,
+            MAX_LENGTH_TITLE: 35
         }
     }
 
@@ -76,13 +84,38 @@ class Note extends Component {
             });
     }
 
+    _saveEdited = (id) => {
+        if ((this.state.title.length >= 12 && this.state.title.length <= 35) && this.state.content.length <= this.state.MAX_LENGTH_CONTENT) {
+            Axios.put(`http://localhost:8000/api/note/update/${id}`, { title: this.state.editTitle, content: this.state.editContent })
+                .then(() => {
+                    this.setState({ title: this.state.editTitle, content: this.state.editContent }, () => {
+                        toast.success('Se ha editado la nota correctamente');
+                    });
+                }).catch((err) => {
+                    toast.error('Ha habido un error al editar la nota');
+                });
+        } else {
+            toast.error('El formato de la nota no es válido');
+        }
+
+    }
+
+    _updateTextArea(e) {
+        this.setState({ editContent: e.target.value })
+    }
+
+
+    _updateTitle(e) {
+        this.setState({ editTitle: e.target.value })
+    }
+
     componentWillMount() {
         if (this.props.currentUser._id !== this.props.note.createdBy)
             this._getUser(this.state.note.createdBy);
     }
 
     render() {
-        const { _id, hidden, savedBy, title, content, createdAt, createdBy, } = this.state.note;
+        const { _id, hidden, savedBy, title, content, editTitle, editContent, createdAt, createdBy, } = this.state.note;
 
         /**
          *  Hacer que los reports tiren y ocultarlos si es el propio user
@@ -95,17 +128,18 @@ class Note extends Component {
             return (
                 <div className="Note row">
                     <div className="decorator"></div>
-                    <div className="body-panel column column-60">
+                    <div className="body-panel column column-80">
                         <div className="body-info">
                             <strong>{this.state.userName}</strong>
                         </div>
                         {this.state.isEditing ?
-                            (<div onChange={this._handleChange.bind(this)}>
-                                <input name="title" type='text' defaultValue={title} />
-                                <textarea name="content" defaultValue={content}></textarea>
-                                <button className="button-blue-dark">Guardar edición</button>
+                            (<div className="editMode" onChange={this._handleChange.bind(this)}>
+                                <input placeholder={title} name="title" type='text' onChange={this._updateTitle.bind(this)} value={editTitle} />
+                                <textarea placeholder={content} name="content" onChange={this._updateTextArea.bind(this)} value={editContent}></textarea>
+                                <button onClick={() => this._saveEdited(_id)} className="button-blue-dark">Guardar edición</button>
+                                <span>{this.state.content.length} / {this.state.MAX_LENGTH_CONTENT}</span>
                             </div>) :
-                            (<div>
+                            (<div className="normalMode">
                                 <h5>{title}</h5>
                                 <p>{content}</p>
                             </div>)
@@ -127,7 +161,7 @@ class Note extends Component {
                             <Tippy content={`${savedBy.length} veces guardada`}>
                                 <i className="fas fa-user"></i>
                             </Tippy>
-                            <i className="fas fa-share-alt"></i>
+                            <Link to={`/note/${_id}`}><i className="fas fa-share-alt"></i></Link>
                             <i id={`liked-${_id}`} onClick={() => this._likeNote(_id)}
                                 className={savedBy.includes(this.props.currentUser._id) ?
                                     ("liked fas fa-heart") :
@@ -142,6 +176,4 @@ class Note extends Component {
 
     }
 }
-
-export default Note;
 

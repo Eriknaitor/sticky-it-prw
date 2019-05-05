@@ -123,9 +123,7 @@ class Feed extends Component {
                 {isLoading &&
                     <div className='lds-dual-ring'></div>
                 }
-                {!hasMore &&
-                    <div className='endFeed'>Parece que has llegado al final ¯\_(ツ)_/¯</div>
-                }
+                {!hasMore && null}
             </div>
         );
     }

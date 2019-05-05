@@ -1,0 +1,394 @@
+:root {
+	--background: #010e1f;
+	--main-color: #3c6287;
+	--secondary-color: #98dab4;
+	--decorators: #232323;
+	--unsolved: #DD7777;;
+}
+
+/*
+#010e1f
+#3c6287
+#98dab4
+#8ec975
+#068b49
+*/
+
+/*
+ * Estilos para el Navbar
+*/
+nav {
+	background: var(--background);
+	min-width: 15em;
+	max-width: 15em;
+	padding: 1em;
+	position: fixed;
+	height: 100%;
+	-webkit-box-shadow: 20px 17px 22px -4px rgba(0,0,0,0.33);
+	-moz-box-shadow: 20px 17px 22px -4px rgba(0,0,0,0.33);
+	box-shadow: 20px 17px 22px -4px rgba(0,0,0,0.33);
+}
+
+.Logo {
+	text-align: center;
+	margin-top: 1em;
+	margin-bottom: 2em;
+}
+
+.Logo > .far {
+	display: block;
+	font-size: 6em;
+	background: rgb(65, 110, 136);
+	background: -moz-linear-gradient(-45deg, rgba(255,145,0,1) 0%, rgba(255,238,0,1) 18%, rgba(140,255,0,1) 36%, rgba(0,251,255,1) 62%, rgba(13,0,255,1) 80%, rgba(238,0,255,1) 100%);
+	background: -webkit-gradient(left top, right bottom, color-stop(0%, rgba(255,145,0,1)), color-stop(18%, rgba(255,238,0,1)), color-stop(36%, rgba(140,255,0,1)), color-stop(62%, rgba(0,251,255,1)), color-stop(80%, rgba(13,0,255,1)), color-stop(100%, rgba(238,0,255,1)));
+	background: -webkit-linear-gradient(-45deg, rgba(255,145,0,1) 0%, rgba(255,238,0,1) 18%, rgba(140,255,0,1) 36%, rgba(0,251,255,1) 62%, rgba(13,0,255,1) 80%, rgba(238,0,255,1) 100%);
+	background: -o-linear-gradient(-45deg, rgba(255,145,0,1) 0%, rgba(255,238,0,1) 18%, rgba(140,255,0,1) 36%, rgba(0,251,255,1) 62%, rgba(13,0,255,1) 80%, rgba(238,0,255,1) 100%);
+	background: -ms-linear-gradient(-45deg, rgba(255,145,0,1) 0%, rgba(255,238,0,1) 18%, rgba(140,255,0,1) 36%, rgba(0,251,255,1) 62%, rgba(13,0,255,1) 80%, rgba(238,0,255,1) 100%);
+	background: linear-gradient(135deg, rgba(255,145,0,1) 0%, rgba(255,238,0,1) 18%, rgba(140,255,0,1) 36%, rgba(0,251,255,1) 62%, rgba(13,0,255,1) 80%, rgba(238,0,255,1) 100%);
+	background-clip: text;
+	-webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.Logo span {
+	font-size: 1.5em;
+	margin: 0 auto;
+	color: #8ec975;
+}
+
+nav .buttons {
+	margin: 0 auto;
+	width: 100px;
+}
+
+nav .buttons a {
+	display: block;
+	text-align: center;
+	margin-top: 1em;
+	margin-bottom: 1em;
+	text-decoration: none;
+	color: var(--main-color);
+	transition: 0.3s;
+}
+
+nav .buttons a:hover {
+	color: var(--secondary-color)
+}
+
+nav .buttons .fas {
+	display: block;
+	font-size: 3em;
+	margin-bottom: 0.1em;
+}
+
+/*
+ * Container
+*/
+
+/*
+ * Home
+*/
+
+.NotLoggedHome {
+	text-align: center;
+}
+
+.NotLoggedHome a {
+	margin-left: 2em;
+	margin-right: 2em; 
+}
+
+.bgHome {
+	background-size: 100% 100%; 
+	z-index: 0;
+	background: red;
+}
+
+.containerHome {
+	display: absolute;
+	z-index: 1;
+}
+
+
+/*
+ * Estilos para el Feed
+*/
+
+.Feed {
+	padding-top: 4em;
+}
+
+.Feed .endFeed {
+	margin-top: 40px;
+	text-align: center;
+}
+
+/*
+ * Estilos para las notas
+*/
+.Note {
+    background: #F1F1EE;
+    width: 65%;
+    border-radius: 5px;
+		margin: 20px auto;
+		margin-top: 0px;
+		-webkit-box-shadow: 10px 10px 6px -3px rgba(0,0,0,0.3);
+		-moz-box-shadow: 10px 10px 6px -3px rgba(0,0,0,0.3);
+		box-shadow: 10px 10px 6px -3px rgba(0,0,0,0.3);
+}
+
+.Note .far {
+	cursor: pointer;
+}
+
+.Note .decorator {
+    max-width: 5px;
+    min-width: 5px;
+    width: 5px;
+    display: block;
+    background: var(--background);
+}
+
+.Note .body-info {
+    line-height: 300%;
+}
+
+.Note .body-info strong {
+	color: black;
+}
+
+.Note time {
+	float: right;
+	margin-right: 20px;
+}
+
+.Note .controllers {
+	text-align: center;
+	margin: 30% 2px auto 2px;
+}
+
+.Note .controllers i {
+	margin: auto 5px;
+    color: black;
+    transition: 0.2s;
+}
+
+.Note h5 {
+	font-weight: bold;
+}
+
+.Note .controllers .fa-heart:hover {
+	color: #DD7777;
+	cursor: pointer
+}
+
+.Note .controllers .liked {
+	color: var(--unsolved)
+}
+
+.Note .controllers .fa-edit:hover {
+	color: #B4ECB4;
+	cursor: pointer
+}
+
+.Note .controllers .fa-flag:hover {
+	color: #7777DD;
+	cursor: pointer;
+}
+
+.Note textarea {
+	resize: none;
+}
+
+/*
+ * Botones y otros elementos
+*/
+.button-blue-dark {
+	border: var(--main-color);
+	background: var(--main-color);
+	transition: 0.3s;
+}
+
+.button-blue-dark:hover, .button-blue-dark[disabled]:hover  {
+	border: var(--secondary-color);
+	background: var(--secondary-color); 
+}
+
+.lds-dual-ring {
+	width: 50%;
+	display: table;
+	margin: 0 auto;
+	width: 64px;
+	height: 64px;
+}
+
+input[type="email"]:focus, input[type="number"]:focus,
+input[type="password"]:focus, input[type="search"]:focus,
+input[type="tel"]:focus, input[type="text"]:focus, input[type="url"]:focus,
+textarea:focus, select:focus {
+	border-color: var(--main-color);
+}
+
+/*
+ *	Editor
+*/
+
+.editor-container {
+	position: absolute;
+	margin-top: 10em;
+}
+
+.progress-container {
+	float: right;
+}
+
+.progress-container  circle {
+  transition: stroke-dashoffset 0.35s;
+  transform: rotate(-90deg);
+	transform-origin: 50% 50%;
+	display: block;
+}
+
+.editor-container .buttons button{
+	margin: 5px;
+}
+
+.editor-container textarea {
+	font-family: 'Roboto', 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif;
+	resize: none;
+	height: 150px;
+}
+
+/*
+ * 404
+*/
+._404 .fa-frown {
+	font-size: 10rem;
+}
+
+._404 {
+	position: absolute;
+	margin: 4em auto auto 20%;
+	text-align: center;
+}
+
+._404 a, ._404 a:active, ._404 a:link {
+	color: #015367;
+}
+
+._404 a:hover {
+	color:#04819E;
+}
+
+/*
+ * Reports
+*/
+.Report {
+	background: #F1F1EE;
+	width: 65%;
+	border-radius: 5px;
+	margin: 5px auto;
+	margin-top: 0px;
+	padding: 1em;
+}
+
+.Report .decorator {
+	max-width: 5px;
+	min-width: 5px;
+	width: 5px;
+	display: block;
+	background: red;
+}
+
+/*
+ * Settings
+*/
+
+/*
+ * Admin
+*/
+.AdminPanel #paginator, .ReportList #paginator {
+	position: absolute;
+	left: 50%;
+}
+
+.AdminPanel table td, .AdminPanel table th {
+	text-align: center;
+}
+
+.AdminPanel #paginator li, .ReportList #paginator li {
+	cursor: pointer;
+	background: var(--background);
+	color: var(--main-color);
+	font-weight: bold;
+	padding-top: 0.2em;
+	border-radius: 2em; 
+	width: 2em;
+	height: 2em;
+	margin: auto 0.5em auto 0.5em;
+	list-style: none;
+	text-align: center;
+	display: inline-block;
+	transition: 0.3s
+}
+
+.AdminPanel #paginator li:hover, .ReportList #paginator li:hover {
+	background: var(--secondary-color);
+	display: inline-block;
+}
+
+.AdminPanel .controller i {
+	cursor: pointer;
+	margin-right: 0.5em;
+	margin-left: 0.5em;
+}
+
+/*
+ * Animations
+*/
+
+.slide-bottom {
+	-webkit-animation: slide-bottom 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+	        animation: slide-bottom 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+}
+
+ @-webkit-keyframes slide-bottom {
+  0% {
+    -webkit-transform: translateY(0);
+            transform: translateY(0);
+  }
+  100% {
+    -webkit-transform: translateY(50px);
+            transform: translateY(50px);
+  }
+}
+@keyframes slide-bottom {
+  0% {
+    -webkit-transform: translateY(0);
+            transform: translateY(0);
+  }
+  100% {
+    -webkit-transform: translateY(50px);
+            transform: translateY(50px);
+  }
+}
+
+.lds-dual-ring:after {
+	content: " ";
+	display: block;
+	width: 46px;
+	height: 46px;
+	margin: 1px;
+	border-radius: 50%;
+	border: 5px solid #000;
+	border-color: #000 transparent #000 transparent;
+	animation: lds-dual-ring 1.2s linear infinite;
+  }
+  @keyframes lds-dual-ring {
+	0% {
+	  transform: rotate(0deg);
+	}
+	100% {
+	  transform: rotate(360deg);
+	}
+}

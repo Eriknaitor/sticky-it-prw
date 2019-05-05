@@ -1,5 +1,6 @@
 import React, { Fragment, Component } from 'react';
 import Axios from 'axios';
+import { toast } from 'react-toastify';
 
 
 export default class Admin extends Component {
@@ -56,6 +57,7 @@ export default class Admin extends Component {
         if (window.confirm('Vas a banear a este usuario, esta opción no se puede deshacer, ¿estas seguro?')) {
             Axios.delete(`http://localhost:8000/api/user/delete/${id}`)
                 .then(() => {
+                    toast.info('El usuario ha sido baneado');
                     this._loadUsers();
                 })
         }
@@ -81,12 +83,10 @@ export default class Admin extends Component {
 
         return (
             <div className="AdminPanel">
-                <table>
+                <table align="center">
                     <thead>
                         <tr>
-                            <th>ID</th>
-                            <th>Nombre de usuario</th>
-                            <th>Email</th>
+                            <th>Usuario</th>
                             <th>Rol</th>
                             <th>2FA</th>
                             <th></th>
@@ -96,13 +96,11 @@ export default class Admin extends Component {
                         {users.map(user => (
                             <Fragment key={user._id}>
                                 <tr>
-                                    <td>{user._id}</td>
                                     <td>{user.username}</td>
-                                    <td>{user.email}</td>
                                     <td>{user.role}</td>
                                     <td>{user.isEnabled2FA ? (<i className="fas fa-lock"></i>) : (<i className="fas fa-lock-open"></i>)}</td>
                                     <td className="controller">
-                                        <i onClick={() => this._handleBan(user._id)} className="fas fa-gavel"></i>
+                                        {user.role === 'user' ? (<i onClick={() => this._handleBan(user._id)} className="fas fa-gavel"></i>) : null}
                                     </td>
                                 </tr>
                             </Fragment>
