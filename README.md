@@ -12,9 +12,9 @@
     - [X] Note viewer
     - [X] Sustituir todos los catchs por errores mas decentes con alerts
     - [X] Navbar
-    - [-] Notas y feed
+    - [X] Notas y feed
         - [X] Feed
-        - [ ] Notas
+        - [X] Notas
     - [X] Saved
     - [-] Admin panel
         - [X] User manager

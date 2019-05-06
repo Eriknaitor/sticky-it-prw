@@ -5,10 +5,15 @@ import spanishStrings from 'react-timeago/lib/language-strings/es';
 import buildFormatter from 'react-timeago/lib/formatters/buildFormatter';
 import Axios from 'axios';
 import Tippy from '@tippy.js/react';
+import Popup from 'reactjs-popup';
 import { toast } from 'react-toastify';
 const formatter = buildFormatter(spanishStrings);
 
-
+//#region Constantes
+const MAX_LENGTH_CONTENT = 500;
+const MIN_LENGTH_TITLE = 12;
+const MAX_LENGTH_TITLE = 35;
+//#endregion
 
 export default class Note extends React.Component {
     constructor(props) {
@@ -16,17 +21,11 @@ export default class Note extends React.Component {
 
         this.state = {
             note: this.props.note,
-            userId: 0,
             userName: '',
             isEditing: false,
-            title: this.props.note.title,
-            content: this.props.note.content,
-            editTitle: '',
-            editContent: '',
-
-            MAX_LENGTH_CONTENT: 500,
-            MAX_LENGTH_TITLE: 35
-        }
+            _title: this.props.note.title,
+            _content: this.props.note.content
+        };
     }
 
     _likeNote = (id) => {
@@ -64,7 +63,7 @@ export default class Note extends React.Component {
     }
 
     _handleEdit = () => {
-        this.setState({ isEditing: !this.state.isEditing });
+        this.setState({ isEditing: !this.state.isEditing, editTitle: this.state.title, editContent: this.state.content });
     }
 
     _handleChange = (evt) => {
@@ -84,11 +83,17 @@ export default class Note extends React.Component {
             });
     }
 
+    between(val, min, max) {
+        return val >= min && val <= max;
+    }
+
+
     _saveEdited = (id) => {
-        if ((this.state.title.length >= 12 && this.state.title.length <= 35) && this.state.content.length <= this.state.MAX_LENGTH_CONTENT) {
-            Axios.put(`http://localhost:8000/api/note/update/${id}`, { title: this.state.editTitle, content: this.state.editContent })
+        if (this.between(this.state._title.length, MIN_LENGTH_TITLE, MAX_LENGTH_TITLE) || this.state._content.length <= this.state.MAX_LENGTH_CONTENT) {
+            Axios.put(`http://localhost:8000/api/note/update/${id}`, { title: this.state._title, content: this.state._content })
                 .then(() => {
                     this.setState({ title: this.state.editTitle, content: this.state.editContent }, () => {
+                        this.setState({ isEditing: false });
                         toast.success('Se ha editado la nota correctamente');
                     });
                 }).catch((err) => {
@@ -100,13 +105,10 @@ export default class Note extends React.Component {
 
     }
 
-    _updateTextArea(e) {
-        this.setState({ editContent: e.target.value })
-    }
-
-
-    _updateTitle(e) {
-        this.setState({ editTitle: e.target.value })
+    _handleBan = (id) => {
+        return (<Popup>
+            <h1>Test</h1>
+        </Popup>);
     }
 
     componentWillMount() {
@@ -115,13 +117,11 @@ export default class Note extends React.Component {
     }
 
     render() {
-        const { _id, hidden, savedBy, title, content, editTitle, editContent, createdAt, createdBy, } = this.state.note;
+        const { _id, hidden, savedBy, createdAt, createdBy } = this.state.note;
+        const { _title, _content } = this.state;
 
-        /**
-         *  Hacer que los reports tiren y ocultarlos si es el propio user
-         *  Meter para borrar la nota
-         */
 
+        /*https://react-popup.elazizi.com/use-case---modal/ */
         if (hidden && this.props.currentUser._id !== createdBy && !savedBy.includes(this.props.currentUser._id)) {
             return (<div><h1>Esta nota es privada <i class="far fa-frown"></i></h1></div>);
         } else {
@@ -129,19 +129,19 @@ export default class Note extends React.Component {
                 <div className="Note row">
                     <div className="decorator"></div>
                     <div className="body-panel column column-80">
-                        <div className="body-info">
-                            <strong>{this.state.userName}</strong>
-                        </div>
                         {this.state.isEditing ?
                             (<div className="editMode" onChange={this._handleChange.bind(this)}>
-                                <input placeholder={title} name="title" type='text' onChange={this._updateTitle.bind(this)} value={editTitle} />
-                                <textarea placeholder={content} name="content" onChange={this._updateTextArea.bind(this)} value={editContent}></textarea>
+                                <input name="_title" type="text" defaultValue={_title} />
+                                <textarea name="_content" defaultValue={_content}></textarea>
                                 <button onClick={() => this._saveEdited(_id)} className="button-blue-dark">Guardar edición</button>
-                                <span>{this.state.content.length} / {this.state.MAX_LENGTH_CONTENT}</span>
+                                <span className="float-right">{this.state._content.length} / {MAX_LENGTH_CONTENT}</span>
                             </div>) :
                             (<div className="normalMode">
-                                <h5>{title}</h5>
-                                <p>{content}</p>
+                                <div className="body-info">
+                                    <strong>{this.state.userName}</strong>
+                                </div>
+                                <h5>{_title}</h5>
+                                <p>{_content}</p>
                             </div>)
                         }
                     </div>
@@ -155,13 +155,15 @@ export default class Note extends React.Component {
                                     className={!hidden ?
                                         ("far fa-eye") :
                                         ("far fa-eye-slash")}></i>) :
-                                (<i className="fas fa-flag"></i>)
+                                (<Popup closeOnDocumentClick modal trigger={<i className="fas fa-flag"></i>}>
+                                    <h1>Test</h1>
+                                </Popup>)
                             }
                             {this.props.currentUser._id === createdBy ? (<i onClick={() => this.deleteNote(_id)} className="far fa-trash-alt"></i>) : null}
                             <Tippy content={`${savedBy.length} veces guardada`}>
                                 <i className="fas fa-user"></i>
                             </Tippy>
-                            <Link to={`/note/${_id}`}><i className="fas fa-share-alt"></i></Link>
+                            <Link to={`/note/${_id}`}><i className="fas fa-share"></i></Link>
                             <i id={`liked-${_id}`} onClick={() => this._likeNote(_id)}
                                 className={savedBy.includes(this.props.currentUser._id) ?
                                     ("liked fas fa-heart") :
@@ -176,4 +178,3 @@ export default class Note extends React.Component {
 
     }
 }
-

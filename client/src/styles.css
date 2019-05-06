@@ -239,27 +239,32 @@ margin: auto 5px;
 }
 
 .Note h5 {
-font-weight: bold;
+	font-weight: bold;
 }
 
 .Note .controllers .fa-heart:hover {
-color: #DD7777;
-cursor: pointer
+	color: #DD7777;
+	cursor: pointer
 }
 
 .Note .controllers .liked {
-color: var(--unsolved)
+	color: var(--unsolved)
 }
 
 .Note .controllers .fa-edit:hover {
-color: #B4ECB4;
-cursor: pointer
+	color: #B4ECB4;
+	cursor: pointer
 }
 
 .Note .controllers .fa-flag:hover {
-color: #7777DD;
-cursor: pointer;
+	color: #7777DD;
+	cursor: pointer;
 }
+
+.Note .controllers .fa-share:hover {
+	color: #58d7bd;
+	cursor: pointer;
+} 
 
 .Feed {
 	margin-top: 1em;
