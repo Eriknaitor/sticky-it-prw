@@ -5,7 +5,7 @@ import { toast } from 'react-toastify';
 import _ from 'underscore';
 
 
-class Feed extends Component {
+export default class Feed extends Component {
     constructor() {
         super();
 
@@ -123,10 +123,8 @@ class Feed extends Component {
                 {isLoading &&
                     <div className='lds-dual-ring'></div>
                 }
-                {!hasMore && null}
+                {!hasMore && (<div align="center">Parece que has llegado la final</div>)}
             </div>
         );
     }
 }
-
-export default Feed;

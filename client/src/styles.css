@@ -159,12 +159,22 @@ nav .buttons .fas {
 	height: 64px;
 }
 
+.Login {
+	margin-top: 5em;
+	text-align: center;
+}
+
+.Login .fas {
+	font-size: 10em;
+	margin-bottom: 0.1em;
+}
+
 /* New Note */
 textarea {resize:  none; 	font-family: 'Roboto', 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif;}
 .editor-container {margin-top: 5em; width: 60em;}
-.editor-container input[type="checkbox"] {margin-left: 10px;}
+.editor-container input[type="checkbox"] {margin-left: 8px; transform: scale(0.8);}
 .editor-container .progress-container {float: right;}
-
+.editor-container .label-inline {font-size: 12px;}
 
 /* Notas */
 
