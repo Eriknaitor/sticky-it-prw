@@ -42,7 +42,9 @@ export default class App extends React.Component {
                 <div className='column column-100 container'>
                     <Switch>
                         <Route path="/login" render={(props) => {
-                            return <LogIn {...props} onLoginSuccess={this.onLoginSuccess.bind(this)} />
+                            return currentUser ?
+                                <Redirect to="/" />
+                                : <LogIn {...props} onLoginSuccess={this.onLoginSuccess.bind(this)} />
                         }} />
 
                         <Route path="/logout" render={() => {
@@ -50,7 +52,9 @@ export default class App extends React.Component {
                         }} />
 
                         <Route path="/signup" render={(props) => {
-                            return <SignUp {...props} onSignUpSuccess={this.onLoginSuccess.bind(this)} />
+                            return currentUser ?
+                                <Redirect to="/" />
+                                : <SignUp {...props} onSignUpSuccess={this.onLoginSuccess.bind(this)} />
                         }} />
 
                         <Route path="/notes" render={() => {

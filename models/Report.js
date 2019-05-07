@@ -4,12 +4,17 @@ const Schema = mongoose.Schema;
 const ReportSchema = new Schema({
     sentBy: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'Users',
+        ref: 'User',
         required: true
     },
     resolved: {
         type: Boolean,
         default: false,
+    },
+    reportedId: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Note',
+        required: true
     },
     reason: {
         type: String,

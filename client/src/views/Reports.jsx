@@ -1,4 +1,5 @@
 import React, { Fragment, Component } from 'react';
+import { Link } from 'react-router-dom';
 import Axios from 'axios';
 import TimeAgo from 'react-timeago';
 import { toast } from 'react-toastify';
@@ -31,7 +32,8 @@ export default class Reports extends Component {
                     resolved: report.resolved,
                     sentBy: report.sentBy,
                     reason: report.reason,
-                    createdAt: report.createdAt
+                    createdAt: report.createdAt,
+                    reportedId: report.reportedId
                 }));
 
                 this.setState({
@@ -97,6 +99,8 @@ export default class Reports extends Component {
                     <Fragment key={report._id}>
                         <div className="Report">
                             <h4>{report.reason}</h4>
+                            <Link to={`/note/${report.reportedId}`}>Enlace a la nota</Link>
+                            <div className="clear-both"></div>
                             <small><TimeAgo date={report.createdAt} formatter={formatter} /></small>
                             <i onClick={() => this._reportSolved(report._id)} className="fas fa-check-circle"></i>
                         </div>

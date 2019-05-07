@@ -1,4 +1,5 @@
 const User = require('../models/User');
+const email = require('../jobs/email');
 const bcrypt = require('bcrypt');
 const otplib = require('otplib');
 const QRCode = require('qrcode');
@@ -82,6 +83,7 @@ module.exports = {
                 });
             }
 
+            email.register({ email: user.email, username: user.username });
             res.json({
                 ok: true,
                 user

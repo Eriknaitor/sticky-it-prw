@@ -16,9 +16,9 @@
         - [X] Feed
         - [X] Notas
     - [X] Saved
-    - [-] Admin panel
+    - [X] Admin panel
         - [X] User manager
-        - [ ] Report system
+        - [X] Report system
     - [X] Home
         - [X] Crear notas
         - [X] Not logged

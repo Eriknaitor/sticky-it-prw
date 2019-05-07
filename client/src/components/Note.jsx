@@ -105,10 +105,19 @@ export default class Note extends React.Component {
 
     }
 
-    _handleBan = (id) => {
-        return (<Popup>
-            <h1>Test</h1>
-        </Popup>);
+    _handleReport = () => {
+        const comboReport = document.getElementsByName('comboReport')[0].value;
+
+        if (comboReport === "") {
+            toast.warn('Tienes que especificar un motivo')
+        } else {
+            Axios.post('http://localhost:8000/api/report/create', { reason: comboReport, reportedId: this.props.note._id })
+                .then(() => {
+                    toast.info('Se ha reportado esta nota');
+                }).catch(() => {
+                    toast.error('Ha habido un error al enviar el reporte');
+                });
+        }
     }
 
     componentWillMount() {
@@ -120,9 +129,7 @@ export default class Note extends React.Component {
         const { _id, hidden, savedBy, createdAt, createdBy } = this.state.note;
         const { _title, _content } = this.state;
 
-
-        /*https://react-popup.elazizi.com/use-case---modal/ */
-        if (hidden && this.props.currentUser._id !== createdBy && !savedBy.includes(this.props.currentUser._id)) {
+        if (hidden && (this.props.currentUser._id !== createdBy || this.props.currentUser.role !== 'admin') && !savedBy.includes(this.props.currentUser._id)) {
             return (<div><h1>Esta nota es privada <i class="far fa-frown"></i></h1></div>);
         } else {
             return (
@@ -156,7 +163,15 @@ export default class Note extends React.Component {
                                         ("far fa-eye") :
                                         ("far fa-eye-slash")}></i>) :
                                 (<Popup closeOnDocumentClick modal trigger={<i className="fas fa-flag"></i>}>
-                                    <h1>Test</h1>
+                                    <h1>¿Por qué vas a reportar la nota?</h1>
+                                    <select name="comboReport" id="">
+                                        <option defaultValue="default"></option>
+                                        <option value="No me gusta">No me gusta</option>
+                                        <option value="Me ofende">Me ofende</option>
+                                        <option value="Tiene contenido ofensivo">Tiene contenido ofensivo</option>
+                                    </select>
+
+                                    <button onClick={() => this._handleReport()} className="button-blue-dark">Enviar reporte</button>
                                 </Popup>)
                             }
                             {this.props.currentUser._id === createdBy ? (<i onClick={() => this.deleteNote(_id)} className="far fa-trash-alt"></i>) : null}

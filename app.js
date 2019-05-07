@@ -3,6 +3,8 @@ const morgan = require('morgan');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const cors = require('cors');
+const schedule = require('node-schedule');
+const jTask = require('./jobs/tasks');
 require('dotenv').config({ path: './.env' });
 
 const app = express();
@@ -28,6 +30,12 @@ app.use(bodyParser.json());
 
 // Cargamos las rutas de la API.
 app.use('/api', require('./routes'));
+
+
+const j = schedule.scheduleJob('* 23 * * *', () => {
+
+});
+
 
 app.listen(port, () => {
     console.log(`Server funcionando en el puerto ${port}`)

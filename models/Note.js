@@ -30,7 +30,7 @@ const NoteSchema = new Schema({
     },
     createdBy: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'Users',
+        ref: 'User',
         required: true
     },
     likes: {
@@ -39,7 +39,7 @@ const NoteSchema = new Schema({
     },
     savedBy: [{
         type: Schema.Types.ObjectId,
-        ref: 'Users'
+        ref: 'User'
     }]
 });
 

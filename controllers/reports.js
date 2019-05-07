@@ -58,6 +58,7 @@ module.exports = {
 
         let report = new Report({
             sentBy: req.userInfo._id,
+            reportedId: body.reportedId,
             reason: body.reason,
         });
 
