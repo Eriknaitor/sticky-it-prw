@@ -1,5 +1,6 @@
 const Note = require('../models/Note');
 const _ = require('underscore');
+const jTask = require('../jobs/tasks');
 
 module.exports = {
 
@@ -126,6 +127,10 @@ module.exports = {
                     ok: false,
                     err
                 });
+            }
+
+            if (note.rememberDate !== null) {
+                jTask.create(note._id, note.rememberDate, req.userInfo.email, note.title, note.content);
             }
 
             res.json({

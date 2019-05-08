@@ -1,7 +1,7 @@
 const email = require('nodemailer');
-const credentials = process.env.MAIL.split(',');
 
 const sendMail = async (to, mailinfo) => {
+    const credentials = process.env.MAIL.split(',');
     let account = await email.createTransport({
         service: 'gmail',
         auth: {

@@ -15,9 +15,16 @@ const TaskSchema = new Schema({
         type: Date,
         default: null
     },
+    title: {
+        type: String,
+        required: true,
+    },
+    content: {
+        type: String,
+        required: true,
+    },
     createdBy: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'User',
+        type: String,
         required: true
     }
 })

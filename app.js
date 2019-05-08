@@ -5,6 +5,7 @@ const mongoose = require('mongoose');
 const cors = require('cors');
 const schedule = require('node-schedule');
 const jTask = require('./jobs/tasks');
+const path = require('path');
 require('dotenv').config({ path: './.env' });
 
 const app = express();
@@ -29,13 +30,18 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 // Cargamos las rutas de la API.
-app.use('/', require('./routes'));
+app.use('/api', require('./routes'));
 
 
 const j = schedule.scheduleJob('* 23 * * *', () => {
     jTask.unsolved();
 });
 
+// Servimos la build del cliente
+app.use(express.static(path.join(__dirname, 'client/build')));
+app.get('*', (req, res) => {
+    res.sendfile(path.join(__dirname = 'client/build/index.html'));
+});
 
 app.listen(port, () => {
     console.log(`Server funcionando en el puerto ${port}`)
