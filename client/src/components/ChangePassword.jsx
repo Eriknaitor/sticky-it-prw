@@ -33,7 +33,7 @@ export default class ChangePassword extends React.Component {
     submitNewPass = (e) => {
         e.preventDefault();
         if (this.state.oldPass.length === 0 || this.state.newPass.length === 0) return toast.error('La contraseña no puede estar vacía');
-        Axios.put(`http://localhost:8000/api/user/changePass/${this.props.currentUser._id}`, {
+        Axios.put(`/user/changePass/${this.props.currentUser._id}`, {
             password: this.state.newPass
         })
             .then(() => {

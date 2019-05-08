@@ -16,7 +16,7 @@ export default class SingleNote extends React.Component {
 
     // Para sacar los parámetros de la URL this.props.match.params.noteId
     componentDidMount() {
-        Axios.get(`http://localhost:8000/api/note/${this.state.noteId}`)
+        Axios.get(`/note/${this.state.noteId}`)
             .then((res) => {
                 this.setState({ isLoaded: true, note: res.data });
             }).catch((err) => {

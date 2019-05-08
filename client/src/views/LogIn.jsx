@@ -25,7 +25,7 @@ export default class LogIn extends React.Component {
 
 	onSubmitStageOne = function (evt) {
 		evt.preventDefault();
-		axios.post('http://localhost:8000/api/authenticate', this.state.fields)
+		axios.post('/authenticate', this.state.fields)
 			.then((res) => {
 				localStorage.setItem('remember', this.state.fields.email);
 				if (res.status === 200) {
@@ -44,7 +44,7 @@ export default class LogIn extends React.Component {
 
 	onSubmitStageTwo = function (evt) {
 		evt.preventDefault();
-		axios.post('http://localhost:8000/api/authenticate', this.state.fields, { headers: { 'x-otp': this.state.fields.otp } })
+		axios.post('/authenticate', this.state.fields, { headers: { 'x-otp': this.state.fields.otp } })
 			.then((res) => {
 				if (res.status === 200) {
 					const isValid = httpClient.validLogin(res.data.token);

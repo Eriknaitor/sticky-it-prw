@@ -15,7 +15,7 @@ export default class Enable2FA extends React.Component {
 
 
     getQR = () => {
-        Axios.get(`http://localhost:8000/api/user/qr/${this.props.currentUser._id}`)
+        Axios.get(`/user/qr/${this.props.currentUser._id}`)
             .then((res) => {
                 this.setState({ img: res.data.dataURL });
             }).catch((err) => {
@@ -29,7 +29,7 @@ export default class Enable2FA extends React.Component {
 
 
     _regenerateQR() {
-        Axios.put(`http://localhost:8000/api/user/newSecret/${this.props.currentUser._id}`)
+        Axios.put(`/user/newSecret/${this.props.currentUser._id}`)
             .then(() => {
                 this.getQR();
             })
@@ -40,7 +40,7 @@ export default class Enable2FA extends React.Component {
             this.getQR();
         } else {
             this.setState({ enabled2FA: e.target.checked }, () => {
-                Axios.put(`http://localhost:8000/api/user/update/${this.props.currentUser._id}`,
+                Axios.put(`/user/update/${this.props.currentUser._id}`,
                     { isEnabled2FA: this.state.enabled2FA })
                     .catch((err) => {
                         toast.error('Ha habido un error al activar la 2FA');

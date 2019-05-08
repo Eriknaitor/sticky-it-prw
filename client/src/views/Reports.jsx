@@ -25,7 +25,7 @@ export default class Reports extends Component {
     }
 
     _loadReports() {
-        Axios.get(`http://localhost:8000/api/reports/?index=${Number(this.state.tab)}`)
+        Axios.get(`/reports/?index=${Number(this.state.tab)}`)
             .then((res) => {
                 const nextReports = res.data.reports.map(report => ({
                     _id: report._id,
@@ -55,14 +55,14 @@ export default class Reports extends Component {
     }
 
     _handleReport(id) {
-        Axios.put(`http://localhost:8000/api/report/${id}`)
+        Axios.put(`/report/${id}`)
             .then(() => {
                 this._loadReports();
             })
     }
 
     _reportSolved(id) {
-        Axios.put(`http://localhost:8000/api/report/update/${id}`, { resolved: true })
+        Axios.put(`/report/update/${id}`, { resolved: true })
             .then(() => {
                 this.setState({
                     reports: _.reject(this.state.reports, function (element) {

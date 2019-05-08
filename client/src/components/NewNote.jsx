@@ -54,7 +54,7 @@ export default class CreateNote extends React.Component {
         if (this.state.titleValue.length < 12) {
             toast.warn('El título como mínimo tiene que tener 12 caracteres');
         } else {
-            Axios.post('http://localhost:8000/api/note/create', {
+            Axios.post('/note/create', {
                 title: document.getElementsByName('title')[0].value,
                 content: this.state.contentValue,
                 remember: this.state.rememberDate,

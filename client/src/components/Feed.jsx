@@ -42,7 +42,7 @@ export default class Feed extends Component {
     }
 
     _deleteNote = (id) => {
-        Axios.delete(`http://localhost:8000/api/note/delete/${id}`)
+        Axios.delete(`/note/delete/${id}`)
             .then(() => {
                 this.setState({
                     Notes: _.reject(this.state.Notes, function (element) {

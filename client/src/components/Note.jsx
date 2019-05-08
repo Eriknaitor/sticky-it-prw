@@ -30,12 +30,12 @@ export default class Note extends React.Component {
 
     _likeNote = (id) => {
         if (document.querySelector(`#liked-${id}`).classList.contains('liked')) {
-            Axios.put(`http://localhost:8000/api/note/dislike/${id}`);
+            Axios.put(`/note/dislike/${id}`);
             document.querySelector(`#liked-${id}`).classList.remove('liked');
             document.querySelector(`#liked-${id}`).classList.remove('fas');
             document.querySelector(`#liked-${id}`).classList.add('far')
         } else {
-            Axios.put(`http://localhost:8000/api/note/like/${id}`)
+            Axios.put(`/note/like/${id}`)
             document.querySelector(`#liked-${id}`).classList.remove('far')
             document.querySelector(`#liked-${id}`).classList.add('liked');
             document.querySelector(`#liked-${id}`).classList.add('fas');
@@ -44,13 +44,13 @@ export default class Note extends React.Component {
 
     _hideNote = (id) => {
         if (document.querySelector(`#hidden-${id}`).classList.contains('hidden')) {
-            Axios.put(`http://localhost:8000/api/note/update/${id}`, { hidden: false })
+            Axios.put(`/note/update/${id}`, { hidden: false })
             document.querySelector(`#hidden-${id}`).classList.remove('hidden');
             document.querySelector(`#hidden-${id}`).classList.add('fa-eye');
             document.querySelector(`#hidden-${id}`).classList.remove('fa-eye-slash');
 
         } else {
-            Axios.put(`http://localhost:8000/api/note/update/${id}`, { hidden: true })
+            Axios.put(`/note/update/${id}`, { hidden: true })
             document.querySelector(`#hidden-${id}`).classList.add('hidden');
             document.querySelector(`#hidden-${id}`).classList.add('fa-eye-slash');
             document.querySelector(`#hidden-${id}`).classList.remove('fa-eye');
@@ -71,7 +71,7 @@ export default class Note extends React.Component {
     }
 
     _getUser = (userId) => {
-        Axios.get(`http://localhost:8000/api/user/${userId}`)
+        Axios.get(`/user/${userId}`)
             .then((res) => {
                 this.setState({
                     userId: res.data.user._id,
@@ -90,7 +90,7 @@ export default class Note extends React.Component {
 
     _saveEdited = (id) => {
         if (this.between(this.state._title.length, MIN_LENGTH_TITLE, MAX_LENGTH_TITLE) || this.state._content.length <= this.state.MAX_LENGTH_CONTENT) {
-            Axios.put(`http://localhost:8000/api/note/update/${id}`, { title: this.state._title, content: this.state._content })
+            Axios.put(`/note/update/${id}`, { title: this.state._title, content: this.state._content })
                 .then(() => {
                     this.setState({ title: this.state.editTitle, content: this.state.editContent }, () => {
                         this.setState({ isEditing: false });
@@ -111,7 +111,7 @@ export default class Note extends React.Component {
         if (comboReport === "") {
             toast.warn('Tienes que especificar un motivo')
         } else {
-            Axios.post('http://localhost:8000/api/report/create', { reason: comboReport, reportedId: this.props.note._id })
+            Axios.post('/report/create', { reason: comboReport, reportedId: this.props.note._id })
                 .then(() => {
                     toast.info('Se ha reportado esta nota');
                 }).catch(() => {

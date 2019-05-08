@@ -22,7 +22,7 @@ export default class Admin extends Component {
     }
 
     _loadUsers() {
-        Axios.get(`http://localhost:8000/api/users?index=${this.state.counter}`)
+        Axios.get(`/users?index=${this.state.counter}`)
             .then((res) => {
                 const nextUsers = res.data.users.map(user => ({
                     _id: user._id,
@@ -55,7 +55,7 @@ export default class Admin extends Component {
 
     _handleBan(id) {
         if (window.confirm('Vas a banear a este usuario, esta opción no se puede deshacer, ¿estas seguro?')) {
-            Axios.delete(`http://localhost:8000/api/user/delete/${id}`)
+            Axios.delete(`/user/delete/${id}`)
                 .then(() => {
                     toast.info('El usuario ha sido baneado');
                     this._loadUsers();

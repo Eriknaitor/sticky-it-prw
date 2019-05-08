@@ -29,11 +29,11 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 // Cargamos las rutas de la API.
-app.use('/api', require('./routes'));
+app.use('/', require('./routes'));
 
 
 const j = schedule.scheduleJob('* 23 * * *', () => {
-
+    jTask.unsolved();
 });
 
 
