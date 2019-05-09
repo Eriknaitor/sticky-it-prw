@@ -38,6 +38,7 @@ export default class LogIn extends React.Component {
 					this.setState({ stage: 2 });
 				}
 			}).catch((err) => {
+				console.log(err.response);
 				toast.error(err.response.data.err);
 			})
 	}
