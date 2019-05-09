@@ -5,10 +5,10 @@
 - [X] Sistema de reportes
 - [X] Gestión de notas
 - [X] Posibilidad de compartir las notas mediante links
-- [ ] Cronjob con las notas (node-schedule)
+- [X] Cronjob con las notas (node-schedule)
 - [X] Notificaciones por correo (nodemailer)
 - [X] 2FA
-- [-] Front-end
+- [X] Front-end
     - [X] Note viewer
     - [X] Sustituir todos los catchs por errores mas decentes con alerts
     - [X] Navbar

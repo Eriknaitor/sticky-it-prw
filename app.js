@@ -30,7 +30,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 // Cargamos las rutas de la API.
-app.use('/', require('./routes'));
+app.use('/api', require('./routes'));
 
 
 const j = schedule.scheduleJob('* 23 * * *', () => {
@@ -40,7 +40,7 @@ const j = schedule.scheduleJob('* 23 * * *', () => {
 // Servimos la build del cliente
 app.use(express.static(path.join(__dirname, 'client/build')));
 app.get('*', (req, res) => {
-    res.sendfile(path.join(__dirname = 'client/build/index.html'));
+    res.sendFile(path.join(__dirname = 'client/build/index.html'));
 });
 
 app.listen(port, () => {

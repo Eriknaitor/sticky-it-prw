@@ -10,7 +10,7 @@ const NoteSchema = new Schema({
         maxlength: [35, 'El título es demasiado largo, máximo son 35 caracteres']
     },
     content: {
-        type: Object,
+        type: String,
         trim: true,
         maxlength: [500, 'El contenido es demasiado grande, máximo 500 caracteres']
     },
