@@ -1,6 +1,6 @@
 const User = require('../models/User');
 const email = require('../jobs/email');
-const bcrypt = require('bcrypt');
+const bcryptjs = require('bcryptjs');
 const otplib = require('otplib');
 const QRCode = require('qrcode');
 const _ = require('underscore');
@@ -71,7 +71,7 @@ module.exports = {
         let user = new User({
             email: body.email,
             username: body.username,
-            password: bcrypt.hashSync(body.password, 10),
+            password: bcryptjs.hashSync(body.password, 10),
             secret2FA: otplib.authenticator.generateSecret()
         });
 
@@ -120,7 +120,7 @@ module.exports = {
     },
 
     changePass: (req, res) => {
-        const newPass = bcrypt.hashSync(req.body.password, 10);
+        const newPass = bcryptjs.hashSync(req.body.password, 10);
         User.findByIdAndUpdate(req.params.id, { $set: { password: newPass } }, { new: true, runValidators: true }, (err, user) => {
             if (err) {
                 return res.status(400).json({

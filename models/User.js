@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const bcrypt = require('bcrypt');
+const bcryptjs = require('bcryptjs');
 const uniqueValidator = require('mongoose-unique-validator');
 const Schema = mongoose.Schema;
 
@@ -53,12 +53,12 @@ UserSchema.methods.toJSON = function () {
 
 // Crea una contraseña encriptada
 UserSchema.methods.generateHash = function (password) {
-    return bcrypt.hash(password, 20)
+    return bcryptjs.hash(password, 20)
 }
 
 // Comprueba si una contraseña es válida
 UserSchema.methods.validPassword = function (password) {
-    return bcrypt.compareSync(password, this.password)
+    return bcryptjs.compareSync(password, this.password)
 }
 
 const User = mongoose.model('Users', UserSchema);
