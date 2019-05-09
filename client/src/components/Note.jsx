@@ -178,7 +178,7 @@ export default class Note extends React.Component {
                             <Tippy content={`${savedBy.length} veces guardada`}>
                                 <i className="fas fa-user"></i>
                             </Tippy>
-                            <Link to={`/note/${_id}`}><i className="fas fa-share"></i></Link>
+                            <Link to={`/note/show/${_id}`}><i className="fas fa-share"></i></Link>
                             <i id={`liked-${_id}`} onClick={() => this._likeNote(_id)}
                                 className={savedBy.includes(this.props.currentUser._id) ?
                                     ("liked fas fa-heart") :

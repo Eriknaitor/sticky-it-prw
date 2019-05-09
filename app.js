@@ -30,7 +30,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 // Cargamos las rutas de la API.
-app.use('/api', require('./routes'));
+app.use('/', require('./routes'));
 
 
 const j = schedule.scheduleJob('* 23 * * *', () => {
@@ -38,10 +38,13 @@ const j = schedule.scheduleJob('* 23 * * *', () => {
 });
 
 // Servimos la build del cliente
-app.use(express.static(path.join(__dirname, 'client/build')));
-app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname = 'client/build/index.html'));
+app.use(express.static(path.join(__dirname, './client/build')));
+app.get('/*', (req, res) => {
+    res.sendFile(path.join(__dirname = 'client/build/index.html'), (err) => {
+        if (err) res.status(500).send(err);
+    });
 });
+
 
 app.listen(port, () => {
     console.log(`Server funcionando en el puerto ${port}`)

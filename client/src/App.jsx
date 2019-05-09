@@ -87,7 +87,7 @@ export default class App extends React.Component {
                                 : <Redirect to="/" />
                         }} />
 
-                        <Route path="/note/:noteId" render={(props) => {
+                        <Route path="/note/show/:noteId" render={(props) => {
                             return currentUser
                                 ? <SingleNote {...props} currentUser={currentUser} />
                                 : <Redirect to="/login" />
