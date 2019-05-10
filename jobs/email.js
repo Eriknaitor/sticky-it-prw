@@ -4,6 +4,7 @@ const sendMail = async (to, mailinfo) => {
     const credentials = process.env.MAIL.split(',');
     let account = await email.createTransport({
         service: 'Hotmail',
+        host: 'smtp.live.com',
         auth: {
             user: credentials[0],
             pass: credentials[1],
