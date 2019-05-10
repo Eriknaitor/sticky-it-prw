@@ -3,6 +3,8 @@ const email = require('nodemailer');
 const sendMail = async (to, mailinfo) => {
     const credentials = process.env.MAIL.split(',');
     let account = await email.createTransport({
+        host: "smtp.live.com",
+        port: 25,
         service: 'Hotmail',
         auth: {
             user: credentials[0],
