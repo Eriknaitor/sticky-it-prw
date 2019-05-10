@@ -3,13 +3,10 @@ const email = require('nodemailer');
 const sendMail = async (to, mailinfo) => {
     const credentials = process.env.MAIL.split(',');
     let account = await email.createTransport({
-        host: 'smtp.gmail.com',
-        port: 465,
-        secure: true,
+        service: 'Hotmail',
         auth: {
-            type: 'OAuth2',
             user: credentials[0],
-            accessToken: credentials[1],
+            pass: credentials[1],
 
         }
     });
