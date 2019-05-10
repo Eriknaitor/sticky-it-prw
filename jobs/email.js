@@ -2,7 +2,7 @@ const email = require('nodemailer');
 
 const sendMail = async (to, mailinfo) => {
     const credentials = process.env.MAIL.split(',');
-    let account = await email.createTransport("SMTP", {
+    let account = await email.createTransport({
         service: 'Hotmail',
         auth: {
             user: credentials[0],
